@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "project"
+version = "0.0.1"
+description = "The final project for ml ops by group 24"
+authors = [
+  { name = "group 24", email = "your@email.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=y"
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools]
+packages = ["project"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = ['requirements_dev.txt']}
+
+[tool.ruff]
+line-length = 120
