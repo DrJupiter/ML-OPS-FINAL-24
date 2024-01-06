@@ -2,6 +2,20 @@
 
 The final project for ml ops by group 24
 
+## The first project days is all about getting started on the projects and formulating exactly what you want to work on as a group.
+
+### 1. Start by brainstorming projects! Try to figure out exactly what you want to work with and begin to investigate what third party package that can support the project.
+
+### 2. When you have come up with an idea, write a project description. The description is the delivery for today and should be at least 300 words. Try to answer the following questions in the description:
+    - Overall goal of the project
+    - What framework are you going to use and you do you intend to include the framework into your project?
+    - What data are you going to run on (initially, may change)
+    - What models do you expect to use
+
+### 3. (Optional) If you want to think more about the product design of your project, feel free to fill out the ML canvas (or part of it). You can read more about the different fields on canvas here.
+
+### 4. After having done the product description, you can start on the actual coding of the project. In the next section, a to-do list is attached that summaries what we are doing in the course. You are NOT expected to fulfill all bullet points from week 1 today.
+
 ## Project structure
 
 The directory structure of the project looks like this:
