@@ -1,20 +1,27 @@
 # project
 
-The final project for ml ops by group 24
+The Final Project for ML OPS by group 24
 
-## The first project days is all about getting started on the projects and formulating exactly what you want to work on as a group.
+- Overall goal of the project:
+    
+Implement an autoencoder on MNIST to generate images and make the training of it reproducible. We want an end-point API that allows a user to query for images. Furthermore, we want to use state-of-the-art continuous integration and continuous delivery pipelines to mimic the production requirements seen in real-world scenarios. 
+ 
+ -   What framework will you use and do you intend to include the framework in your project?
+    
+We will use ([Huggingface’s diffusers](https://github.com/huggingface/diffusers)) as our third-party framework. To speed up writing the training loop we will use the ([composers library](https://github.com/mosaicml/composer)). We will log our experiments in WandB.
+To ensure reproducibility we will utilize the power docker to ensure software and operating system reproducibility. We will use DVC for data version control. Our projects will be configured with Python data classes. We will use Github to version control our code. Our model will be saved on hugging face. 
+In terms of project deployment, we will be using the FastAPI framework to serve an endpoint API that can be used for model inference by the end user. We use google cloud as our service provider.
+We use a Cookiecutter template to structure our GitHub code. The template we use is provided by the ML-OPS course [link to template](https://github.com/SkafteNicki/mlops_template). This allows effective structuring of our code that is standardized and easily understandable for other developers. We use [ruff](https://github.com/astral-sh/ruff) to format our python code.
 
-### 1. Start by brainstorming projects! Try to figure out exactly what you want to work with and begin to investigate what third party package that can support the project.
+- What data are you going to run on (initially, may change)
 
-### 2. When you have come up with an idea, write a project description. The description is the delivery for today and should be at least 300 words. Try to answer the following questions in the description:
-    - Overall goal of the project
-    - What framework are you going to use and you do you intend to include the framework into your project?
-    - What data are you going to run on (initially, may change)
-    - What models do you expect to use
+We are going to train our model on the MNIST dataset which is a dataset of approximately 70 thousand handwritten images of the numbers 0-9. The MNIST pictures are 28 by 28 grayscale images.
 
-### 3. (Optional) If you want to think more about the product design of your project, feel free to fill out the ML canvas (or part of it). You can read more about the different fields on canvas here.
+- What models do you expect to use
 
-### 4. After having done the product description, you can start on the actual coding of the project. In the next section, a to-do list is attached that summaries what we are doing in the course. You are NOT expected to fulfill all bullet points from week 1 today.
+We expect to use an autoencoder written in the third-party extension of Pytorch named Diffusers (developed by Huggingface). 
+We choose this framework because of prior experience with it, its good performance, and high maintenance.
+More specifically we choose to work with Tiny AutoEncoder originally implemented for Stable Diffusion (TAESD). Tiny AutoEncoder was introduced in ([madebyollin/taesd](https://github.com/madebyollin/taesd)) by Ollin Boer Bohan.
 
 ## Project structure
 
