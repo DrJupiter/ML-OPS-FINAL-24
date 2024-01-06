@@ -1,4 +1,4 @@
-# project
+# Project
 
 The Final Project for ML OPS by group 24
 
