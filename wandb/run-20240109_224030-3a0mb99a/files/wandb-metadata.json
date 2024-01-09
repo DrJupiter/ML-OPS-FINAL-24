@@ -1,0 +1,45 @@
+{
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.10.10",
+    "heartbeatAt": "2024-01-09T21:40:31.651581",
+    "startedAt": "2024-01-09T21:40:30.224921",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "C:\\Users\\jbh\\Desktop\\ML-OPS-FINAL-24\\project\\train_model.py",
+    "codePathLocal": "project\\train_model.py",
+    "codePath": "project\\train_model.py",
+    "git": {
+        "remote": "https://github.com/DrJupiter/ML-OPS-FINAL-24.git",
+        "commit": "12c16574e0eb2212c41ec6e156be793948851abf"
+    },
+    "email": "johan-bh",
+    "root": "C:/Users/jbh/Desktop/ML-OPS-FINAL-24",
+    "host": "LAPTOP-JBH",
+    "username": "jbh",
+    "executable": "C:\\Users\\jbh\\Desktop\\ML-OPS-FINAL-24\\env\\Scripts\\python.exe",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 2100.0,
+        "min": 0.0,
+        "max": 2100.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2100.0,
+            "min": 0.0,
+            "max": 2100.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 475.69237899780273,
+            "used": 378.146785736084
+        }
+    },
+    "memory": {
+        "total": 15.226245880126953
+    }
+}

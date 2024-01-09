@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/velvety-tube-410716/testing', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/velvety-tube-410716/testing']

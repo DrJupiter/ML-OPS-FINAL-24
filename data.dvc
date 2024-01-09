@@ -1,6 +1,91 @@
 outs:
-- md5: cc460b36926f995a0f29e06684ed3086.dir
-  size: 136653519
-  nfiles: 12
-  hash: md5
+- hash: md5
   path: data
+  files:
+  - relpath: processed/.gitkeep
+    md5: d41d8cd98f00b204e9800998ecf8427e
+    size: 0
+    cloud:
+      remote_storage:
+        etag: 088de8b8dc89d183031001
+        version_id: '1704829748392973'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/dataset_dict.json
+    md5: d891fc9df4ce897bcacc398f78aea2ff
+    size: 43
+    cloud:
+      remote_storage:
+        etag: 08a0d6c4dc89d183031001
+        version_id: '1704829748587296'
+  - relpath: 
+      processed/cifar10-google-vit-base-patch16-224-in21k/test/data-00000-of-00001.arrow
+    md5: 7702fd95cecfb118f50d43587473d7c5
+    size: 22776624
+    cloud:
+      remote_storage:
+        etag: 08a6cfc1ec89d183031001
+        version_id: '1704829782091686'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/test/dataset_info.json
+    md5: ac4aa04b99ff2e42f07fd243ea3c8d5e
+    size: 1377
+    cloud:
+      remote_storage:
+        etag: 0895bac6dc89d183031001
+        version_id: '1704829748616469'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/test/state.json
+    md5: d974d3862b33aaca48768b7cc7a96640
+    size: 261
+    cloud:
+      remote_storage:
+        etag: 08e5e4c5dc89d183031001
+        version_id: '1704829748605541'
+  - relpath: 
+      processed/cifar10-google-vit-base-patch16-224-in21k/train/data-00000-of-00001.arrow
+    md5: 277511974e34752a493f3aa0674095f6
+    size: 91109488
+    cloud:
+      remote_storage:
+        etag: 08fbbe83958ad183031001
+        version_id: '1704829867057019'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/train/dataset_info.json
+    md5: ac4aa04b99ff2e42f07fd243ea3c8d5e
+    size: 1377
+    cloud:
+      remote_storage:
+        etag: 08c3a1c9dc89d183031001
+        version_id: '1704829748662467'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/train/state.json
+    md5: bd0609c0cb8bf99ca1b438f4aca7f68f
+    size: 262
+    cloud:
+      remote_storage:
+        etag: 08f6cac9dc89d183031001
+        version_id: '1704829748667766'
+  - relpath: 
+      processed/cifar10-google-vit-base-patch16-224-in21k/validation/data-00000-of-00001.arrow
+    md5: 2c8ed7c97422928e0eb94c57c766e19a
+    size: 22762448
+    cloud:
+      remote_storage:
+        etag: 08c8b598ed89d183031001
+        version_id: '1704829783513800'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/validation/dataset_info.json
+    md5: ac4aa04b99ff2e42f07fd243ea3c8d5e
+    size: 1377
+    cloud:
+      remote_storage:
+        etag: 08bbfac5dc89d183031001
+        version_id: '1704829748608315'
+  - relpath: processed/cifar10-google-vit-base-patch16-224-in21k/validation/state.json
+    md5: 4b1e4890a3265c07ed5883b057e5588d
+    size: 262
+    cloud:
+      remote_storage:
+        etag: 0899dac7dc89d183031001
+        version_id: '1704829748636953'
+  - relpath: raw/.gitkeep
+    md5: d41d8cd98f00b204e9800998ecf8427e
+    size: 0
+    cloud:
+      remote_storage:
+        etag: 088ce2a3dc89d183031001
+        version_id: '1704829748048140'

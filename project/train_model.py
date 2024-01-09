@@ -54,6 +54,7 @@ def train_model(config):
         remove_unused_columns=config["training"]["remove_unused_columns"],
         load_best_model_at_end=config["training"]["load_best_model_at_end"],
         overwrite_output_dir=True,
+        report_to="wandb",
     )
 
     # Initialize the trainer with the model, training arguments, tokenizer, and datasets
@@ -64,7 +65,7 @@ def train_model(config):
         compute_metrics=compute_metrics,
         train_dataset=ds["train"],
         eval_dataset=ds["test"],
-        tokenizer=feature_extractor,
+        tokenizer=feature_extractor
     )
 
     # Start training

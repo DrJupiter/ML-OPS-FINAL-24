@@ -1,6 +1,228 @@
 outs:
-- md5: 3edc20f6811d2b237d890be901d58635.dir
-  size: 2403139223
-  nfiles: 31
-  hash: md5
+- hash: md5
   path: trained_models
+  files:
+  - relpath: cifar10/all_results.json
+    md5: ab2d429d56527689540e034283622785
+    size: 350
+    cloud:
+      remote_storage:
+        etag: 08b7f2cbdc89d183031001
+        version_id: '1704829748705591'
+  - relpath: cifar10/checkpoint-1000/config.json
+    md5: 0184003c615e44a6d03bae79e5c31f52
+    size: 1063
+    cloud:
+      remote_storage:
+        etag: 08a9e6d2dc89d183031001
+        version_id: '1704829748818729'
+  - relpath: cifar10/checkpoint-1000/model.safetensors
+    md5: 74c8281c58f70953d5bae9d97e6e6852
+    size: 343248584
+    cloud:
+      remote_storage:
+        etag: 0882d8a1c18bd183031001
+        version_id: '1704830228261890'
+  - relpath: cifar10/checkpoint-1000/optimizer.pt
+    md5: 4d38d21acf5a2ea44644e5979eecf5e1
+    size: 686618042
+    cloud:
+      remote_storage:
+        etag: 089889ecf98bd183031001
+        version_id: '1704830346921112'
+  - relpath: cifar10/checkpoint-1000/preprocessor_config.json
+    md5: 47303c55d7e1e3a7a1af6e1bf34f11e8
+    size: 349
+    cloud:
+      remote_storage:
+        etag: 08fbe8e1dc89d183031001
+        version_id: '1704829749064827'
+  - relpath: cifar10/checkpoint-1000/rng_state.pth
+    md5: 2ae6ed13f079a1810cfd7500f1cd4f00
+    size: 14244
+    cloud:
+      remote_storage:
+        etag: 08f490d6dc89d183031001
+        version_id: '1704829748873332'
+  - relpath: cifar10/checkpoint-1000/scheduler.pt
+    md5: d5a45cf5dc9d8be062d6ccec6e248f6b
+    size: 1064
+    cloud:
+      remote_storage:
+        etag: 08ddcbccdc89d183031001
+        version_id: '1704829748717021'
+  - relpath: cifar10/checkpoint-1000/trainer_state.json
+    md5: 50d5137f360af0ab3d4751ca93429571
+    size: 12855
+    cloud:
+      remote_storage:
+        etag: 08f1b3d2dc89d183031001
+        version_id: '1704829748812273'
+  - relpath: cifar10/checkpoint-1000/training_args.bin
+    md5: 6a47eda554bd71f6f1f3f4f4f788b5a5
+    size: 4728
+    cloud:
+      remote_storage:
+        etag: 08fda6e5dc89d183031001
+        version_id: '1704829749121917'
+  - relpath: cifar10/checkpoint-500/config.json
+    md5: 0184003c615e44a6d03bae79e5c31f52
+    size: 1063
+    cloud:
+      remote_storage:
+        etag: 08cbcbdedc89d183031001
+        version_id: '1704829749011915'
+  - relpath: cifar10/checkpoint-500/model.safetensors
+    md5: 2f24089062b059e927c2a375ea9f5892
+    size: 343248584
+    cloud:
+      remote_storage:
+        etag: 08ed9bcfcd8bd183031001
+        version_id: '1704830254173677'
+  - relpath: cifar10/checkpoint-500/optimizer.pt
+    md5: 945f60ccf57d94b528eba49f94803a9b
+    size: 686618042
+    cloud:
+      remote_storage:
+        etag: 0887c3e0d38bd183031001
+        version_id: '1704830267040135'
+  - relpath: cifar10/checkpoint-500/preprocessor_config.json
+    md5: 47303c55d7e1e3a7a1af6e1bf34f11e8
+    size: 349
+    cloud:
+      remote_storage:
+        etag: 08f185dedc89d183031001
+        version_id: '1704829749002993'
+  - relpath: cifar10/checkpoint-500/rng_state.pth
+    md5: 610684cc190a19239d2f9f70beef81f4
+    size: 14244
+    cloud:
+      remote_storage:
+        etag: 08a891e8dc89d183031001
+        version_id: '1704829749168296'
+  - relpath: cifar10/checkpoint-500/scheduler.pt
+    md5: 561119c9a26aa6f75cf291ffeec093fe
+    size: 1064
+    cloud:
+      remote_storage:
+        etag: 08a695dedc89d183031001
+        version_id: '1704829749004966'
+  - relpath: cifar10/checkpoint-500/trainer_state.json
+    md5: 2531e090d022ff0786604889e74e808b
+    size: 6682
+    cloud:
+      remote_storage:
+        etag: 08fff1e5dc89d183031001
+        version_id: '1704829749131519'
+  - relpath: cifar10/checkpoint-500/training_args.bin
+    md5: 0dc5d05f1c20334694b4c8c28faa1901
+    size: 4728
+    cloud:
+      remote_storage:
+        etag: 089aa7d3dc89d183031001
+        version_id: '1704829748827034'
+  - relpath: cifar10/config.json
+    md5: 0184003c615e44a6d03bae79e5c31f52
+    size: 1063
+    cloud:
+      remote_storage:
+        etag: 08d1f9ccdc89d183031001
+        version_id: '1704829748722897'
+  - relpath: cifar10/eval_results.json
+    md5: 9d64f037b0da8125a253aeb800b15764
+    size: 199
+    cloud:
+      remote_storage:
+        etag: 0896d2cedc89d183031001
+        version_id: '1704829748750614'
+  - relpath: cifar10/model.safetensors
+    md5: 2f24089062b059e927c2a375ea9f5892
+    size: 343248584
+    cloud:
+      remote_storage:
+        etag: 08e7e8ddb78bd183031001
+        version_id: '1704830208275559'
+  - relpath: cifar10/preprocessor_config.json
+    md5: 47303c55d7e1e3a7a1af6e1bf34f11e8
+    size: 349
+    cloud:
+      remote_storage:
+        etag: 08d7e3cadc89d183031001
+        version_id: '1704829748687319'
+  - relpath: 
+      cifar10/runs/Jan09_14-26-35_SRV-HYPERTRON-A/events.out.tfevents.1704806796.SRV-HYPERTRON-A.28952.0
+    md5: 702ae003b0c39bfc47c42b60a1fda61b
+    size: 4702
+    cloud:
+      remote_storage:
+        etag: 08968fdedc89d183031001
+        version_id: '1704829749004182'
+  - relpath: 
+      cifar10/runs/Jan09_14-27-13_SRV-HYPERTRON-A/events.out.tfevents.1704806833.SRV-HYPERTRON-A.30992.0
+    md5: 6a174953a4758351cf7edf7e5a082542
+    size: 3699
+    cloud:
+      remote_storage:
+        etag: 08f7f6e5dc89d183031001
+        version_id: '1704829749132151'
+  - relpath: 
+      cifar10/runs/Jan09_14-29-13_SRV-HYPERTRON-A/events.out.tfevents.1704806953.SRV-HYPERTRON-A.4828.0
+    md5: 615fddce66a3daeca2b81f3aa1f7cfcf
+    size: 5162
+    cloud:
+      remote_storage:
+        etag: 08aecfdcdc89d183031001
+        version_id: '1704829748979630'
+  - relpath: 
+      cifar10/runs/Jan09_14-29-38_SRV-HYPERTRON-A/events.out.tfevents.1704806979.SRV-HYPERTRON-A.28040.0
+    md5: dea017fd13cb5ca27c12bb680d27fafe
+    size: 25289
+    cloud:
+      remote_storage:
+        etag: 08e383fbdc89d183031001
+        version_id: '1704829749477859'
+  - relpath: 
+      cifar10/runs/Jan09_14-29-38_SRV-HYPERTRON-A/events.out.tfevents.1704807415.SRV-HYPERTRON-A.28040.1
+    md5: b0af36d04749c620e8184927560e76e9
+    size: 25383
+    cloud:
+      remote_storage:
+        etag: 08cee1e4dc89d183031001
+        version_id: '1704829749113038'
+  - relpath: 
+      cifar10/runs/Jan09_14-48-44_SRV-HYPERTRON-A/events.out.tfevents.1704808124.SRV-HYPERTRON-A.28000.0
+    md5: 2928673ae6117d96e833f1b2d2938175
+    size: 15075
+    cloud:
+      remote_storage:
+        etag: 08819fe4dc89d183031001
+        version_id: '1704829749104513'
+  - relpath: 
+      cifar10/runs/Jan09_14-48-44_SRV-HYPERTRON-A/events.out.tfevents.1704808545.SRV-HYPERTRON-A.28000.1
+    md5: a0fd359fb8b624144ea51ab9bcdc1cf5
+    size: 411
+    cloud:
+      remote_storage:
+        etag: 08b8f0dfdc89d183031001
+        version_id: '1704829749033016'
+  - relpath: cifar10/train_results.json
+    md5: 1e4c812dca3d5858659fb7273af89c7b
+    size: 173
+    cloud:
+      remote_storage:
+        etag: 08aca9d3dc89d183031001
+        version_id: '1704829748827308'
+  - relpath: cifar10/trainer_state.json
+    md5: 4f7e791f9d4a746ee04038ea55ccea21
+    size: 8371
+    cloud:
+      remote_storage:
+        etag: 08e9e7d3dc89d183031001
+        version_id: '1704829748835305'
+  - relpath: cifar10/training_args.bin
+    md5: 0dc5d05f1c20334694b4c8c28faa1901
+    size: 4728
+    cloud:
+      remote_storage:
+        etag: 08af96c9dc89d183031001
+        version_id: '1704829748661039'
