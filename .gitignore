@@ -5,6 +5,8 @@ manual_test/
 
 project/models/
 
+/models
+
 # other local dev info
 .vscode/
 
