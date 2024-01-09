@@ -2,6 +2,18 @@
 
 The Final Project for ML OPS by group 24
 
+## Alternative Project Description (proposal)
+
+- **Overall goal of the project:**
+  
+  Implement a Vision Transformer Model (ViT) that is loaded from pretraining ('google/vit-base-patch16-224-in21k') and fine-tuned on the CIFAR10 dataset. The aim is to create a machine learning model capable of making predictions on previously unseen data. 
+
+- **Project Deployment:**
+
+  The model will be served on a FastAPI endpoint, enabling users to upload images for predictions.
+
+## Original Project Description
+
 - Overall goal of the project:
     
 Implement an autoencoder on MNIST to generate images and make the training of it reproducible. We want an end-point API that allows a user to query for images. Furthermore, we want to use state-of-the-art continuous integration and continuous delivery pipelines to mimic the production requirements seen in real-world scenarios. 
