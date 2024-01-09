@@ -35,6 +35,11 @@ We expect to use an autoencoder written in the third-party extension of Pytorch 
 We choose this framework because of prior experience with it, its good performance, and high maintenance.
 More specifically we choose to work with Tiny AutoEncoder originally implemented for Stable Diffusion (TAESD). Tiny AutoEncoder was introduced in ([madebyollin/taesd](https://github.com/madebyollin/taesd)) by Ollin Boer Bohan.
 
+## How to use
+    git clone https://github.com/DrJupiter/ML-OPS-FINAL-24.git
+    pip install -r requirements.txt
+    dvc pull
+
 ## Project structure
 
 The directory structure of the project looks like this:
