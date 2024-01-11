@@ -1,13 +1,12 @@
 import hydra
-from omegaconf import DictConfig
-from transformers import TrainingArguments, Trainer
-from datasets import load_from_disk
-from models.model import get_model
-import yaml
-import torch
 import numpy as np
-from datasets import load_metric
-from transformers import ViTFeatureExtractor
+import torch
+import yaml
+from datasets import load_from_disk, load_metric
+from omegaconf import DictConfig
+from transformers import Trainer, TrainingArguments, ViTFeatureExtractor
+
+from models.model import get_model
 
 
 def train_model(config):
@@ -65,7 +64,7 @@ def train_model(config):
         compute_metrics=compute_metrics,
         train_dataset=ds["train"],
         eval_dataset=ds["test"],
-        tokenizer=feature_extractor
+        tokenizer=feature_extractor,
     )
 
     # Start training
