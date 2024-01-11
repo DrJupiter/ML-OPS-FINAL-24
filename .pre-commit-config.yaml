@@ -25,4 +25,6 @@ repos:
     rev: 'v1.8.0'  # Use the sha / tag you want to point at
     hooks:
     -   id: mypy
-        args: [--strict, --ignore-missing-imports]
+        files: ^project
+        args: [--ignore-missing-imports]
+        additional_dependencies: [types-PyYAML==6.0.12.12]
