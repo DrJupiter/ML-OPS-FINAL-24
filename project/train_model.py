@@ -17,7 +17,7 @@ def train_model(config):
     dataset = load_from_disk(dataset_path)
 
     # Initialize the model
-    model = get_model(config)
+    model = get_model(config).to(config["model"]["device"])
 
     # Initialize the feature extractor
     feature_extractor = ViTFeatureExtractor.from_pretrained(config["model"]["name_or_path"])
