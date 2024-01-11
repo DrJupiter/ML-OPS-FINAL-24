@@ -16,7 +16,7 @@ outs:
       remote_storage:
         etag: 08a0d6c4dc89d183031001
         version_id: '1704829748587296'
-  - relpath: 
+  - relpath:
       processed/cifar10-google-vit-base-patch16-224-in21k/test/data-00000-of-00001.arrow
     md5: 7702fd95cecfb118f50d43587473d7c5
     size: 22776624
@@ -38,7 +38,7 @@ outs:
       remote_storage:
         etag: 08e5e4c5dc89d183031001
         version_id: '1704829748605541'
-  - relpath: 
+  - relpath:
       processed/cifar10-google-vit-base-patch16-224-in21k/train/data-00000-of-00001.arrow
     md5: 277511974e34752a493f3aa0674095f6
     size: 91109488
@@ -60,7 +60,7 @@ outs:
       remote_storage:
         etag: 08f6cac9dc89d183031001
         version_id: '1704829748667766'
-  - relpath: 
+  - relpath:
       processed/cifar10-google-vit-base-patch16-224-in21k/validation/data-00000-of-00001.arrow
     md5: 2c8ed7c97422928e0eb94c57c766e19a
     size: 22762448

@@ -8,7 +8,7 @@ from models.model import get_model
 import torch
 import numpy as np
 
-# Typing 
+# Typing
 from typing import Callable, Optional, Tuple, Union, List, Iterable, Dict
 from transformers import EvalPrediction
 from PIL.PngImagePlugin import PngImageFile
@@ -98,7 +98,7 @@ def train_model(cfg: DictConfig) -> None:
 
     # Start training
     train_results = trainer.train()
-    
+
     # save model
     trainer.save_model()
     trainer.log_metrics("train", train_results.metrics)
