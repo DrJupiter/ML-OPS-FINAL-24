@@ -1,9 +1,10 @@
 import os
-from datasets import load_dataset, DatasetDict
-from transformers import ViTFeatureExtractor
-from omegaconf import DictConfig
+
 import hydra
 import yaml
+from datasets import DatasetDict, load_dataset
+from omegaconf import DictConfig
+from transformers import ViTFeatureExtractor
 
 
 def process_and_save_dataset(config: DictConfig):

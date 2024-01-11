@@ -1,18 +1,26 @@
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import HTMLResponse
-from PIL import Image
 import io
-from google.cloud import storage
 import os
 from pathlib import Path
+
 import torch
+from google.cloud import storage
+from PIL import Image
 from torch.nn.functional import softmax
-from transformers import AutoModel, AutoModelForImageClassification, AutoImageProcessor, ViTImageProcessor, ViTForImageClassification
-from fastapi.responses import RedirectResponse
+from transformers import (
+    AutoImageProcessor,
+    AutoModel,
+    AutoModelForImageClassification,
+    ViTForImageClassification,
+    ViTImageProcessor,
+)
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 app = FastAPI()
 model = None
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 def download_blob(bucket_name, source_blob_name, destination_file_name):
     """Downloads a blob from the bucket."""
@@ -20,6 +28,7 @@ def download_blob(bucket_name, source_blob_name, destination_file_name):
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(source_blob_name)
     blob.download_to_filename(destination_file_name)
+
 
 def download_directory_from_gcs(bucket_name, source_directory, destination_directory):
     """Download all files in the specified directory from GCS to a local directory."""
@@ -37,20 +46,20 @@ def download_directory_from_gcs(bucket_name, source_directory, destination_direc
 download_directory_from_gcs(
     bucket_name="ml-ops-2024-bucket",
     source_directory="project/models/trained_models/cifar10/",
-    destination_directory="./model/"
-
+    destination_directory="./model/",
 )
 
 app = FastAPI()
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
     contents = await file.read()
     image = Image.open(io.BytesIO(contents))
-    image_processor = AutoImageProcessor.from_pretrained('google/vit-base-patch16-224')
+    image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224")
     inputs = image_processor(image, return_tensors="pt").to(device)
-    model = ViTForImageClassification.from_pretrained('./model/').to(device)
+    model = ViTForImageClassification.from_pretrained("./model/").to(device)
 
     with torch.no_grad():
         logits = model(**inputs).logits
@@ -117,6 +126,7 @@ h1 {{
 </html>
     """
     return HTMLResponse(content=content)
+
 
 @app.get("/")
 async def main():

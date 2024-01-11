@@ -1,8 +1,8 @@
 import hydra
-from omegaconf import DictConfig
-from transformers import ViTForImageClassification
 import yaml
 from datasets import load_from_disk
+from omegaconf import DictConfig
+from transformers import ViTForImageClassification
 
 
 def get_model(config: DictConfig) -> ViTForImageClassification:

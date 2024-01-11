@@ -1,12 +1,18 @@
 # Imports
 # TODO Structure imports according to the thing i cant remember
 import hydra
+import numpy as np
+import torch
+import yaml
+from datasets import load_from_disk, load_metric
 from omegaconf import DictConfig
+
 from transformers import TrainingArguments, Trainer, ViTFeatureExtractor
 from datasets import load_from_disk,load_metric
 from models.model import get_model
 import torch
 import numpy as np
+
 
 # Typing 
 from typing import Callable, Optional, Tuple, Union, List, Iterable, Dict
@@ -93,7 +99,7 @@ def train_model(cfg: DictConfig) -> None:
         compute_metrics=compute_metrics,
         train_dataset=ds["train"],
         eval_dataset=ds["test"],
-        tokenizer=feature_extractor
+        tokenizer=feature_extractor,
     )
 
     # Start training
