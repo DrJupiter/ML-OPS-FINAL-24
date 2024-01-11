@@ -1,7 +1,7 @@
 # Imports
 # TODO Structure imports according to the thing i cant remember
 import hydra
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import DictConfig
 from transformers import TrainingArguments, Trainer, ViTFeatureExtractor
 from datasets import load_from_disk,load_metric
 from models.model import get_model
@@ -14,7 +14,7 @@ from transformers import EvalPrediction
 from PIL.PngImagePlugin import PngImageFile
 from transformers.image_processing_utils import BatchFeature
 
-
+### Define helper functions ###
 def compute_metrics(p: EvalPrediction) -> Dict[str,float]:
     """Computes accruacy metric"""
     metric = load_metric("accuracy")
@@ -27,12 +27,28 @@ def collater(batch: List[Dict[str,torch.Tensor]]) -> Dict[str,torch.Tensor]:
         "labels": torch.tensor([x["label"] for x in batch]),
     }
 
-def get_ViTFeatureExtractor():
-    None
+def get_ViTFeatureExtractor(cfg: DictConfig) -> Callable:
+    """Gets the Feature extractor"""
+    return ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
 
-# use hydra config
+def get_transform(cfg: DictConfig) -> Callable:
+    """Gets the transformer function"""
+    def transform(sample: Dict[str,List[PngImageFile]]) -> BatchFeature:
+        """Extracts the features from the data using ViTFeatureExtractor"""
+        feature_extractor = get_ViTFeatureExtractor(cfg)
+        inputs = feature_extractor([x for x in sample["img"]], return_tensors="pt")
+        inputs["label"] = sample["label"]
+        return inputs
+    return transform
+
+
+### Main function ###
 @hydra.main(version_base=None, config_path="../conf/", config_name="config")
 def train_model(cfg: DictConfig) -> None:
+    """
+        Loads/creates, trains and tests cfg model.\\
+        Also loads data
+    """
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
     print(cfg)
@@ -43,14 +59,10 @@ def train_model(cfg: DictConfig) -> None:
     model = get_model(cfg).to(cfg["model"]["device"])
 
     # Initialize the feature extractor
-    feature_extractor = ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
+    feature_extractor = get_ViTFeatureExtractor(cfg)
 
     # Transform samples using features
-    def transform(sample: Dict[str,List[PngImageFile]]) -> BatchFeature:
-        """Apply """
-        inputs = feature_extractor([x for x in sample["img"]], return_tensors="pt")
-        inputs["label"] = sample["label"]
-        return inputs
+    transform = get_transform(cfg)
 
     # apply transformation above to data
     ds = dataset.with_transform(transform)
@@ -99,5 +111,4 @@ def train_model(cfg: DictConfig) -> None:
     trainer.save_metrics("eval", metrics)
 
 if __name__ == "__main__":
-
     train_model()
