@@ -5,7 +5,8 @@ import yaml
 from datasets import load_from_disk
 
 
-def get_model(config):
+def get_model(config: DictConfig) -> ViTForImageClassification:
+    """loads model using config from processed folder"""
     ds = load_from_disk(config["data"]["path"] + f"cifar10-{config['model']['name_or_path'].replace('/', '-')}")
     labels = ds["train"].features["label"].names
 

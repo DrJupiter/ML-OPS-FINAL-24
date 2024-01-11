@@ -1,58 +1,74 @@
+# Imports
+# TODO Structure imports according to the thing i cant remember
 import hydra
-from omegaconf import DictConfig
-from transformers import TrainingArguments, Trainer
-from datasets import load_from_disk
+from omegaconf import DictConfig, OmegaConf
+from transformers import TrainingArguments, Trainer, ViTFeatureExtractor
+from datasets import load_from_disk,load_metric
 from models.model import get_model
-import yaml
 import torch
 import numpy as np
-from datasets import load_metric
-from transformers import ViTFeatureExtractor
+
+# Typing 
+from typing import Callable, Optional, Tuple, Union, List, Iterable, Dict
+from transformers import EvalPrediction
+from PIL.PngImagePlugin import PngImageFile
+from transformers.image_processing_utils import BatchFeature
 
 
-def train_model(config):
+def compute_metrics(p: EvalPrediction) -> Dict[str,float]:
+    """Computes accruacy metric"""
+    metric = load_metric("accuracy")
+    return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
+
+def collater(batch: List[Dict[str,torch.Tensor]]) -> Dict[str,torch.Tensor]:
+    """The function used to form a batch from a list of elements of train_dataset or eval_dataset"""
+    return {
+        "pixel_values": torch.stack([x["pixel_values"] for x in batch]),
+        "labels": torch.tensor([x["label"] for x in batch]),
+    }
+
+def get_ViTFeatureExtractor():
+    None
+
+# use hydra config
+@hydra.main(version_base=None, config_path="../conf/", config_name="config")
+def train_model(cfg: DictConfig) -> None:
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
-    dataset_path = config["data"]["path"] + f"cifar10-{config['model']['name_or_path'].replace('/', '-')}"
+    print(cfg)
+    dataset_path = cfg["data"]["path"] + f"cifar10-{cfg['model']['name_or_path'].replace('/', '-')}"
     dataset = load_from_disk(dataset_path)
 
     # Initialize the model
-    model = get_model(config).to(config["model"]["device"])
+    model = get_model(cfg).to(cfg["model"]["device"])
 
     # Initialize the feature extractor
-    feature_extractor = ViTFeatureExtractor.from_pretrained(config["model"]["name_or_path"])
+    feature_extractor = ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
 
-    def collater(batch):
-        return {
-            "pixel_values": torch.stack([x["pixel_values"] for x in batch]),
-            "labels": torch.tensor([x["label"] for x in batch]),
-        }
-
-    metric = load_metric("accuracy")
-
-    def compute_metrics(p):
-        return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
-
-    def transform(sample):
+    # Transform samples using features
+    def transform(sample: Dict[str,List[PngImageFile]]) -> BatchFeature:
+        """Apply """
         inputs = feature_extractor([x for x in sample["img"]], return_tensors="pt")
         inputs["label"] = sample["label"]
         return inputs
 
+    # apply transformation above to data
     ds = dataset.with_transform(transform)
 
+    # Define training arguments
     training_args = TrainingArguments(
-        output_dir=config["training"]["output_dir"],
-        per_device_train_batch_size=config["training"]["per_device_train_batch_size"],
-        evaluation_strategy=config["training"]["evaluation_strategy"],
-        num_train_epochs=config["training"]["num_train_epochs"],
-        fp16=config["training"]["fp16"],
-        save_steps=config["training"]["save_steps"],
-        eval_steps=config["training"]["eval_steps"],
-        logging_steps=config["training"]["logging_steps"],
-        learning_rate=config["training"]["learning_rate"],
-        save_total_limit=config["training"]["save_total_limit"],
-        remove_unused_columns=config["training"]["remove_unused_columns"],
-        load_best_model_at_end=config["training"]["load_best_model_at_end"],
+        output_dir=cfg["training"]["output_dir"],
+        per_device_train_batch_size=cfg["training"]["per_device_train_batch_size"],
+        evaluation_strategy=cfg["training"]["evaluation_strategy"],
+        num_train_epochs=cfg["training"]["num_train_epochs"],
+        fp16=cfg["training"]["fp16"],
+        save_steps=cfg["training"]["save_steps"],
+        eval_steps=cfg["training"]["eval_steps"],
+        logging_steps=cfg["training"]["logging_steps"],
+        learning_rate=cfg["training"]["learning_rate"],
+        save_total_limit=cfg["training"]["save_total_limit"],
+        remove_unused_columns=cfg["training"]["remove_unused_columns"],
+        load_best_model_at_end=cfg["training"]["load_best_model_at_end"],
         overwrite_output_dir=True,
         report_to="wandb",
     )
@@ -70,6 +86,8 @@ def train_model(config):
 
     # Start training
     train_results = trainer.train()
+    
+    # save model
     trainer.save_model()
     trainer.log_metrics("train", train_results.metrics)
     trainer.save_metrics("train", train_results.metrics)
@@ -80,8 +98,6 @@ def train_model(config):
     trainer.log_metrics("eval", metrics)
     trainer.save_metrics("eval", metrics)
 
-
 if __name__ == "__main__":
-    with open("conf/config.yaml", "r") as f:
-        config = yaml.safe_load(f)
-    train_model(config)
+
+    train_model()

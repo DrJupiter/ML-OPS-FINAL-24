@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "velvety-tube-410716",
+  "private_key_id": "d872dd76f593b23fc80e6cc09f7a21ed64570966",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCuKrlZp+B49c/g\naenktsrlBXVmUZ/22TVFU5l9atsK1BOV5wv5IYfwm/ZH2scnXETBcpxqkSzbKavv\ns1D/qd6Ip6U65W0W2BJxdpftDIgvhx4qbhClSmZ1H0HhMAuKEeym1Tt+V04PS46U\nihLbrnB0NtnEGPyzLnCuwZwTH6PBTLbTJy2l/puYUjFgsdik1hhlwPt59sNTnCxd\nGiF+mGoHH8TERwR+bUzSuR9FaM8ZXw8EphV7bEZhXxwpYthZraeJM13EJq7y9R+6\nCZcz+7YKqVeipqgFI2HGHetv/rF4OgfPglsNkbRfWspzJiOO3/FWvFaVHFza9K1H\nxnau13l7AgMBAAECggEAEoxbQ/iUd91Z36D391MeRYiwyY5M1mmoejMeiBROspcG\nZPL/u+79vrqlXl6m0gLKEb4GeXTvjYGhHXx/1lJ9cBlGiACx/vpQ8IN8R5MLl+Aw\nbr1dCXVkdvm2tug6emBRTy0rUley6P8XdqtDueCYek/zHia5Fs4N0xasa/71HhtD\n0Ndt9Vt4sN8HlqIZ5CDPrnGaJ6B/BqWmUsn02tRigaOB7H1e5+R29sHQ8vfbP0Je\nvDW59ApcnFb4TFyhNuQiag1BDiEB/AmkP4YIUuQG1Q9roDouZzfe+lgIJhkdGBTH\nSz4um2byX6IiK0kDX804HIsXjl9cGyTjh59xwjb/VQKBgQDik1IFwg4ykgULH4hz\nXZpziR35tUoUCqMrmIseZnzBDJ6brS6rpQivME/bw8q2Ym2YMxbF6tl9Du85ng1b\nvzm9Oy3bXZ4aBCI4mWgqleOUdWZvYZldorqC6OReT2GBFyz+4XIKtJ90wKTMkf8c\nW+aWL5ZozvMCE0isbw4Y2JaOFQKBgQDEyQoJJJtCL/9DbTS/MCLf2bXbMSo/xq7W\n5rJGBcc2iigezUlV4wtYP40qK00QqMyaIyvxG193mBsF+3IJ1Z8OhK9m4JkxcJt4\nesuS6b/3JHbynEd+v0U62MlLwsxZ1l908scgcRjqjwx82KeU5XMrcUTFphIVKdMd\na0DMQLRdTwKBgAK+ui2rrjRapIj/9s0/AxIHRT+zPJSFlHiAvp69qyFDn+BO9tPJ\nihNlSHJnKtuO0bkYVVxMfhoPxkIycgL8jByIzQNtXO7/wdJhuWtaqYkw6u7Khesm\nf4/6dlnWKF5CA5+K57DNg2kMtHJuCmMzkdWb+fyHFVafGTBNoCQY66oJAoGAMWrz\nNDyXKNX42qvwFRs3htObkcIVBBMXESy6FE+bKZ0kWiffhMwRq0W6Y56gKdDaINM4\nU8I2BUiTcLsmdkXJPdIgYkuA7SOER4s+2FQPOzdTD7YjVjceYZrTYk03GFB3hFz7\nmLAOO8lUr32RCBlfBMfbJ29/FwV72OV4TlLpeI0CgYBDeJAUjQTzaA3/IPIgXTIr\nn2j3DiGRnp3ol10Ke+dshQ9sGu3iOXaIOg0bFP0XzSB5rjfvQfs6xLMHPLKvisMP\nYdAHc0Mq13TQPUWkB0BGlL0IjRdPj8XKyisxOIj4rzfwWNfGU1F8AebpLGEkB1di\njEsGX+LHLIMj65tB++y7iA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "mlops24-serviceaccount@velvety-tube-410716.iam.gserviceaccount.com",
+  "client_id": "109916972748547922717",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mlops24-serviceaccount%40velvety-tube-410716.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
