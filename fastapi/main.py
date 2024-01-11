@@ -1,5 +1,8 @@
 import io
 import os
+
+# typing
+from os import PathLike as PPath
 from pathlib import Path
 
 import torch
@@ -22,7 +25,7 @@ model = None
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def download_blob(bucket_name, source_blob_name, destination_file_name):
+def download_blob(bucket_name: str, source_blob_name: str, destination_file_name: PPath) -> None:
     """Downloads a blob from the bucket."""
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
@@ -30,7 +33,7 @@ def download_blob(bucket_name, source_blob_name, destination_file_name):
     blob.download_to_filename(destination_file_name)
 
 
-def download_directory_from_gcs(bucket_name, source_directory, destination_directory):
+def download_directory_from_gcs(bucket_name: str, source_directory: str, destination_directory: str) -> None:
     """Download all files in the specified directory from GCS to a local directory."""
     storage_client = storage.Client()
     blobs = storage_client.list_blobs(bucket_name, prefix=source_directory)
