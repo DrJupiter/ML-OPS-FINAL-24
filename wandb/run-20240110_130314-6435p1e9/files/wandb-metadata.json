@@ -1,0 +1,53 @@
+{
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.10.10",
+    "heartbeatAt": "2024-01-10T12:03:15.279813",
+    "startedAt": "2024-01-10T12:03:14.443528",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\jbhan\\Desktop\\ML-OPS-FINAL-24\\project\\train_model.py",
+    "codePathLocal": "project\\train_model.py",
+    "codePath": "project\\train_model.py",
+    "git": {
+        "remote": "https://github.com/DrJupiter/ML-OPS-FINAL-24.git",
+        "commit": "6865e7d634bc6dd0190f766cb8ebb0982a2205b9"
+    },
+    "email": "62979623+johan-bh@users.noreply.github.com",
+    "root": "C:/Users/jbhan/Desktop/ML-OPS-FINAL-24",
+    "host": "Johans-PC",
+    "username": "jbhan",
+    "executable": "c:\\Users\\jbhan\\Desktop\\ML-OPS-FINAL-24\\env\\Scripts\\python.exe",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3593.0,
+        "min": 0.0,
+        "max": 3593.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3593.0,
+            "min": 0.0,
+            "max": 3593.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 476.30956649780273,
+            "used": 403.2853584289551
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 2060 SUPER",
+            "memory_total": 8589934592
+        }
+    ],
+    "memory": {
+        "total": 15.939228057861328
+    }
+}
