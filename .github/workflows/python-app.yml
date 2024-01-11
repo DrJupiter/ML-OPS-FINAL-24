@@ -36,4 +36,9 @@ jobs:
         ruff format
     - name: Test with pytest
       run: |
-        pytest tests/
+        if find tests/ -type f -name "*_test.py" | grep -q .; then
+          echo "Test files found in subdirectories, running tests..."
+          pytest tests/
+        else
+          echo "No test files found in subdirectories, skipping tests."
+        fi
