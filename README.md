@@ -1,3 +1,4 @@
+[![Python application](https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/python-app.yml)
 # Project
 
 The Final Project for ML OPS by group 24
