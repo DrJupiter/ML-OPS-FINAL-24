@@ -149,7 +149,7 @@ outs:
       remote_storage:
         etag: 08d7e3cadc89d183031001
         version_id: '1704829748687319'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-26-35_SRV-HYPERTRON-A/events.out.tfevents.1704806796.SRV-HYPERTRON-A.28952.0
     md5: 702ae003b0c39bfc47c42b60a1fda61b
     size: 4702
@@ -157,7 +157,7 @@ outs:
       remote_storage:
         etag: 08968fdedc89d183031001
         version_id: '1704829749004182'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-27-13_SRV-HYPERTRON-A/events.out.tfevents.1704806833.SRV-HYPERTRON-A.30992.0
     md5: 6a174953a4758351cf7edf7e5a082542
     size: 3699
@@ -165,7 +165,7 @@ outs:
       remote_storage:
         etag: 08f7f6e5dc89d183031001
         version_id: '1704829749132151'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-29-13_SRV-HYPERTRON-A/events.out.tfevents.1704806953.SRV-HYPERTRON-A.4828.0
     md5: 615fddce66a3daeca2b81f3aa1f7cfcf
     size: 5162
@@ -173,7 +173,7 @@ outs:
       remote_storage:
         etag: 08aecfdcdc89d183031001
         version_id: '1704829748979630'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-29-38_SRV-HYPERTRON-A/events.out.tfevents.1704806979.SRV-HYPERTRON-A.28040.0
     md5: dea017fd13cb5ca27c12bb680d27fafe
     size: 25289
@@ -181,7 +181,7 @@ outs:
       remote_storage:
         etag: 08e383fbdc89d183031001
         version_id: '1704829749477859'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-29-38_SRV-HYPERTRON-A/events.out.tfevents.1704807415.SRV-HYPERTRON-A.28040.1
     md5: b0af36d04749c620e8184927560e76e9
     size: 25383
@@ -189,7 +189,7 @@ outs:
       remote_storage:
         etag: 08cee1e4dc89d183031001
         version_id: '1704829749113038'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-48-44_SRV-HYPERTRON-A/events.out.tfevents.1704808124.SRV-HYPERTRON-A.28000.0
     md5: 2928673ae6117d96e833f1b2d2938175
     size: 15075
@@ -197,7 +197,7 @@ outs:
       remote_storage:
         etag: 08819fe4dc89d183031001
         version_id: '1704829749104513'
-  - relpath: 
+  - relpath:
       cifar10/runs/Jan09_14-48-44_SRV-HYPERTRON-A/events.out.tfevents.1704808545.SRV-HYPERTRON-A.28000.1
     md5: a0fd359fb8b624144ea51ab9bcdc1cf5
     size: 411
