@@ -43,3 +43,6 @@ jobs:
         else
           echo "No test files found in subdirectories, skipping tests."
         fi
+    - name: Statically check for types
+      run: |
+        mypy project --ignore-missing-imports
