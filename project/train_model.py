@@ -1,44 +1,51 @@
 # Imports
 # TODO Structure imports according to the thing i cant remember
-import hydra
-from omegaconf import DictConfig
-from transformers import TrainingArguments, Trainer, ViTFeatureExtractor
-from datasets import load_from_disk,load_metric
-from models.model import get_model
-import torch
-import numpy as np
-
 # Typing
-from typing import Callable, Optional, Tuple, Union, List, Iterable, Dict
-from transformers import EvalPrediction
+from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
+
+import hydra
+import numpy as np
+import torch
+import yaml
+from datasets import load_from_disk, load_metric
+from omegaconf import DictConfig
 from PIL.PngImagePlugin import PngImageFile
+from transformers import EvalPrediction, Trainer, TrainingArguments, ViTFeatureExtractor
 from transformers.image_processing_utils import BatchFeature
 
+from models.model import get_model
+
+
 ### Define helper functions ###
-def compute_metrics(p: EvalPrediction) -> Dict[str,float]:
+def compute_metrics(p: EvalPrediction) -> Dict[str, float]:
     """Computes accruacy metric"""
     metric = load_metric("accuracy")
     return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
 
-def collater(batch: List[Dict[str,torch.Tensor]]) -> Dict[str,torch.Tensor]:
+
+def collater(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
     """The function used to form a batch from a list of elements of train_dataset or eval_dataset"""
     return {
         "pixel_values": torch.stack([x["pixel_values"] for x in batch]),
         "labels": torch.tensor([x["label"] for x in batch]),
     }
 
+
 def get_ViTFeatureExtractor(cfg: DictConfig) -> Callable:
     """Gets the Feature extractor"""
     return ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
 
+
 def get_transform(cfg: DictConfig) -> Callable:
     """Gets the transformer function"""
-    def transform(sample: Dict[str,List[PngImageFile]]) -> BatchFeature:
+
+    def transform(sample: Dict[str, List[PngImageFile]]) -> BatchFeature:
         """Extracts the features from the data using ViTFeatureExtractor"""
         feature_extractor = get_ViTFeatureExtractor(cfg)
         inputs = feature_extractor([x for x in sample["img"]], return_tensors="pt")
         inputs["label"] = sample["label"]
         return inputs
+
     return transform
 
 
@@ -93,7 +100,7 @@ def train_model(cfg: DictConfig) -> None:
         compute_metrics=compute_metrics,
         train_dataset=ds["train"],
         eval_dataset=ds["test"],
-        tokenizer=feature_extractor
+        tokenizer=feature_extractor,
     )
 
     # Start training
@@ -109,6 +116,7 @@ def train_model(cfg: DictConfig) -> None:
     metrics = trainer.evaluate(ds["validation"])
     trainer.log_metrics("eval", metrics)
     trainer.save_metrics("eval", metrics)
+
 
 if __name__ == "__main__":
     train_model()
