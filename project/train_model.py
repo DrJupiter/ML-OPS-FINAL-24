@@ -128,5 +128,4 @@ def train_model(cfg: DictConfig) -> None:
 
 
 if __name__ == "__main__":
-    pass
     train_model()
