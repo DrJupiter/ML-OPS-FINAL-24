@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONPATH: ${{ github.workspace }}
+      GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+      
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -32,10 +34,17 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with ruff
       run: |
-        # stop the build if there are Python syntax errors or undefined names
+        # Fix errors found by check, if this can't be done automatically fail
         ruff check --fix
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        # Format the code
         ruff format
+    - name: Authenticate gcloud    
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+    - uses: iterative/setup-dvc@v1
+    - name: Get Data
+      run: dvc pull
     - name: Test with pytest
       run: |
         if find tests/ -type f -name "*_test.py" | grep -q .; then
