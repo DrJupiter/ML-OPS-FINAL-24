@@ -12,7 +12,7 @@ from PIL.PngImagePlugin import PngImageFile
 from transformers import EvalPrediction, Trainer, TrainingArguments, ViTFeatureExtractor
 from transformers.image_processing_utils import BatchFeature
 
-from .models.model import get_model
+from project.models.model import get_model
 
 
 ### Define helper functions ###
@@ -119,4 +119,5 @@ def train_model(cfg: DictConfig) -> None:
 
 
 if __name__ == "__main__":
-    train_model()
+    pass
+    # train_model()
