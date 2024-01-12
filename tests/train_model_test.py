@@ -5,7 +5,6 @@ import tests
 
 
 def test_compute_metrics() -> None:
-    from datasets import load_metric
     from transformers import EvalPrediction
 
     from project.train_model import compute_metrics

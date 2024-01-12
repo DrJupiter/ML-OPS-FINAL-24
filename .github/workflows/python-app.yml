@@ -19,7 +19,7 @@ jobs:
     env:
       PYTHONPATH: ${{ github.workspace }}
       GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
-      
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -38,7 +38,7 @@ jobs:
         ruff check --fix
         # Format the code
         ruff format
-    - name: Authenticate gcloud    
+    - name: Authenticate gcloud
       uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
