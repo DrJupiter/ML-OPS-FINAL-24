@@ -11,7 +11,7 @@ import torch
 from datasets import load_from_disk
 from omegaconf import DictConfig
 from PIL.PngImagePlugin import PngImageFile
-from transformers import EvalPrediction, Trainer, TrainingArguments, ViTImageProcessor
+from transformers import EvalPrediction, Trainer, TrainingArguments, ViTImageProcessor, set_seed
 from transformers.image_processing_utils import BatchFeature
 
 # from project.models.model import get_model
@@ -65,6 +65,7 @@ def train_model(cfg: DictConfig) -> None:
 
     if cfg["model"]["device"] == "cpu":
         warnings.warn("cpu is currently being used. This will result in slow training.")
+    set_seed(cfg["training"]["seed"])
 
     dataset_path = cfg["data"]["path"] + f"cifar10-{cfg['model']['name_or_path'].replace('/', '-')}"
     dataset = load_from_disk(dataset_path)
