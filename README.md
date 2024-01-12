@@ -21,59 +21,61 @@ We will use [Huggingface’s transformers](https://huggingface.co/docs/transform
 - Logging
 
 During training and validation we use WandB to log our tests and loss.
+This allows us to monitor training and testing progress easily from anywhere no matter where the process is happening.
 
-model saved on git?
+We save our models to git checkpoint style.????????????????????
 
 - Version control
 
-DVC
-Github
+To version control our data (and model??) we use DVC (Data Version Control).
+As such we have our data in a google bucket, where we can access it from anywhere.
+
+To version control our code we use git through GitHub.
 
 - Reproducibility
 
-Docker?
+To make our results easily reproducible we use build a Docker image, that we and others can use to create Docker containers to execute our code.
+Trigger creation???
+
+Additionally we use config files through hydra to store our data, model, train and test configurations for ease of use and visibility.
 
 - Planning
 
-Github projects
+To distribute work effectively and keep track of what we are all doing, we are using GitHubs projects.
+This allows easy distribution and awareness of what is happening.
 
 - Code structure
 
-CookieCutter
+Our code structure is created using CookieCutter.
+The template we use is provided by the ML-OPS course [link to template](https://github.com/SkafteNicki/mlops_template).
+This allows effective structuring of our code that is standardized and easily understandable for other developers.
 
 - Coding
 
-Pep8
-	typing
-mypy
-ruff
+During coding we enforce PEP8 coding practice.
+This is enforced by our use of ruff.
+
+Additionally we use mypy to make sure our typing is on point.
+
+- Continuous integration
+
+We do continuous integration in two main ways.
+First we write unit-tests to make sure our function on the smallest level work as intended.
+Secondly, we use GitHub actions to make sure our commits to main aren't flawed.
+For each commit we test if the code follows PEP8 (using ruff), and if the typing is correct (using mypy).
+Additionally, we make sure important files aren't pushed by mistake, by stopping commits if they are.
 
 - Model choice
 
-VIT transformer
+The model of choice is the Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).
+This model is a strong transformer for image classification.
 
-## Original Project Description
+- Data choice
 
-- Overall goal of the project:
+We use the CIFAR10 dataset [CIFAR10](https://paperswithcode.com/dataset/cifar-10).
+CIFAR10 contains 60k RGB images of shape 32x32.
+The images belong to 10 classes of basic things like cats and cars.
 
-Implement an autoencoder on MNIST to generate images and make the training of it reproducible. We want an end-point API that allows a user to query for images. Furthermore, we want to use state-of-the-art continuous integration and continuous delivery pipelines to mimic the production requirements seen in real-world scenarios.
-
- -   What framework will you use and do you intend to include the framework in your project?
-
-We will use ([Huggingface’s diffusers](https://github.com/huggingface/diffusers)) as our third-party framework. To speed up writing the training loop we will use the ([composers library](https://github.com/mosaicml/composer)). We will log our experiments in WandB.
-To ensure reproducibility we will utilize the power docker to ensure software and operating system reproducibility. We will use DVC for data version control. Our projects will be configured with Python data classes. We will use Github to version control our code. Our model will be saved on hugging face.
-In terms of project deployment, we will be using the FastAPI framework to serve an endpoint API that can be used for model inference by the end user. We use google cloud as our service provider.
-We use a Cookiecutter template to structure our GitHub code. The template we use is provided by the ML-OPS course [link to template](https://github.com/SkafteNicki/mlops_template). This allows effective structuring of our code that is standardized and easily understandable for other developers. We use [ruff](https://github.com/astral-sh/ruff) to format our python code.
-
-- What data are you going to run on (initially, may change)
-
-We are going to train our model on the MNIST dataset which is a dataset of approximately 70 thousand handwritten images of the numbers 0-9. The MNIST pictures are 28 by 28 grayscale images.
-
-- What models do you expect to use
-
-We expect to use an autoencoder written in the third-party extension of Pytorch named Diffusers (developed by Huggingface).
-We choose this framework because of prior experience with it, its good performance, and high maintenance.
-More specifically we choose to work with Tiny AutoEncoder originally implemented for Stable Diffusion (TAESD). Tiny AutoEncoder was introduced in ([madebyollin/taesd](https://github.com/madebyollin/taesd)) by Ollin Boer Bohan.
 
 ## How to use
     git clone https://github.com/DrJupiter/ML-OPS-FINAL-24.git
@@ -140,3 +142,32 @@ Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
 # ML-OPS-FINAL-24
+
+
+
+
+
+# OUTDATED
+
+## Original Project Description
+
+- Overall goal of the project:
+
+Implement an autoencoder on MNIST to generate images and make the training of it reproducible. We want an end-point API that allows a user to query for images. Furthermore, we want to use state-of-the-art continuous integration and continuous delivery pipelines to mimic the production requirements seen in real-world scenarios.
+
+ -   What framework will you use and do you intend to include the framework in your project?
+
+We will use ([Huggingface’s diffusers](https://github.com/huggingface/diffusers)) as our third-party framework. To speed up writing the training loop we will use the ([composers library](https://github.com/mosaicml/composer)). We will log our experiments in WandB.
+To ensure reproducibility we will utilize the power docker to ensure software and operating system reproducibility. We will use DVC for data version control. Our projects will be configured with Python data classes. We will use Github to version control our code. Our model will be saved on hugging face.
+In terms of project deployment, we will be using the FastAPI framework to serve an endpoint API that can be used for model inference by the end user. We use google cloud as our service provider.
+We use a Cookiecutter template to structure our GitHub code. The template we use is provided by the ML-OPS course [link to template](https://github.com/SkafteNicki/mlops_template). This allows effective structuring of our code that is standardized and easily understandable for other developers. We use [ruff](https://github.com/astral-sh/ruff) to format our python code.
+
+- What data are you going to run on (initially, may change)
+
+We are going to train our model on the MNIST dataset which is a dataset of approximately 70 thousand handwritten images of the numbers 0-9. The MNIST pictures are 28 by 28 grayscale images.
+
+- What models do you expect to use
+
+We expect to use an autoencoder written in the third-party extension of Pytorch named Diffusers (developed by Huggingface).
+We choose this framework because of prior experience with it, its good performance, and high maintenance.
+More specifically we choose to work with Tiny AutoEncoder originally implemented for Stable Diffusion (TAESD). Tiny AutoEncoder was introduced in ([madebyollin/taesd](https://github.com/madebyollin/taesd)) by Ollin Boer Bohan.
