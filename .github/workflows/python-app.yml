@@ -35,13 +35,7 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         ruff check --fix
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        ruff format
-    - name: Get Data
-      id: cache-data
-      uses: actions/cache@v3
-      with:
-        path: 'data'
-        
+        ruff format        
     - name: Test with pytest
       run: |
         if find tests/ -type f -name "*_test.py" | grep -q .; then
