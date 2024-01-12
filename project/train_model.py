@@ -9,7 +9,7 @@ import torch
 from datasets import load_from_disk, load_metric
 from omegaconf import DictConfig
 from PIL.PngImagePlugin import PngImageFile
-from transformers import EvalPrediction, Trainer, TrainingArguments, ViTFeatureExtractor
+from transformers import EvalPrediction, Trainer, TrainingArguments, ViTFeatureExtractor, set_seed
 from transformers.image_processing_utils import BatchFeature
 
 from project.models.model import get_model
@@ -59,6 +59,7 @@ def train_model(cfg: DictConfig) -> None:
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
     print(cfg)
+    set_seed(cfg["training"]["seed"])
     dataset_path = cfg["data"]["path"] + f"cifar10-{cfg['model']['name_or_path'].replace('/', '-')}"
     dataset = load_from_disk(dataset_path)
 
