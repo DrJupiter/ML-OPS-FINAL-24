@@ -1,8 +1,8 @@
-def test_test():
+def test_test() -> None:
     None
 
 
-def test_2_test():
+def test_2_test() -> None:
     assert True, "nein"
 
 
