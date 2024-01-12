@@ -1,3 +1,6 @@
+from project.train_model import collater, compute_metrics, get_transform, get_ViTFeatureExtractor
+
+
 def test_test() -> None:
     None
 
@@ -6,7 +9,9 @@ def test_2_test() -> None:
     assert True, "nein"
 
 
-# from project.train_model import compute_metrics, collater, get_transform, get_ViTFeatureExtractor
+def import_test() -> None:
+    from project.train_model import collater, compute_metrics, get_transform, get_ViTFeatureExtractor
+
 
 # project\train_model.py
 
