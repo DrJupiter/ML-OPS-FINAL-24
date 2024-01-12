@@ -4,7 +4,7 @@ from torch import tensor
 import tests
 
 
-def test_compute_metrics():
+def test_compute_metrics() -> None:
     from datasets import load_metric
     from transformers import EvalPrediction
 
@@ -26,7 +26,7 @@ def test_compute_metrics():
     ), "When predictions and labels are fully disimilar compute metrics should find 0 accuracy, it does not"
 
 
-def test_collater():
+def test_collater() -> None:
     from torch import arange, equal
 
     from project.train_model import collater
@@ -45,7 +45,7 @@ def test_collater():
         assert equal(collacated_batch["labels"][i], tensor(0))
 
 
-def test_get_ViTFeatureExtractor():
+def test_get_ViTFeatureExtractor() -> None:
     # get config file (since we cant use the common hydra method as tsts cant have input)
     import yaml
 
@@ -69,7 +69,7 @@ def test_get_ViTFeatureExtractor():
     assert out["pixel_values"].size() == (1, 3, 224, 224)  # 1 image with 3 channels and H=W=224, as the network takes
 
 
-def test_get_transform():
+def test_get_transform() -> None:
     import yaml
 
     from project.train_model import get_transform
