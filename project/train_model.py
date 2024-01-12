@@ -6,14 +6,13 @@ from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
 import hydra
 import numpy as np
 import torch
-import yaml
 from datasets import load_from_disk, load_metric
 from omegaconf import DictConfig
 from PIL.PngImagePlugin import PngImageFile
 from transformers import EvalPrediction, Trainer, TrainingArguments, ViTFeatureExtractor
 from transformers.image_processing_utils import BatchFeature
 
-from models.model import get_model
+from .models.model import get_model
 
 
 ### Define helper functions ###

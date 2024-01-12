@@ -1,16 +1,49 @@
-from project.train_model import collater, compute_metrics, get_transform, get_ViTFeatureExtractor
+import numpy as np
+
+import tests
 
 
-def test_test() -> None:
+def test_compute_metrics():
+    from datasets import load_metric
+    from transformers import EvalPrediction
+
+    from project.train_model import compute_metrics
+
+    N = 10
+    preds = np.arange(N)
+    label_ids = np.zeros_like(preds)
+    preds = np.stack((preds, np.zeros_like(preds))).transpose()
+
+    ep_true = EvalPrediction(preds, label_ids)
+    ep_false = EvalPrediction(preds, label_ids - 1.0)
+
+    print("##", compute_metrics(ep_true)["accuracy"])
+    print("##", compute_metrics(ep_false)["accuracy"])
+
+    assert (
+        compute_metrics(ep_true)["accuracy"] == 1.0
+    ), "When predictions and labels are identical compute metrics should find 1.0 accuracy, it does not"
+    assert (
+        compute_metrics(ep_false)["accuracy"] == 0.0
+    ), "When predictions and labels are fully disimilar compute metrics should find 0 accuracy, it does not"
+
+
+def test_collater():
+    from project.train_model import collater
+
     None
 
 
-def test_2_test() -> None:
-    assert True, "nein"
+def test_get_ViTFeatureExtractor():
+    from project.train_model import get_ViTFeatureExtractor
+
+    None
 
 
-def import_test() -> None:
-    from project.train_model import collater, compute_metrics, get_transform, get_ViTFeatureExtractor
+def test_get_transform():
+    from project.train_model import get_transform
+
+    None
 
 
 # project\train_model.py
