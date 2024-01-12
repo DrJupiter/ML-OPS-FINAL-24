@@ -1,57 +1,95 @@
-from project.train_model import collater, compute_metrics, get_transform, get_ViTFeatureExtractor
+import numpy as np
+from torch import tensor
+
+import tests
 
 
-def test_test() -> None:
-    None
+def test_compute_metrics():
+    from datasets import load_metric
+    from transformers import EvalPrediction
+
+    from project.train_model import compute_metrics
+
+    N = 10
+    preds = np.arange(N)
+    label_ids = np.zeros_like(preds)
+    preds = np.stack((preds, np.zeros_like(preds))).transpose()
+
+    ep_true = EvalPrediction(preds, label_ids)
+    ep_false = EvalPrediction(preds, label_ids - 1.0)
+
+    assert (
+        compute_metrics(ep_true)["accuracy"] == 1.0
+    ), "When predictions and labels are identical compute metrics should find 1.0 accuracy, it does not"
+    assert (
+        compute_metrics(ep_false)["accuracy"] == 0.0
+    ), "When predictions and labels are fully disimilar compute metrics should find 0 accuracy, it does not"
 
 
-def test_2_test() -> None:
-    assert True, "nein"
+def test_collater():
+    from torch import arange, equal
+
+    from project.train_model import collater
+
+    N = 10
+    B = 12
+
+    batch = []
+    for i in range(N):
+        batch.append({"pixel_values": arange(B), "label": tensor([0])})
+
+    collacated_batch = collater(batch)
+
+    for i in range(N):
+        assert equal(collacated_batch["pixel_values"][i], arange(B))
+        assert equal(collacated_batch["labels"][i], tensor(0))
 
 
-# from project.train_model import compute_metrics, collater, get_transform, get_ViTFeatureExtractor
+def test_get_ViTFeatureExtractor():
+    # get config file (since we cant use the common hydra method as tsts cant have input)
+    import yaml
 
-# project\train_model.py
+    from project.train_model import get_ViTFeatureExtractor
 
+    with open("conf/config.yaml", "r") as f:
+        cfg = yaml.safe_load(f)
+    feature_extractor = get_ViTFeatureExtractor(cfg)
 
-# def test_compute_metrics():
-#     from transformers import EvalPrediction
-#     ep = EvalPrediction()
+    # craete image used as input
+    from PIL import Image
 
-#     compute_metrics(ep)
+    im = np.ones((32, 32, 3), dtype=np.uint8)
+    im = Image.fromarray(im, "RGB")
 
+    # apply func
+    out = feature_extractor([x for x in [im]], return_tensors="pt")
 
-# test_compute_metrics()
-
-
-# ### Define helper functions ###
-# def compute_metrics(p: EvalPrediction) -> Dict[str, float]:
-#     """Computes accruacy metric"""
-#     metric = load_metric("accuracy")
-#     return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
-
-
-# def collater(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
-#     """The function used to form a batch from a list of elements of train_dataset or eval_dataset"""
-#     return {
-#         "pixel_values": torch.stack([x["pixel_values"] for x in batch]),
-#         "labels": torch.tensor([x["label"] for x in batch]),
-#     }
+    # check if it correctly transofrmed the data
+    assert list(out.keys()) == ["pixel_values"]
+    assert out["pixel_values"].size() == (1, 3, 224, 224)  # 1 image with 3 channels and H=W=224, as the network takes
 
 
-# def get_ViTFeatureExtractor(cfg: DictConfig) -> Callable:
-#     """Gets the Feature extractor"""
-#     return ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
+def test_get_transform():
+    import yaml
 
+    from project.train_model import get_transform
 
-# def get_transform(cfg: DictConfig) -> Callable:
-#     """Gets the transformer function"""
+    with open("conf/config.yaml", "r") as f:
+        cfg = yaml.safe_load(f)
 
-#     def transform(sample: Dict[str, List[PngImageFile]]) -> BatchFeature:
-#         """Extracts the features from the data using ViTFeatureExtractor"""
-#         feature_extractor = get_ViTFeatureExtractor(cfg)
-#         inputs = feature_extractor([x for x in sample["img"]], return_tensors="pt")
-#         inputs["label"] = sample["label"]
-#         return inputs
+    transform = get_transform(cfg)
 
-#     return transform
+    # create data to test on
+    from PIL import Image
+
+    ims = [np.ones((32, 32, 3), dtype=np.uint8), np.zeros((32, 32, 3), dtype=np.uint8)]
+    ims = [Image.fromarray(im, "RGB") for im in ims]
+    sample = {"img": ims, "label": [1, 0]}
+
+    # apply func
+    out = transform(sample)
+
+    # make sure output is as expected
+    assert list(out.keys()) == ["pixel_values", "label"]
+    assert out["pixel_values"].size() == (2, 3, 224, 224)  # 2 image with 3 channels and H=W=224, as the network takes
+    assert out["label"] == [1, 0]  # the expected labels
