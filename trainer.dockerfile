@@ -25,4 +25,3 @@ RUN pip install -r requirements_docker_train.txt
 # Naming the training script as the entrypoint for the docker image
 # The "-u" here makes sure that any output from our script e.g. any print(...) statements gets redirected to our terminal
 ENTRYPOINT ["python", "-u", "project/train_model.py"]
-
