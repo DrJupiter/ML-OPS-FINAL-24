@@ -1,3 +1,6 @@
+from project.train_model import collater, compute_metrics, get_transform, get_ViTFeatureExtractor
+
+
 def test_test() -> None:
     None
 
