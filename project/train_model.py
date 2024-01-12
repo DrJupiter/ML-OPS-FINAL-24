@@ -31,14 +31,15 @@ def collater(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
 
 
 def get_ViTFeatureExtractor(cfg: DictConfig) -> Callable:
-    """Gets the Feature extractor"""
+    """Gets the Feature extractor\\
+        The feature extractor transforms the images so they fit the model"""
     return ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
 
 
 def get_transform(cfg: DictConfig) -> Callable:
     """Gets the transformer function"""
 
-    def transform(sample: Dict[str, List[PngImageFile]]) -> BatchFeature:
+    def transform(sample: Dict[str, List[PngImageFile]]) -> BatchFeature | Dict[str, torch.Tensor]:
         """Extracts the features from the data using ViTFeatureExtractor"""
         feature_extractor = get_ViTFeatureExtractor(cfg)
         inputs = feature_extractor([x for x in sample["img"]], return_tensors="pt")
