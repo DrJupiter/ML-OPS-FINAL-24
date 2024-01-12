@@ -38,6 +38,10 @@ jobs:
         ruff check --fix
         # Format the code
         ruff format
+    - name: Authenticate gcloud    
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
     - uses: iterative/setup-dvc@v1
     - name: Get Data
       run: dvc pull
