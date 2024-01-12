@@ -28,10 +28,41 @@ def test_compute_metrics():
     ), "When predictions and labels are fully disimilar compute metrics should find 0 accuracy, it does not"
 
 
+# #%%
+# from torch import tensor, arange, stack, equal
+
+# batch = []
+# for i in range(10):
+#     batch.append({"pixel_values":arange(10), "label":tensor(0)})
+
+# collacated_batch = {
+#         "pixel_values": stack([x["pixel_values"] for x in batch]),
+#         "labels": tensor([x["label"] for x in batch]),
+#     }
+
+# for i in range(10):
+#     assert equal(collacated_batch["pixel_values"][i], arange(10))
+#     assert equal(collacated_batch["labels"][i], tensor(0))
+# # %%
+
+
 def test_collater():
+    from torch import arange, equal, tensor
+
     from project.train_model import collater
 
-    None
+    N = 10
+    B = 12
+
+    batch = []
+    for i in range(N):
+        batch.append({"pixel_values": arange(B), "label": tensor([0])})
+
+    collacated_batch = collater(batch)
+
+    for i in range(N):
+        assert equal(collacated_batch["pixel_values"][i], arange(B))
+        assert equal(collacated_batch["labels"][i], tensor(0))
 
 
 def test_get_ViTFeatureExtractor():
