@@ -16,7 +16,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      PYTHONPATH: ${{ github.workspace }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -35,6 +36,12 @@ jobs:
         ruff check --fix
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         ruff format
+    - name: Get Data
+      id: cache-data
+      uses: actions/cache@v3
+      with:
+        path: 'data'
+        
     - name: Test with pytest
       run: |
         if find tests/ -type f -name "*_test.py" | grep -q .; then
