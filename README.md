@@ -12,6 +12,45 @@ The Final Project for ML OPS by group 24
 - **Project Deployment:**
 
   The model will be served on a FastAPI endpoint, enabling users to upload images for predictions.
+This interaction consists of uploading an image, and then having the probability and the class of the most likely class returned.
+
+- Main framework
+
+We will use [Huggingface’s transformers](https://huggingface.co/docs/transformers/index) as our third-party framwork. This package is responsible for the model and the training loop.
+
+- Logging
+
+During training and validation we use WandB to log our tests and loss.
+
+model saved on git?
+
+- Version control
+
+DVC
+Github
+
+- Reproducibility
+
+Docker?
+
+- Planning
+
+Github projects
+
+- Code structure
+
+CookieCutter
+
+- Coding
+
+Pep8
+	typing
+mypy
+ruff
+
+- Model choice
+
+VIT transformer
 
 ## Original Project Description
 

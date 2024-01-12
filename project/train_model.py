@@ -14,8 +14,9 @@ from PIL.PngImagePlugin import PngImageFile
 from transformers import EvalPrediction, Trainer, TrainingArguments, ViTImageProcessor, set_seed
 from transformers.image_processing_utils import BatchFeature
 
-# from project.models.model import get_model
-from models.model import get_model
+from project.models.model import get_model
+
+# from models.model import get_model
 
 
 ### Define helper functions ###
