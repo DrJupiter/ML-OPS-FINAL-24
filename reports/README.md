@@ -225,7 +225,10 @@ We also wrote units-tests for our own functions.
 >
 > Answer:
 
---- question 7 fill here ---
+In total we have implemented 5 tests achieving test coverage of 85%.
+Primarily we are testing function we have written ourselves.
+This mainly includes data loading and helper functions for our third-party framework.
+The data loading tests check if the data can be loaded, if the output of the dataloader as the expected shape, and if some random images and labels have the expected shape and type.
 
 ### Question 8
 
@@ -240,7 +243,13 @@ We also wrote units-tests for our own functions.
 >
 > Answer:
 
---- question 8 fill here ---
+As states above we achieve a code coverage of 85%.
+If we achieved 100% we would still not trust that no error could occur.
+This is because it is almost impossible to test every scenario possible we tests like these.
+This can also be seen in real life, where people are being employed to find bugs in code.
+
+Our code coverage does not include testing through testing of third party packages. We have chosen to assume that these do as expected.
+For larger and more essential applications this would not be optimal, as these third party packages can change, thus impacting the code greatly.
 
 ### Question 9
 
@@ -255,7 +264,20 @@ We also wrote units-tests for our own functions.
 >
 > Answer:
 
---- question 9 fill here ---
+In our group we made use of both branches and pull requests.
+We made branches for specific topics, deleting them when the topic was concluded.
+We did this so we could easily see what people were working on.
+Additionally, this allows a good overview of prior work when visualizing the pushes to the branches and main.
+Before any pull request was accepted to main the code had to be accepted by our GitHub workflow.
+The workflow tested for a few main things.
+1. set up python and install dependencies.
+2. Lint with ruff
+3. Authenticate gcloud
+4. Pull data with dvc
+5. test with pytest
+6. Check types with mypy
+Amount a few other small things.
+- More details can be seen on github
 
 ### Question 10
 
@@ -270,7 +292,13 @@ We also wrote units-tests for our own functions.
 >
 > Answer:
 
---- question 10 fill here ---
+We made use of DVC for managing our data.
+Since we only worked with this project on a short time horizon the benefits of DVC were not as apparent as they would be with a long term project.
+The main bonus of DVC is our case was, that DVC allowed cloud services to run without problems and that we made sure we all used the exact same data when running small tests and checks.
+We also used DVC to store our models. This allowed easy transfer of models.
+The benefits of DVC come into effect more on larger projects with more people on a longer time horizon.
+Here the data might change more, and more people will need access to it. Therefore it also becomes important that everyone can easily make sure they work with the same data.
+DVC also allows good error tracking, as you can see when errors occurred.
 
 ### Question 11
 
