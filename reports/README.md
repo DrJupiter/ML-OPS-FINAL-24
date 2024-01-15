@@ -156,7 +156,17 @@ MORE?????
 >
 > Answer:
 
---- question 4 fill here ---
+We managed our environment dependencies through a requirements.txt file.
+Whenever we downloaded a package we added it to the requirements file.
+We ended up with a total of 3 requirements files, each for a specific use.
+One just to run the code using CUDA,
+One to run the code on CPU,
+and one to run tests on the code.
+To get a complete copy, one would then run pip install the requirements.txt.
+We found that the auto-generated requirements files, like `pip freeze > requirements.txt`, when installed often gave errors.
+Therefore, we opted to do it manually.
+
+Additionally we created a Docker image, that can run our code. So this could also be used to get an exact copy.
 
 ### Question 5
 
@@ -171,7 +181,13 @@ MORE?????
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template we have filled out the project, tests, reports, and model folders.
+The project folder consists of data-handling code, in the data subfolder, our model handlings code in our model subfolder.
+Our model handling code consists of our model creation and model training files.
+We have removed the visualisation code, as we deemed no visualisations other than WandB were needed.
+Additionally, we have removed the notebooks and docs folder because we did not use any notebooks or mkdocs in our project.
+We have added a FastAPI and Dockerfiles folder that contains code for running our FastAPI and Docker images.
+						- OBS are we using these or??
 
 ### Question 6
 
@@ -182,8 +198,16 @@ MORE?????
 >
 > Answer:
 
---- question 6 fill here ---
+We enforce PEP8 code practice using ruff, and we also enforce typing with mypy.
+We deem this important as it makes the code more transparent and understandable.
+This is very important when multiple people are working on the same code, as code quickly becomes complex and hard to see through easily.
+Here typing and documentation is essential.
+Typing makes it easy at a quick glance to see what some function does.
+and documentation gives more insight to the inner workings of each individual component.
+We enforced these checks every time pushes to main were attempted.
+The code could then only be pushed if it passed all tests.
 
+We also wrote units-tests for our own functions.
 ## Version control
 
 > In the following section we are interested in how version control was used in your project during development to
@@ -258,8 +282,7 @@ MORE?????
 >
 > Example:
 > *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
-> *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
->
+> *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink*
 > Answer:
 
 --- question 11 fill here ---
