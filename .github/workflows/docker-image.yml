@@ -29,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: user/app:$GITHUB_SHA
+          tags: user/app:latest
           file: trainer.dockerfile
