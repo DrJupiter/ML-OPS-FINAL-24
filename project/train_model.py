@@ -1,8 +1,10 @@
 # Imports
 # TODO Structure imports according to the thing i cant remember
 # Typing
+import warnings
 from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
 
+import evaluate
 import hydra
 import numpy as np
 import torch
@@ -11,16 +13,18 @@ from datasets import load_from_disk, load_metric
 from hydra import compose, initialize
 from omegaconf import DictConfig
 from PIL.PngImagePlugin import PngImageFile
-from transformers import EvalPrediction, Trainer, TrainingArguments, ViTFeatureExtractor, set_seed
+from transformers import EvalPrediction, Trainer, TrainingArguments, ViTImageProcessor, set_seed
 from transformers.image_processing_utils import BatchFeature
 
 from project.models.model import get_model
+
+# from models.model import get_model
 
 
 ### Define helper functions ###
 def compute_metrics(p: EvalPrediction) -> Dict[str, float]:
     """Computes accruacy metric"""
-    metric = load_metric("accuracy")
+    metric = evaluate.load("accuracy")
     return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
 
 
@@ -35,7 +39,7 @@ def collater(batch: List[Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
 def get_ViTFeatureExtractor(cfg: DictConfig) -> Callable:
     """Gets the Feature extractor\\
         The feature extractor transforms the images so they fit the model"""
-    return ViTFeatureExtractor.from_pretrained(cfg["model"]["name_or_path"])
+    return ViTImageProcessor.from_pretrained(cfg["model"]["name_or_path"])
 
 
 def get_transform(cfg: DictConfig) -> Callable:
@@ -64,7 +68,11 @@ def train_model() -> None:
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
     print(cfg)
+
+    if cfg["model"]["device"] == "cpu":
+        warnings.warn("cpu is currently being used. This will result in slow training.")
     set_seed(cfg["training"]["seed"])
+
     dataset_path = cfg["data"]["path"] + f"cifar10-{cfg['model']['name_or_path'].replace('/', '-')}"
     dataset = load_from_disk(dataset_path)
 

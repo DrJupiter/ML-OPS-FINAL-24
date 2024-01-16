@@ -3,7 +3,7 @@ import hydra
 import tests
 
 
-def test_data_shape():
+def test_data_shape() -> None:
     import numpy as np
     import yaml
     from datasets import load_from_disk
