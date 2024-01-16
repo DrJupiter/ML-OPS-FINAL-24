@@ -1,6 +1,6 @@
 # Base image
-#FROM python:3.11.7-slim-bullseye
-FROM nvcr.io/nvidia/pytorch:23.12-py3
+FROM python:3.11.7-slim-bullseye
+#FROM nvcr.io/nvidia/pytorch:23.12-py3
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \

@@ -61,10 +61,10 @@ def train_model() -> None:
         Loads/creates, trains and tests cfg model.\\
         Also loads data
     """
-    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    print(f"Using device: {device}")
     initialize(config_path="../conf/", job_name="mlops24")
     cfg = compose(config_name="config")
+    cfg["model"]["device"] = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    print(f"Using device: {cfg['model']['device']}")
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
     print(cfg)
@@ -77,7 +77,7 @@ def train_model() -> None:
     dataset = load_from_disk(dataset_path)
 
     # Initialize the model
-    model = get_model(cfg).to(device)
+    model = get_model(cfg).to(cfg["model"]["device"])
 
     # Initialize the feature extractor
     feature_extractor = get_ViTFeatureExtractor(cfg)
