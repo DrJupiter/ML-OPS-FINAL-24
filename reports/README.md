@@ -436,7 +436,7 @@ We also notice that the model achieves good performance quite early one. Already
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink\>*
 >
 > Answer:
-
+(docker-link)[https://hub.docker.com/repository/docker/drjupiter/mlops24/general]
 --------- question 15 fill here --------------
 ### Question 16
 
