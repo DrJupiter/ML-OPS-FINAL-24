@@ -1,6 +1,5 @@
 # Base image
-FROM python:3.11.7-slim-bullseye
-#FROM nvcr.io/nvidia/pytorch:23.12-py3
+FROM nvcr.io/nvidia/pytorch:23.12-py3
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
@@ -8,7 +7,7 @@ RUN apt update && \
 
 WORKDIR /
 
-COPY requirements.txt requirements.txt
+COPY requirements_docker_gpu.txt requirements.txt
 COPY requirements_dev.txt requirements_dev.txt
 COPY pyproject.toml pyproject.toml
 

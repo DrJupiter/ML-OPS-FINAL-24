@@ -15,7 +15,12 @@ curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dear
 
 sudo apt-get update
 sudo apt-get install -y nvidia-container-toolkit
-# LINE WHICH PULLS THE IMAGE
+
+# PULL THE IMAGE
+sudo docker pull drjupiter/mlops24:latest-gpu
+
+# CREATE A VOLUME FOR EXTERNALLY SAVING TO
+sudo docker volume create drjupiter_trained_models
 
 # RUN THE IMAGE
-sudo docker run --gpus all run-project:latest $WANDB_KEY
+sudo docker run -v drjupiter_trained_models:/trained_model --gpus all drjupiter/mlops24:latest-gpu --save_path /trained_model $WANDB_KEY
