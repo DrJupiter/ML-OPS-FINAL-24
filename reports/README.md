@@ -404,6 +404,26 @@ Since we use identical config and Docker the results would then be the exact sam
 
 --- question 14 fill here ---
 
+We used WandB as our logging software for our transformer based classification model.
+We tested training the Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) On the [CIFAR10](https://paperswithcode.com/dataset/cifar-10) dataset.
+Below we will discuss images of our main graph for training and validation.
+
+First we look at the loss curve for our model over its 1870 training steps.
+Below we see the loss curve for our model:
+![my_image](figures/train_loss.png)
+We see that the loss falls over time, meaning that the model is improving.
+It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better.
+
+To that the model is actually improving, we look at the validation loss over time:
+![validationloss](figures/validation_loss.png)
+We also see that the loss deceases over time.
+This also suggest that the model is improving.
+The model falls from 0.099 to 0.055, thus the validation loss is about half the original.
+
+To confirm what this actually means for our model, and how good it actually became we look at the classification accuracy.
+![validation_acc](figures/validation_acc.png)
+We see that the performance goes up over time, achieving above 98% accuracy.
+We also notice that the model achieves good performance quite early one. Already at the first validation test, it almost achieves 98%.
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
