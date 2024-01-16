@@ -437,8 +437,7 @@ We also notice that the model achieves good performance quite early one. Already
 >
 > Answer:
 
---- question 15 fill here ---
-
+--------- question 15 fill here --------------
 ### Question 16
 
 > **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you**
@@ -452,7 +451,11 @@ We also notice that the model achieves good performance quite early one. Already
 >
 > Answer:
 
---- question 16 fill here ---
+Debugging in our group was done in X main ways. (add more ways if anyone else did anything else)
+We used the debugger in vs-code to find potential bugs.
+This tool is easy to use, but quite powerful.
+
+We did a single profiling run near the end showing that ...
 
 ## Working in the cloud
 
