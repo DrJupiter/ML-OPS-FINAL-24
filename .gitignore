@@ -181,3 +181,6 @@ cython_debug/
 
 velvety-tube-410716-d872dd76f593.json
 .obsidian/*
+profiling
+trace.json
+notebooks/profiling_view.ipynb
