@@ -313,7 +313,25 @@ DVC also allows good error tracking, as you can see when errors occurred.
 > *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink*
 > Answer:
 
---- question 11 fill here ---
+
+We have done three main things to reduce errors during continuous integration.
+We wrote unit-tests for our own functions. This results in us knowing the individual functions do what we expect, and that they work with the expected input. Our unit tests achieve a coverage of 85%.
+
+We also used pull requests to ensure that whenever something was push to main, it would always work.
+To test if the push worked we would run it through a GitHub actions workflow.
+The workflow can be seen here: (https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/.github/workflows/python-app.yml)
+
+Our workflow does not test multiple operating systems even through we use a split between Linux and Windows ourselves.
+If we were to work with this for an extended time, we would implement this, as propagating errors across the systems would be a big problem.
+Currently we only test on Linux, ubuntu-latest, to be more exact.
+We chose this, because this is what our cloud servers would run on, and therefore docker etc.
+We also only test for python 3.10 for similar reasons.
+
+¤ belongs here??¤
+We also developed a workflow for building our Docker image.
+As such we could make sure that our image was always build the same way, and that we could build it in the cloud.
+¤ belongs here??¤
+If not we need to write a bit more
 
 ## Running code and tracking experiments
 
@@ -332,8 +350,21 @@ DVC also allows good error tracking, as you can see when errors occurred.
 >
 > Answer:
 
---- question 12 fill here ---
+We used hydra as our config method. Therefore we have a file structure with .yaml files.
+We opted for a simple structure, because of the simplicity of our code. Therefore we only have one .yaml file, containing all configs.
 
+Below is an example of how to use hydra.
+Hydra loads in the config file, which contains important information like can be seen below:
+```python
+@hydra.main(version_base=None, config_path="path/to/config/base", config_name="config")
+def very_important_function(cfg):
+	secret_of_the_universe = cfg.universe.secrects["most_important_secret"]
+	answer_to_life = model.forward(secret_of_the_universe)
+	return answer_to_life
+```
+We expect the above to return 42 in most cases.
+
+TOO TROLL?
 ### Question 13
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
@@ -347,8 +378,15 @@ DVC also allows good error tracking, as you can see when errors occurred.
 >
 > Answer:
 
---- question 13 fill here ---
+We made use of config files through hydra. The config file(s) helped us setting all seeds to the same each time, ensuring that we always used the same initial seeds.
+As such if you were to run the experiment again, you would get the exact same output.
+Additionally, we created a Docker image. Docker images allow easy reproducibility across different hardware and software.
+These two things combined made our experiments very reproducible.
 
+To reproduce our results one would have to:
+Clone our GitHub repository.
+Run the Docker image with the desired goal. We have a Docker image for XXX and XXX. This would then create a Docker container that the user could run for the desired purpose.
+Since we use identical config and Docker the results would then be the exact same.
 ### Question 14
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
@@ -375,7 +413,7 @@ DVC also allows good error tracking, as you can see when errors occurred.
 >
 > Example:
 > *For our project we developed several images: one for training, inference and deployment. For example to run the*
-> *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
+> *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink\>*
 >
 > Answer:
 
