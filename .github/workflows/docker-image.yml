@@ -39,6 +39,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: user/${{secrets.DOCKER_HUB_REPOSITORY}}:latest-cpu
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/${{secrets.DOCKER_HUB_REPOSITORY}}:latest-cpu
           file: dockerfiles/train_model.dockerfile
           context: .
