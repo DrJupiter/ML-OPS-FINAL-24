@@ -12,8 +12,18 @@ jobs:
     env:
       GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
     steps:
+
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
       - uses: actions/checkout@v3
-      
+      - name: Disk space
+        run: |
+            echo "Free space:"
+            df -h
       - name: Authenticate gcloud
         uses: 'google-github-actions/auth@v2'
         with:
