@@ -1,9 +1,9 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools>=40.9.0", "setuptools-scm[toml]>=3.4"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ML_OPS_Project"
+name = "project"
 version = "0.0.1"
 description = "Final project in the ML Ops course @DTU"
 authors = [
@@ -11,19 +11,14 @@ authors = [
   { name = "Andreas Holme.", email = "your@email.com" },
   { name = "Klaus Bentzen", email = "your@email.com" }
 ]
-
 readme = "README.md"
-requires-python = "~=3.10"
-dynamic = ["dependencies", "optional-dependencies"]
+requires-python = ">=3.10"
+# You'll need to list your dependencies and optional-dependencies here
 
-[tool.setuptools]
-packages = ["ML_OPS_Project"]
-
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
-
-[tool.setuptools.dynamic.optional-dependencies]
-dev = {file = ['requirements_dev.txt']}
+[tool.setuptools_scm]
+# Configure setuptools_scm, for example, to use git tags as version
+write_to = "version.py"
+fallback_version = "0.0.1"
 
 [tool.ruff]
 line-length = 120
