@@ -12,8 +12,8 @@ jobs:
     env:
       GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
     steps:
+
       - uses: actions/checkout@v3
-      
       - name: Authenticate gcloud
         uses: 'google-github-actions/auth@v2'
         with:
@@ -39,5 +39,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: user/app:latest
-          file: trainer.dockerfile
+          tags: user/${{secrets.DOCKER_HUB_REPOSITORY}}:latest-cpu
+          file: dockerfiles/train_model.dockerfile
+          context: .
