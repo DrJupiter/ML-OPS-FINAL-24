@@ -39,6 +39,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: user/app:latest
+          tags: user/${{secrets.DOCKER_HUB_REPOSITORY}}:latest
           file: dockerfiles/train_model.dockerfile
           context: .
