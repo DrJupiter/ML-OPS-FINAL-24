@@ -56,14 +56,14 @@ def get_transform(cfg: DictConfig) -> Callable:
 
 
 ### Main function ###
-def train_model() -> None:
+def train_model(save_path: None | str = None) -> None:
     """
         Loads/creates, trains and tests cfg model.\\
         Also loads data
     """
     initialize(config_path="../conf/", job_name="mlops24")
     cfg = compose(config_name="config")
-    cfg["model"]["device"] = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    cfg["model"]["device"] = str(torch.device("cuda")) if torch.cuda.is_available() else str(torch.device("cpu"))
     print(f"Using device: {cfg['model']['device']}")
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
@@ -88,9 +88,10 @@ def train_model() -> None:
     # apply transformation above to data
     ds = dataset.with_transform(transform)
 
+    print(f"Saving to {cfg['training']['output_dir'] if save_path is None else save_path}")
     # Define training arguments
     training_args = TrainingArguments(
-        output_dir=cfg["training"]["output_dir"],
+        output_dir=cfg["training"]["output_dir"] if save_path is None else save_path,
         per_device_train_batch_size=cfg["training"]["per_device_train_batch_size"],
         evaluation_strategy=cfg["training"]["evaluation_strategy"],
         num_train_epochs=cfg["training"]["num_train_epochs"],
@@ -135,11 +136,19 @@ def train_model() -> None:
 import argparse
 
 
-def log_into_wandb():
+def process_command_line_args() -> None | str:
     parser = argparse.ArgumentParser(description="Script to use wandb API key")
 
     # Define the wandb key argument
     parser.add_argument("wandb_key", type=str, help="Your wandb API key")
+
+    # Define an optional argument for the path
+    parser.add_argument(
+        "--save_path",
+        type=str,
+        default=None,
+        help="Optional save path argument. Useful when using a docker volume to later extract the model from.",
+    )
 
     # Parse the arguments
     args = parser.parse_args()
@@ -151,8 +160,9 @@ def log_into_wandb():
 
     # Example usage (replace with actual wandb usage as needed)
     wandb.login(key=wandb_key)
+    return args.save_path
 
 
 if __name__ == "__main__":
-    log_into_wandb()
-    train_model()
+    save_path = process_command_line_args()
+    train_model(save_path=save_path)
