@@ -19,4 +19,3 @@ COPY ./app/ ./app/
 # Naming the training script as the entrypoint for the docker image
 # The "-u" here makes sure that any output from our script e.g. any print(...) statements gets redirected to our terminal
 CMD exec uvicorn app.main:app --port $PORT --host 0.0.0.0 --workers 1
-

@@ -1,27 +1,26 @@
+import asyncio
 import io
 import os
+import random
+import warnings
 
 # typing
 from os import PathLike as PPath
 from pathlib import Path
 
+import pandas as pd
 import torch
+from evidently.metric_preset import DataDriftPreset
+from evidently.report import Report
 from google.cloud import storage
 from PIL import Image
 from torch.nn.functional import softmax
-from transformers import ViTForImageClassification, ViTModel, AutoFeatureExtractor, logging
+from transformers import AutoFeatureExtractor, ViTForImageClassification, ViTModel, logging
 
-from fastapi import FastAPI, File, UploadFile, Depends, HTTPException, status, BackgroundTasks, Request
+from fastapi import BackgroundTasks, Depends, FastAPI, File, HTTPException, Request, UploadFile, status
 from fastapi.responses import HTMLResponse
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import asyncio
-import pandas as pd
-import random
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.templating import Jinja2Templates
-from evidently.metric_preset import DataDriftPreset
-from evidently.report import Report
-import warnings
-
 
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 
@@ -129,7 +128,6 @@ async def extract_embeddings_and_save(file_contents, background_tasks: Backgroun
     bucket.blob(f"{embeddings_dir}{pickle_filename}").upload_from_file(buffer, content_type="application/octet-stream")
 
 
-
 @app.post("/uploadfile/")
 async def create_upload_file(request: Request, background_tasks: BackgroundTasks, file: UploadFile = File(...)):
     # Allowed MIME types for images
@@ -138,18 +136,21 @@ async def create_upload_file(request: Request, background_tasks: BackgroundTasks
     # Check if the uploaded file is an image
     if file.content_type not in allowed_mime_types:
         # Redirect to the home page with an error message
-        return templates.TemplateResponse("index.html", {
-            "request": request, 
-            "error_message": "File type not allowed. Please upload an image (jpeg, png, or gif)."
-        })
-    
+        return templates.TemplateResponse(
+            "index.html",
+            {"request": request, "error_message": "File type not allowed. Please upload an image (jpeg, png, or gif)."},
+        )
+
     # Check if the model directory exists
     if not os.path.exists("./model"):
         # Redirect to the home page with an error message
-        return templates.TemplateResponse("index.html", {
-            "request": request, 
-            "error_message": "Model not found. Please use the update_model endpoint to download the model."
-        })
+        return templates.TemplateResponse(
+            "index.html",
+            {
+                "request": request,
+                "error_message": "Model not found. Please use the update_model endpoint to download the model.",
+            },
+        )
 
     # Read the contents of the file
     contents = await file.read()
@@ -160,16 +161,15 @@ async def create_upload_file(request: Request, background_tasks: BackgroundTasks
         print(image.mode)
 
         # Handle the image based on its mode (channels)
-        if image.mode == 'RGB':
+        if image.mode == "RGB":
             pass  # Process normally
-        elif image.mode == 'L' or image.mode == 'LA':
+        elif image.mode == "L" or image.mode == "LA":
             image = image.convert("RGB")
         else:
             # Redirect to the home page with an error message
-            return templates.TemplateResponse("index.html", {
-                "request": request, 
-                "error_message": "Unsupported image format."
-            })
+            return templates.TemplateResponse(
+                "index.html", {"request": request, "error_message": "Unsupported image format."}
+            )
 
         image_processor = AutoFeatureExtractor.from_pretrained("google/vit-base-patch16-224")
         inputs = image_processor(images=image, return_tensors="pt").to(device)
@@ -197,11 +197,7 @@ async def create_upload_file(request: Request, background_tasks: BackgroundTasks
 
     except IOError:
         # Redirect to the home page with an error message
-        return templates.TemplateResponse("index.html", {
-            "request": request, 
-            "error_message": "Invalid image file."
-        })
-    
+        return templates.TemplateResponse("index.html", {"request": request, "error_message": "Invalid image file."})
 
 
 @app.get("/", response_class=HTMLResponse)
