@@ -1,7 +1,7 @@
 # conf/config.yaml
 model:
   name_or_path: 'google/vit-base-patch16-224-in21k'
-  device: 'cuda' # 'cuda' or 'cpu'
+  device: 'cpu' # 'cuda' or 'cpu'
 
 data:
   path: './data/processed/'
