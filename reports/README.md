@@ -130,14 +130,15 @@ s194495, s204123, s204160
 >
 > Answer:
 
-We used the third-party framework [Huggingface’s transformers](https://huggingface.co/docs/transformers/index) in our project.
-We used the pretrained Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`. This allowed us to easily finetune a good pretrained model.
-We then used transformers' `TrainingArguments` and `Trainer` to finetune the model.
+For this project we used the third-party framework [Huggingface’s transformers](https://huggingface.co/docs/transformers/index).
+We chose the pre-trained Vision Transformer (ViT) model originally proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`.
+We then used transformers' `TrainingArguments` and `Trainer` to finetune the model to CIFAR10.
 The `ViT` framework also included helper functions for data preprocessing.
 We used these helper functions to build the data loader.
 We download our data with [Huggingface’s datasets](https://huggingface.co/docs/datasets/index).
+To tie it all together we had to write a few helper fucntions.1
 
-MORE?????
+
 ## Coding environment
 
 > In the following section we are interested in learning more about you local development environment.
@@ -180,7 +181,7 @@ _The difference between the `requirements` and `requirements_docker_cpu` is the 
 From the [cookiecutter template](https://github.com/SkafteNicki/mlops_template) we have filled out the project, tests, reports, and model folders.
 The project folder consists of data-handling code, in the data subfolder, our model handlings code in our model subfolder.
 Our model handling code consists of our model creation and model training files.
-We have removed the visualisation code, as we deemed no visualisations other than WandB were needed.
+We have removed the visualization code, as we deemed no visualizations other than WandB were needed.
 Additionally, we have removed the notebooks and docs folder because we did not use any notebooks or mkdocs in our project.
 We have added a FastAPI and Dockerfiles folder that contains code for running our FastAPI and Docker images.
 						- OBS are we using these or??
@@ -515,8 +516,8 @@ After the model is trained it is saved to this volume and exported to a bucket.
 >
 > Answer:
 
---- question 19 fill here ---
-
+Main folder top right.
+![bucketimg](figures/Bucket_img.png)
 ### Question 20
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
