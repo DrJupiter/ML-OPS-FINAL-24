@@ -436,6 +436,7 @@ We also notice that the model achieves good performance quite early one. Already
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink\>*
 >
 > Answer:
+
 (docker-link)[https://hub.docker.com/repository/docker/drjupiter/mlops24/general]
 --------- question 15 fill here --------------
 
@@ -456,8 +457,16 @@ Debugging in our group was done in X main ways. (add more ways if anyone else di
 We used the debugger in vs-code to find potential bugs.
 This tool is easy to use, but quite powerful.
 
-We did a single profiling run near the end showing that ...
+We did performed both torch profiling and cprofiling on our inference code (on CPU, as the person performing doesn't have NVIDIA GPU).
+In the run we did 10 model predictions on different images. These runs also included everything excluding imports (the data had already been loaded locally).
 
+The torch profiling runs shows that torch Linear (and thus torch.addmm) are the bottleneck with almost 90% of the CPU time spent on these functions.
+It makes a lot of sense that these function take up most of the time, as they are a large part of what defines an NN.
+The next things unrelated to the above are softmax (3% of the time), copy (0.84%) and layer norm (0.62%).
+
+The cProfiling showed that again torch.nn.linear was taking up the most tottime (20% of total time) seconded by reading of SSLSocket objects (14%). Non of our functions are in top 10 of tottime spenders.
+
+Thus we conclude that our code is not a bottleneck and works efficient enough.
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.

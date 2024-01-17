@@ -7,7 +7,7 @@ import numpy as np
 import torch
 from datasets import load_from_disk
 from omegaconf import DictConfig
-from torch.profiler import ProfilerActivity, profile
+from torch.profiler import ProfilerActivity, profile, tensorboard_trace_handler
 from train_model import get_transform, get_ViTFeatureExtractor
 from transformers import EvalPrediction, Trainer, TrainingArguments, ViTImageProcessor, set_seed
 from transformers.image_processing_utils import BatchFeature
@@ -38,40 +38,48 @@ def predict(model: torch.nn.Module, dataloader: torch.utils.data.DataLoader) -> 
     #     if i==0:
     #         break
 
-    with profile(activities=[ProfilerActivity.CPU], record_shapes=True) as prof:
-        for i, batch in enumerate(dataloader):
-            if i == 10:
-                break
-            model(batch["pixel_values"].unsqueeze(0))
-            prof.step()
+    for i, batch in enumerate(dataloader):
+        print("sub loop", i)
+        model(batch["pixel_values"].unsqueeze(0))
 
-    prof.export_chrome_trace("trace.json")
+    # prof.export_chrome_trace("trace.json")
 
     # return torch.cat(lis, 0)
 
 
 @hydra.main(version_base=None, config_path="../conf/", config_name="config")
 def manual_test(cfg: DictConfig) -> None:
-    if cfg["model"]["device"] == "cpu":
-        warnings.warn("cpu is currently being used. This will result in slow training.")
-    set_seed(cfg["training"]["seed"])
+    with profile(
+        activities=[ProfilerActivity.CPU], record_shapes=True, on_trace_ready=tensorboard_trace_handler("./log/prof")
+    ) as prof:
+        if cfg["model"]["device"] == "cpu":
+            warnings.warn("cpu is currently being used. This will result in slow training.")
+        set_seed(cfg["training"]["seed"])
 
-    dataset_path = cfg["data"]["path"] + f"cifar10-{cfg['model']['name_or_path'].replace('/', '-')}"
-    dataset = load_from_disk(dataset_path)
+        dataset_path = cfg["data"]["path"] + f"cifar10-{cfg['model']['name_or_path'].replace('/', '-')}"
+        dataset = load_from_disk(dataset_path)
 
-    # Initialize the model
-    model = get_model(cfg).to(cfg["model"]["device"])
+        # Initialize the model
+        model = get_model(cfg).to(cfg["model"]["device"])
 
-    # Initialize the feature extractor
-    # feature_extractor = get_ViTFeatureExtractor(cfg)
+        # Initialize the feature extractor
+        # feature_extractor = get_ViTFeatureExtractor(cfg)
 
-    # Transform samples using features
-    transform = get_transform(cfg)
+        # Transform samples using features
+        transform = get_transform(cfg)
 
-    # apply transformation above to data
-    ds = dataset.with_transform(transform)
+        # apply transformation above to data
+        ds = dataset.with_transform(transform)
 
-    predict(model, ds["test"])
+        for i, batch in enumerate(ds["test"]):
+            print("main loop", i)
+            if i == 10:
+                break
+            predict(model, [batch])
+            # prof.step()
+
+    print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
+    print(prof.key_averages(group_by_input_shape=True).table(sort_by="cpu_time_total", row_limit=30))
 
 
 if __name__ == "__main__":
