@@ -482,7 +482,19 @@ Thus we conclude that our code is not a bottleneck and works efficient enough.
 >
 > Answer:
 
---- question 17 fill here ---
+Bucket / cloud storage
+- A place to store data in the cloud. We used it to store our data.
+
+Compute engine
+- A place to create and access an online server using either a CPU or GPU. These instances can then be used to perform tasks.
+
+which others did you guys end up using?
+- Cloud functions?
+- Triggers
+- Cloud machine learning (i think not but maybe)
+- Cloud console?
+- Container registry?
+
 
 ### Question 18
 
@@ -496,6 +508,7 @@ Thus we conclude that our code is not a bottleneck and works efficient enough.
 > *using a custom container: ...*
 >
 > Answer:
+
 
 --- question 18 fill here ---
 
@@ -591,6 +604,7 @@ Thus we conclude that our code is not a bottleneck and works efficient enough.
 > Answer:
 
 --- question 25 fill here ---
+![drawiofig](figures/draw_io_total_fig_2.png)
 
 ### Question 26
 
@@ -621,4 +635,10 @@ Thus we conclude that our code is not a bottleneck and works efficient enough.
 >
 > Answer:
 
---- question 27 fill here ---
+
+
+Student s194495 (Johan)
+
+Student s204123 (Klaus)
+
+Student s204160 (Andreas) was in charge of writing documentation, writing unit-tests, enforcing typing, profiling and answering this pdf.
