@@ -698,8 +698,9 @@ Student s194495 (Johan)
 
 Student s204123 (Klaus)
 - Creating Docker image in cloud
+- Training model on the cloud from docker image.
 - pre-commit
-- GitHub workflow (Ruff, mypy, pull-request)
+- GitHub workflow with actions for testing code and building and pushing the docker training image.
 - Project writing (assisted)
 
 Student s204160 (Andreas)
