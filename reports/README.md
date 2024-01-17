@@ -183,8 +183,7 @@ The project folder consists of data-handling code, in the data subfolder, our mo
 Our model handling code consists of our model creation and model training files.
 We have removed the visualization code, as we deemed no visualizations other than WandB were needed.
 Additionally, we have removed the notebooks and docs folder because we did not use any notebooks or mkdocs in our project.
-We have added a FastAPI and Dockerfiles folder that contains code for running our FastAPI and Docker images.
-						- OBS are we using these or??
+We have added a FastAPI and Dockerfiles folder that contains code for running our FastAPI and building our Docker images.
 
 ### Question 6
 
@@ -195,16 +194,17 @@ We have added a FastAPI and Dockerfiles folder that contains code for running ou
 >
 > Answer:
 
-We enforce PEP8 code practice using ruff, and we also enforce typing with mypy.
+We enforce PEP8 and format our code with [ruff](https://github.com/astral-sh/ruff), and we also enforce typing with [mypy](https://github.com/python/mypy).
+These tools help us keep our code transparent and more understandble.
 We deem this important as it makes the code more transparent and understandable.
 This is very important when multiple people are working on the same code, as code quickly becomes complex and hard to see through easily.
-Here typing and documentation is essential.
-Typing makes it easy at a quick glance to see what some function does.
-and documentation gives more insight to the inner workings of each individual component.
-We enforced these checks every time pushes to main were attempted.
-The code could then only be pushed if it passed all tests.
+We also require supplying documentation for essential functions (We check this manually.).
+Formatting, typing and documentation make our code more readable and easy to understand.
 
-We also wrote units-tests for our own functions.
+We enforce formatting and typing, whenever a pull request is made to the main branch.
+The main branch cannot be pushed to before the github action which checks these aformentioned things is succesful.
+The action also tests our code, which we will go into in the next question.
+
 ## Version control
 
 > In the following section we are interested in how version control was used in your project during development to
@@ -240,9 +240,9 @@ The data loading tests check if the data can be loaded, if the output of the dat
 >
 > Answer:
 
-As states above we achieve a code coverage of 85%.
+As stated above, we achieve a code coverage of 85%.
 If we achieved 100% we would still not trust that no error could occur.
-This is because it is almost impossible to test every scenario possible we tests like these.
+This is because it is almost impossible to test every scenario possible we tests like these. __We should explain why.__
 This can also be seen in real life, where people are being employed to find bugs in code.
 
 Our code coverage does not include testing through testing of third party packages. We have chosen to assume that these do as expected.
