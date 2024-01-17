@@ -16,14 +16,12 @@ This interaction consists of uploading an image, and then having the probability
 
 - Main framework
 
-We will use [Huggingface’s transformers](https://huggingface.co/docs/transformers/index) as our third-party framwork. This package is responsible for the model and the training loop.
+We will use [Huggingface’s transformers](https://huggingface.co/docs/transformers/index) as our third-party framework. This package is responsible for the model and the training loop.
 
 - Logging
 
 During training and validation we use WandB to log our tests and loss.
 This allows us to monitor training and testing progress easily from anywhere no matter where the process is happening.
-
-We save our models to git checkpoint style.????????????????????
 
 - Version control
 

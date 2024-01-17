@@ -599,8 +599,31 @@ which others did you guys end up using?
 >
 > Answer:
 
---- question 25 fill here ---
+
 ![drawiofig](figures/draw_io_total_fig_2.png)
+The image above describes the architecture of our system, and how all services interact with each other on a general level.
+The graph is built around the main pillars discussed in the course with a few additions for connectivity.
+These main pillars are: Version control, Continuous integration, reproducibility, cloud, and deployment.
+Additionally we have added, code, model and code performance to signify other crucial parts not easily encompassed in the pillars above.
+
+Near the top we have concepts or services used in the project. These include DVC, Git, Ruff etc.
+These then lead into concepts, implementations or other services.
+Ex:
+- Git leads to GitHub, as we use GitHub to host our Git repository.
+- Ruff leads to code-structure/-practice, as it helps enforce good structure and practice directly in our code.
+- FastAPI leads into Evidently AI, as we use FastAPI to serve our Evidently AI monitoring.
+
+At he lowest level we see the main pillars our structure revolves around, and how these interact.
+We also see that Cloud is being served by GCP `compute engine` and that Deployment is being served by GCP `Cloud run`.
+
+Logos represent services we have used.
+Boxes with rounded corners represent ideas or other services we are using. ex we deem pre-commit as a service we are using.
+Boxes with sharp corners represent more general concepts or implementations.
+
+For an example on how to understand it we look at deployment.
+We see that deployment depends on FastAPI and cloud, as it is being served on the cloud using FastAPI.
+We also see that the deployment depends on the model and the inference Docker image, as both of these are needed to perform inference and therefore the deployment of our model.
+We  then also see that the deployment leads into data drift and GCP `Bucket` as we record the given images to estimate if we encounter data drift, and therefore need to update our model.
 
 ### Question 26
 
@@ -614,8 +637,13 @@ which others did you guys end up using?
 >
 > Answer:
 
---- question 26 fill here ---
+The biggest challenge in our project was Docker.
+Getting the Docker image up and running locally wasn't the biggest problem.
+The problem was using and creating it in the cloud.
+... MORE DEATILS ...
 
+Workflow to create Docker image:
+- GPU version took too much space, so we only created a CPU version in the cloud
 ### Question 27
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
@@ -632,9 +660,21 @@ which others did you guys end up using?
 > Answer:
 
 
-
 Student s194495 (Johan)
+- Code setup (CookieCutter, hydra, W&B, DVC)
+- Got code up training and inference on local machine up and running (initial model)
+- FastAPI (and Evidently AI)
+- Project writing (assisted)
 
 Student s204123 (Klaus)
+- Creating Docker image in cloud
+- pre-commit
+- GitHub workflow (Ruff, mypy, pull-request)
+- Project writing (assisted)
 
-Student s204160 (Andreas) was in charge of writing documentation, writing unit-tests, enforcing typing, profiling and answering this pdf.
+Student s204160 (Andreas)
+- Writing documentation,
+- Writing unit-tests,
+- Typing,
+- Profiling
+- Project writing.
