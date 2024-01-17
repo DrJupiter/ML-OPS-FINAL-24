@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to the CIFAR10 Classifier</h1>
+<p>This model was created by fine-tuning Google's Visual Transformer (ViT) model on the CIFAR10 dataset</p>
+<p>The model therefore excels at classying images (or drawings) of airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks</p>
+<p>Upload an image of one of these objects to see how the model performs!</p>
+{% if error_message %}
+<div class="alert alert-danger">
+    {{ error_message }}
+</div>
+{% endif %}
+<div class="centered-form">
+    <form action="/uploadfile/" enctype="multipart/form-data" method="post">
+        <input name="file" type="file">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

@@ -3,15 +3,28 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
     steps:
+
       - uses: actions/checkout@v3
+
+      - name: Authenticate gcloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+        
+      - uses: iterative/setup-dvc@v1
+      - name: Get Data
+        run: dvc pull
+        
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -29,5 +42,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: user/app:latest
-          file: trainer.dockerfile
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/${{secrets.DOCKER_HUB_REPOSITORY}}:latest-cpu
+          file: dockerfiles/train_model.dockerfile
+          context: .

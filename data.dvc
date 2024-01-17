@@ -2,6 +2,69 @@ outs:
 - hash: md5
   path: data
   files:
+  - relpath: cifar-10-batches-py/batches.meta
+    md5: 5ff9c542aee3614f3951f8cda6e48888
+    size: 158
+    cloud:
+      remote_storage:
+        etag: 08aea9dde79fe083031001
+        version_id: '1705351073715374'
+  - relpath: cifar-10-batches-py/data_batch_1
+    md5: c99cafc152244af753f735de768cd75f
+    size: 31035704
+    cloud:
+      remote_storage:
+        etag: 0894b192f99fe083031001
+        version_id: '1705351110236308'
+  - relpath: cifar-10-batches-py/data_batch_2
+    md5: d4bba439e000b95fd0a9bffe97cbabec
+    size: 31035320
+    cloud:
+      remote_storage:
+        etag: 08b19a8cf99fe083031001
+        version_id: '1705351110135089'
+  - relpath: cifar-10-batches-py/data_batch_3
+    md5: 54ebc095f3ab1f0389bbae665268c751
+    size: 31035999
+    cloud:
+      remote_storage:
+        etag: 08a3a2c2fc9fe083031001
+        version_id: '1705351117312291'
+  - relpath: cifar-10-batches-py/data_batch_4
+    md5: 634d18415352ddfa80567beed471001a
+    size: 31035696
+    cloud:
+      remote_storage:
+        etag: 08cbedaafc9fe083031001
+        version_id: '1705351116928715'
+  - relpath: cifar-10-batches-py/data_batch_5
+    md5: 482c414d41f54cd18b22e5b47cb7c3cb
+    size: 31035623
+    cloud:
+      remote_storage:
+        etag: 08da83e8f69fe083031001
+        version_id: '1705351105348058'
+  - relpath: cifar-10-batches-py/readme.html
+    md5: 82949b010606e8171045e61c60921d12
+    size: 88
+    cloud:
+      remote_storage:
+        etag: 08bddbb7e79fe083031001
+        version_id: '1705351073099197'
+  - relpath: cifar-10-batches-py/test_batch
+    md5: 40351d587109b95175f43aff81a1287e
+    size: 31035526
+    cloud:
+      remote_storage:
+        etag: 08969c85fb9fe083031001
+        version_id: '1705351114214934'
+  - relpath: cifar-10-python.tar.gz
+    md5: c58f30108f718f92721af3b95e74349a
+    size: 170498071
+    cloud:
+      remote_storage:
+        etag: 08988f86e79fe083031001
+        version_id: '1705351072286616'
   - relpath: processed/.gitkeep
     md5: d41d8cd98f00b204e9800998ecf8427e
     size: 0
