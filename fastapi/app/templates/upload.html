@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>The CIFAR10 Classifier Prediciton</h1>
+<div class="main-content">
+    <h2>Predicted Label: {{ prediction }}</h2>
+    <h2>Probability: {{ probability | round(3) }}</h2>
+    <p>Press here to submit another image!</p>
+    <a href="/" class="button">Try Again</a>
+</div>
+{% endblock %}

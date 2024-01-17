@@ -15,6 +15,7 @@ jobs:
     steps:
 
       - uses: actions/checkout@v3
+
       - name: Authenticate gcloud
         uses: 'google-github-actions/auth@v2'
         with:
@@ -24,6 +25,7 @@ jobs:
       - name: Get Data
         run: dvc pull
         
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       -
