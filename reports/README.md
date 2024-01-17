@@ -373,15 +373,15 @@ We expect the above to return 42 in most cases.
 >
 > Answer:
 
-We made use of config files through hydra. The config file(s) helped us setting all seeds to the same each time, ensuring that we always used the same initial seeds.
-As such if you were to run the experiment again, you would get the exact same output.
-Additionally, we created a Docker image. Docker images allow easy reproducibility across different hardware and software.
+We made use of config file(s) through Hydra. The config file(s) helped us set all seeds to the same each time, ensuring that we always used the same initial seeds.
+As such if you were to run the experiment again, you would get the same output.
+Additionally, we created a Docker image. Docker images allow easy reproducibility across different hardware and software, as the resulting Docker container would be identical across different systems.
 These two things combined made our experiments very reproducible.
 
 To reproduce our results one would have to:
 Clone our GitHub repository.
-Run the Docker image with the desired goal. We have a Docker image for XXX and XXX. This would then create a Docker container that the user could run for the desired purpose.
-Since we use identical config and Docker the results would then be the exact same.
+Run the Docker image with the desired goal. We have a Docker image for training and one for inference. This would then create a Docker container that the user could run for the desired purpose.
+Since we use identical config and Docker the results would then be the same.
 ### Question 14
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
@@ -397,28 +397,26 @@ Since we use identical config and Docker the results would then be the exact sam
 >
 > Answer:
 
---- question 14 fill here ---
-
-We used WandB as our logging software for our transformer based classification model.
+We used W&B as our logging software for our transformer based classification model.
 We tested training the Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) On the [CIFAR10](https://paperswithcode.com/dataset/cifar-10) dataset.
 Below we will discuss images of our main graph for training and validation.
 
-First we look at the loss curve for our model over its 1870 training steps.
+First, we look at the loss curve for our model over its 1870 training steps.
 Below we see the loss curve for our model:
 ![my_image](figures/train_loss.png)
 We see that the loss falls over time, meaning that the model is improving.
 It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better.
 
-To that the model is actually improving, we look at the validation loss over time:
+To that the model is improving, we look at the validation loss over time:
 ![validationloss](figures/validation_loss.png)
-We also see that the loss deceases over time.
-This also suggest that the model is improving.
+We also see that the loss decreases over time.
+This also suggests that the model is improving.
 The model falls from 0.099 to 0.055, thus the validation loss is about half the original.
 
-To confirm what this actually means for our model, and how good it actually became we look at the classification accuracy.
+To confirm what this means for our model, and how good it became we look at the classification accuracy.
 ![validation_acc](figures/validation_acc.png)
 We see that the performance goes up over time, achieving above 98% accuracy.
-We also notice that the model achieves good performance quite early one. Already at the first validation test, it almost achieves 98%.
+We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 98%.
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
@@ -448,20 +446,22 @@ We also notice that the model achieves good performance quite early one. Already
 >
 > Answer:
 
+--------NOTE----- (change X and remove () in next sentence)
+
 Debugging in our group was done in X main ways. (add more ways if anyone else did anything else)
 We used the debugger in vs-code to find potential bugs.
 This tool is easy to use, but quite powerful.
 
-We did performed both torch profiling and cprofiling on our inference code (on CPU, as the person performing doesn't have NVIDIA GPU).
-In the run we did 10 model predictions on different images. These runs also included everything excluding imports (the data had already been loaded locally).
+We performed both torch profiling and cprofiling on our inference code (on CPU, as the person running the code doesn't have NVIDIA GPU).
+In the run we did 10 model predictions on different images. These runs include everything except imports (the data had already been loaded locally).
 
-The torch profiling runs shows that torch Linear (and thus torch.addmm) are the bottleneck with almost 90% of the CPU time spent on these functions.
-It makes a lot of sense that these function take up most of the time, as they are a large part of what defines an NN.
-The next things unrelated to the above are softmax (3% of the time), copy (0.84%) and layer norm (0.62%).
+The torch profiling runs show that torch Linear (and thus torch.addmm) is the bottleneck with almost 90% of the CPU time spent on these functions.
+It makes a lot of sense that these functions take up most of the time, as they are a large part of what defines an NN.
+The next things unrelated to the above are softmax (3% of the time), copy (0.84%), and layer norm (0.62%).
 
-The cProfiling showed that again torch.nn.linear was taking up the most tottime (20% of total time) seconded by reading of SSLSocket objects (14%). Non of our functions are in top 10 of tottime spenders.
+The cProfiling showed that again torch.nn.linear was taking up the most tottime (20% of total time) seconded by the reading of SSLSocket objects (14%). None of our functions are in the top 10 of tottime spenders.
 
-Thus we conclude that our code is not a bottleneck and works efficient enough.
+Thus we conclude that our code is not a bottleneck and works efficiently enough.
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
