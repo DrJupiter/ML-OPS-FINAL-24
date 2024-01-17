@@ -222,11 +222,13 @@ The action also tests our code, which we will go into in the next question.
 >
 > Answer:
 
-In total we have implemented 5 tests achieving test coverage of 85%.
-Primarily we are testing function we have written ourselves.
-This mainly includes data loading and helper functions for our third-party framework.
-The data loading tests check if the data can be loaded, if the output of the dataloader as the expected shape, and if some random images and labels have the expected shape and type.
+In total, we have implemented 5 tests achieving test coverage of 85%.
+Primarily we are testing functions we have written ourselves.
+This mainly includes data loading and model training helper functions for our third-party framework.
 
+The data loading tests check if the data can be loaded, if the output of the dataloader has the expected shape, and if some random images and labels have the expected shape and type.
+
+The other tests, check if the individual functions work as expected.
 ### Question 8
 
 > **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close**
@@ -243,10 +245,11 @@ The data loading tests check if the data can be loaded, if the output of the dat
 As stated above, we achieve a code coverage of 85%.
 If we achieved 100% we would still not trust that no error could occur.
 This is because it is almost impossible to test every scenario possible we tests like these. __We should explain why.__
+Even if we test all functions it doesn't mean they all work perfectly in all cases.
 This can also be seen in real life, where people are being employed to find bugs in code.
 
-Our code coverage does not include testing through testing of third party packages. We have chosen to assume that these do as expected.
-For larger and more essential applications this would not be optimal, as these third party packages can change, thus impacting the code greatly.
+Our code coverage does not include testing of third-party packages. We have chosen to assume that these do as expected and do not change.
+For larger and more essential applications this would not be optimal, as these third-party packages can change, thus impacting the code greatly.
 
 ### Question 9
 
@@ -261,20 +264,21 @@ For larger and more essential applications this would not be optimal, as these t
 >
 > Answer:
 
-In our group we made use of both branches and pull requests.
+In our group, we made use of both branches and pull requests.
 We made branches for specific topics, deleting them when the topic was concluded.
 We did this so we could easily see what people were working on.
+And if multiple people are working on the same thing they can do so.
 Additionally, this allows a good overview of prior work when visualizing the pushes to the branches and main.
 Before any pull request was accepted to main the code had to be accepted by our GitHub workflow.
 The workflow tested for a few main things.
 1. set up python and install dependencies.
 2. Lint with ruff
-3. Authenticate gcloud
-4. Pull data with dvc
-5. test with pytest
+3. Authenticate Gcloud
+4. Pull data with DVC
+5. test with PyTest
 6. Check types with mypy
 Amount a few other small things.
-- More details can be seen on github
+- More details can be seen on GitHub
 
 ### Question 10
 
@@ -290,12 +294,12 @@ Amount a few other small things.
 > Answer:
 
 We made use of DVC for managing our data.
-Since we only worked with this project on a short time horizon the benefits of DVC were not as apparent as they would be with a long term project.
-The main bonus of DVC is our case was, that DVC allowed cloud services to run without problems and that we made sure we all used the exact same data when running small tests and checks.
-We also used DVC to store our models. This allowed easy transfer of models.
+Since we only worked with this project on a short time horizon the benefits of DVC were not as apparent as they would be with a long-term project.
+The main bonus of DVC in our case was, that DVC allowed cloud services to run without problems and that we could ensure we used the same data when running small tests and checks.
+
 The benefits of DVC come into effect more on larger projects with more people on a longer time horizon.
 Here the data might change more, and more people will need access to it. Therefore it also becomes important that everyone can easily make sure they work with the same data.
-DVC also allows good error tracking, as you can see when errors occurred.
+DVC also allows good error tracking, as you can see when errors occur.
 
 ### Question 11
 
@@ -312,23 +316,21 @@ DVC also allows good error tracking, as you can see when errors occurred.
 
 
 We have done three main things to reduce errors during continuous integration.
-We wrote unit-tests for our own functions. This results in us knowing the individual functions do what we expect, and that they work with the expected input. Our unit tests achieve a coverage of 85%.
+We wrote unit-tests for our functions. This results in us knowing the individual functions do what we expect, and that they work with the expected input. Our unit tests achieve a coverage of 85%.
 
-We also used pull requests to ensure that whenever something was push to main, it would always work.
+We also used pull requests and pre-commits to ensure that whenever something was pushed to main, it would always work.
 To test if the push worked we would run it through a GitHub actions workflow.
 The workflow can be seen here: (https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/.github/workflows/python-app.yml)
 
-Our workflow does not test multiple operating systems even through we use a split between Linux and Windows ourselves.
+Our workflow does not test multiple operating systems even though we use a split between Linux and Windows ourselves.
 If we were to work with this for an extended time, we would implement this, as propagating errors across the systems would be a big problem.
-Currently we only test on Linux, ubuntu-latest, to be more exact.
-We chose this, because this is what our cloud servers would run on, and therefore docker etc.
-We also only test for python 3.10 for similar reasons.
+Currently, we only test on Linux, ubuntu-latest to be more exact.
+We chose this, because this is what our cloud servers run on, and therefore docker etc.
+We also only test for Python 3.10 for similar reasons.
 
-¤ belongs here??¤
-We also developed a workflow for building our Docker image.
-As such we could make sure that our image was always build the same way, and that we could build it in the cloud.
-¤ belongs here??¤
-If not we need to write a bit more
+Together the above makes it difficult to push flawed code to GitHub.
+Therefore our automatic trigger workflow that builds new Docker images after each push, has a high probability of building a working Docker image.
+These Docker images are built directly in the cloud.
 
 ## Running code and tracking experiments
 
@@ -351,7 +353,7 @@ We used hydra as our config method. Therefore we have a file structure with .yam
 We opted for a simple structure, because of the simplicity of our code. Therefore we only have one .yaml file, containing all configs.
 
 Below is an example of how to use hydra.
-Hydra loads in the config file, which contains important information like can be seen below:
+Hydra loads in the config file, which contains important information for the process. This can be seen below:
 ```python
 @hydra.main(version_base=None, config_path="path/to/config/base", config_name="config")
 def very_important_function(cfg):
@@ -360,8 +362,6 @@ def very_important_function(cfg):
 	return answer_to_life
 ```
 We expect the above to return 42 in most cases.
-
-TOO TROLL?
 ### Question 13
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
