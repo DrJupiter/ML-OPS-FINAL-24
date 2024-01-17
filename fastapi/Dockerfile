@@ -15,6 +15,7 @@ COPY requirements_fastapi.txt requirements_fastapi.txt
 RUN pip install -r requirements_fastapi.txt --no-cache-dir
 
 COPY ./app/ ./app/
+COPY ./model/ ./model/
 
 # Naming the training script as the entrypoint for the docker image
 # The "-u" here makes sure that any output from our script e.g. any print(...) statements gets redirected to our terminal

@@ -141,17 +141,6 @@ async def create_upload_file(request: Request, background_tasks: BackgroundTasks
             {"request": request, "error_message": "File type not allowed. Please upload an image (jpeg, png, or gif)."},
         )
 
-    # Check if the model directory exists
-    if not os.path.exists("./model"):
-        # Redirect to the home page with an error message
-        return templates.TemplateResponse(
-            "index.html",
-            {
-                "request": request,
-                "error_message": "Model not found. Please use the update_model endpoint to download the model.",
-            },
-        )
-
     # Read the contents of the file
     contents = await file.read()
 
