@@ -50,44 +50,45 @@ end of the project.
 
 ### Week 1
 
-* [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages
-* [ ] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
-* [ ] Do a bit of code typing and remember to document essential parts of your code
-* [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
-* [ ] Used Hydra to load the configurations and manage your hyperparameters
-* [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
+* [x] Create a git repository
+* [x] Make sure that all team members have write access to the github repository
+* [x] Create a dedicated environment for you project to keep track of your packages
+* [x] Create the initial file structure using cookiecutter
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project
+* [x] Do a bit of code typing and remember to document essential parts of your code
+* [x] Setup version control for your data or part of your data
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
+* [x] Used Hydra to load the configurations and manage your hyperparameters
+* [x] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+* [x] Use Huggingface (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Write unit tests related to the data part of your code
+* [x] Write unit tests related to model construction and or model training
+* [x] Calculate the coverage.
+* [x] Get some continuous integration running on the github repository
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [x] Create a trigger workflow for automatically building your docker images
+* [x] Get your model training in GCP using either the Engine or Vertex AI
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [x] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
 * [ ] Check how robust your model is towards data drifting
-* [ ] Setup monitoring for the system telemetry of your deployed model
-* [ ] Setup monitoring for the performance of your deployed model
+* [x] Setup monitoring for the system telemetry of your deployed model
+* [x] Setup monitoring for the performance of your deployed model
 * [ ] If applicable, play around with distributed data loading
 * [ ] If applicable, play around with distributed model training
 * [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
@@ -130,13 +131,11 @@ s194495, s204123, s204160
 > Answer:
 
 We used the third-party framework [Huggingface’s transformers](https://huggingface.co/docs/transformers/index) in our project.
-We used the pretrained Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`. This allowed us to easily download and use a strong model.
+We used the pretrained Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`. This allowed us to easily finetune a good pretrained model.
 We then used transformers' `TrainingArguments` and `Trainer` to finetune the model.
-Here we had to define some helper function. Other than that the `Trainer` class did most of the work.
-
-Additionally we used `ViTImageProcessor` to process and transform it so it fit the model.
-
-We also used [Huggingface’s datasets](https://huggingface.co/docs/datasets/index) to find and load our data.
+The `ViT` framework also included helper functions for data preprocessing.
+We used these helper functions to build the data loader.
+We download our data with [Huggingface’s datasets](https://huggingface.co/docs/datasets/index).
 
 MORE?????
 ## Coding environment
@@ -156,17 +155,14 @@ MORE?????
 >
 > Answer:
 
-We managed our environment dependencies through a requirements.txt file.
-Whenever we downloaded a package we added it to the requirements file.
-We ended up with a total of 3 requirements files, each for a specific use.
-One just to run the code using CUDA,
-One to run the code on CPU,
-and one to run tests on the code.
-To get a complete copy, one would then run pip install the requirements.txt.
-We found that the auto-generated requirements files, like `pip freeze > requirements.txt`, when installed often gave errors.
-Therefore, we opted to do it manually.
+We mange our python dependecies for local development and docker cpu builds in the [requirements.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements.txt) file.
+When we download a new package, we add it to the requirements file. _We don't use `pipreqs`, because the requirements.txt it generated didn't work properly, when running `pip install -r requirements.txt`_.
+Run `pip install -r requirements.txt` to obtain a copy of our development environment.
 
-Additionally we created a Docker image, that can run our code. So this could also be used to get an exact copy.
+In the project, we also have a requirements file: [requirements_docker_gpu.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements_docker_gpu.txt), which is only to be used, when building the docker image to run on the gpu.
+_The difference between the `requirements` and `requirements_docker_cpu` is the later doesn't install pytorch as a version compiled by NVIDIA is used instead._
+
+<!-- Additionally we created a Docker image, that can run our code. So this could also be used to get an exact copy. -->
 
 ### Question 5
 
@@ -181,7 +177,7 @@ Additionally we created a Docker image, that can run our code. So this could als
 > *experiments.*
 > Answer:
 
-From the cookiecutter template we have filled out the project, tests, reports, and model folders.
+From the [cookiecutter template](https://github.com/SkafteNicki/mlops_template) we have filled out the project, tests, reports, and model folders.
 The project folder consists of data-handling code, in the data subfolder, our model handlings code in our model subfolder.
 Our model handling code consists of our model creation and model training files.
 We have removed the visualisation code, as we deemed no visualisations other than WandB were needed.
