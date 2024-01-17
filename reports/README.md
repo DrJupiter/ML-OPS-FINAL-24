@@ -69,6 +69,7 @@ end of the project.
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+* [x] Use Huggingface (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
@@ -86,8 +87,8 @@ end of the project.
 ### Week 3
 
 * [ ] Check how robust your model is towards data drifting
-* [ ] Setup monitoring for the system telemetry of your deployed model
-* [ ] Setup monitoring for the performance of your deployed model
+* [x] Setup monitoring for the system telemetry of your deployed model
+* [x] Setup monitoring for the performance of your deployed model
 * [ ] If applicable, play around with distributed data loading
 * [ ] If applicable, play around with distributed model training
 * [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
@@ -130,13 +131,13 @@ s194495, s204123, s204160
 > Answer:
 
 For this project we used the third-party framework [Huggingface’s transformers](https://huggingface.co/docs/transformers/index).
-We chose the pre-trained Vision Transformer (ViT) model originally proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`. This allowed us to easily download and use a strong model.
+We chose the pre-trained Vision Transformer (ViT) model originally proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`.
 We then used transformers' `TrainingArguments` and `Trainer` to finetune the model to CIFAR10.
-Here we had to define some helper functions. Other than that the `Trainer` class did most of the work.
+The `ViT` framework also included helper functions for data preprocessing.
+We used these helper functions to build the data loader.
+We download our data with [Huggingface’s datasets](https://huggingface.co/docs/datasets/index).
+To tie it all together we had to write a few helper fucntions.1
 
-We also used `ViTImageProcessor` to process and transform the data to fit the models input.
-
-We also used [Huggingface’s datasets](https://huggingface.co/docs/datasets/index) to find and load our data.
 
 ## Coding environment
 
@@ -155,9 +156,14 @@ We also used [Huggingface’s datasets](https://huggingface.co/docs/datasets/ind
 >
 > Answer:
 
-We managed our environment dependencies through a requirements.txt file. Whenever we downloaded a package we added it to the requirements file. We ended up with a total of 3 requirements files, each for a specific use. One just to run the code using CUDA, One to run the code on CPU, and one to run tests on the code. To get a complete copy, one would then run pip install the requirements.txt. We found that the auto-generated requirements files, like `pip freeze > requirements.txt`, when installed often gave errors. Therefore, we opted to do it manually.
+We mange our python dependecies for local development and docker cpu builds in the [requirements.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements.txt) file.
+When we download a new package, we add it to the requirements file. _We don't use `pipreqs`, because the requirements.txt it generated didn't work properly, when running `pip install -r requirements.txt`_.
+Run `pip install -r requirements.txt` to obtain a copy of our development environment.
 
-Additionally, we created a Docker image, that can run our code. So this could also be used to get an exact copy.
+In the project, we also have a requirements file: [requirements_docker_gpu.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements_docker_gpu.txt), which is only to be used, when building the docker image to run on the gpu.
+_The difference between the `requirements` and `requirements_docker_cpu` is the later doesn't install pytorch as a version compiled by NVIDIA is used instead._
+
+<!-- Additionally we created a Docker image, that can run our code. So this could also be used to get an exact copy. -->
 
 ### Question 5
 
@@ -172,8 +178,8 @@ Additionally, we created a Docker image, that can run our code. So this could al
 > *experiments.*
 > Answer:
 
-From the cookiecutter template, we have filled out the project, tests, reports, and model folders.
-The project folder consists of data-handling code, in the data subfolder, and our model handling code in our model subfolder.
+From the [cookiecutter template](https://github.com/SkafteNicki/mlops_template) we have filled out the project, tests, reports, and model folders.
+The project folder consists of data-handling code, in the data subfolder, our model handlings code in our model subfolder.
 Our model handling code consists of our model creation and model training files.
 We have removed the visualization code, as we deemed no visualizations other than WandB were needed.
 Additionally, we have removed the notebooks and docs folder because we did not use any notebooks or mkdocs in our project.
