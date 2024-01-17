@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ViT CIFAR10 Classifier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        /* Removed the display:flex and other flex-related styles here */
+        background-color: white;
+        color: black;
+    }
+    
+    
+    .header {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    h1 {
+        font-size: 50px;
+        font-weight: bolder;
+    }
+    
+    h2 {
+        font-size: 25px;
+        font-weight: bolder;
+        padding-bottom: 5px !important
+    }
+    
+    p {
+        font-size: 20px;
+        padding-bottom: 5px;
+    }
+    .centered-form {
+        display: flex;
+        padding-top: 5% !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+    }
+    input[type="file"], input[type="submit"] {
+        width: 80%;
+        margin: 20px 0;
+        display: block;
+    }
+    input[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    
+    .main-content {
+        display: flex;
+        padding-top: 5% !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        width: 100%; /* Ensures it takes the full width */
+    }
+    
+    /* This section is for the navbar which should span the full width */
+    .navbar {
+        width: 100%;
+        background-color: black !important; /* Dark background */
+    }
+    
+    .navbar a {
+        display: inline-block; /* Changed from float to inline-block */
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-weight: bolder;
+    }
+    
+    .navbar-dark .navbar-nav .nav-link {
+        color: rgba(255,255,255,1) !important;
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+        <a class="navbar-brand" href="/">ViT CIFAR10 Classifier</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="/monitoring">Monitoring</a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+<!-- Bootstrap JavaScript Bundle which includes Popper.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
