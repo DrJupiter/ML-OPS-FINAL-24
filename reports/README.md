@@ -478,18 +478,12 @@ Thus we conclude that our code is not a bottleneck and works efficient enough.
 >
 > Answer:
 
-Bucket / cloud storage
-- A place to store data in the cloud. We used it to store our data.
 
-Compute engine
-- A place to create and access an online server using either a CPU or GPU. These instances can then be used to perform tasks.
+We use the following services: Compute Engine, Bucket, Cloud Run.
+The compute engine is used for training the model from our train docker image.
+The bucket is used for storing our data, trained models and telemetry.
+The Cloud run service deploys our application through our fastapi docker image.
 
-which others did you guys end up using?
-- Cloud functions?
-- Triggers
-- Cloud machine learning (i think not but maybe)
-- Cloud console?
-- Container registry?
 
 
 ### Question 18
@@ -506,7 +500,13 @@ which others did you guys end up using?
 > Answer:
 
 
---- question 18 fill here ---
+We use the compute engine service to train our model.
+To do this we instancite a new VM with a V100 GPU with a preset image that includes NVIDIA DRIVERS.
+We then curl the [docker_train.sh](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/dockerfiles/docker_train.sh) script and run it.
+The script sets up allowing a docker image to access gpus, downloads our training docker image and runs it.
+The script also exposes a docker volume to the VM instance.
+After the model is trained it is saved to this volume and exported to a bucket.
+
 
 ### Question 19
 
@@ -549,7 +549,16 @@ which others did you guys end up using?
 >
 > Answer:
 
---- question 22 fill here ---
+We deploy our model with the cloud run service.
+This is done by compiling a FastApi docker image and using it as the base for the cloud run.
+The website can be accessed at: __INSET LINK__. _(Assuming we haven't shut the website down at this point.)_
+Our service provides serveral end points. The main one is uploading an image and having the model classify it.
+The second is updating our model on the fly, in case we train a new one.
+The third is logging and checking for data drifting with Evendently AI.
+
+__We see axamples of this below__
+
+
 
 ### Question 23
 
@@ -564,7 +573,11 @@ which others did you guys end up using?
 >
 > Answer:
 
---- question 23 fill here ---
+We implement monotering with evidently ai.
+We monitar model's final layer before softmax.
+We compare the features produced during inference on submitted images to features produced from the training data.
+This allows us to detect data drifting and retrain the model on submitted images, if we deem it necessary.
+
 
 ### Question 24
 
@@ -579,6 +592,9 @@ which others did you guys end up using?
 > Answer:
 
 --- question 24 fill here ---
+Group member s204123 spent approximately 1 USD.
+Group member <JOHAN> spent approximately __XXX USD__.
+In total we spent __XXX USD__.
 
 ## Overall discussion of project
 
@@ -637,13 +653,26 @@ We  then also see that the deployment leads into data drift and GCP `Bucket` as 
 >
 > Answer:
 
-The biggest challenge in our project was Docker.
-Getting the Docker image up and running locally wasn't the biggest problem.
-The problem was using and creating it in the cloud.
-... MORE DEATILS ...
 
-Workflow to create Docker image:
-- GPU version took too much space, so we only created a CPU version in the cloud
+Below we detail the most challenging problems for the tools we used in the project _(If the tool is not listed, then the time it took to setup, was the biggest struggle with the tool.)_.
+
+__mypy__:
+
+__pre-commit__: Figuring out a good setup for the project and how to write it. We added actions over time to prevent accidently uploading sensitive files such as key-files.
+
+__github actions__: Getting dvc to pull the data correctly. The docker image required work in terms of running out of space, which is also why we only build the version without NVIDIA's pre built image.
+
+__compute engine__: We struggled with getting the compute VM to use our image correctly and run it on the gpu.
+
+__docker__: We struggled figuring out how to lower compile times. It was also a struggle to get the image running on the cloud and on the gpu.
+
+__cloud run__:
+
+__fast-api__:
+
+__evidently ai__:
+
+
 ### Question 27
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
