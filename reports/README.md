@@ -401,16 +401,26 @@ We used W&B as our logging software for our transformer based classification mod
 We tested training the Vision Transformer (ViT) model proposed in [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) On the [CIFAR10](https://paperswithcode.com/dataset/cifar-10) dataset.
 Below we will discuss images of our main graph for training and validation.
 
-First, we look at the loss curve for our model over its 1870 training steps.
+First, we look at the loss curve for our model over its 2500 training steps.
 Below we see the loss curve for our model:
+<<<<<<< Updated upstream
 ![train_loss](figures/train_loss.png)
+=======
+![train_loss](figures/train_loss2.png)
+
+>>>>>>> Stashed changes
 We see that the loss falls over time, meaning that the model is improving.
 The reason for in including the training loss is to see how our model improves during training. The problem with this measure is that we can't detect overfitting.
 <!-- Describe why we log the training loss -->
 <!-- It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better. -->
 
 To validate that the model is improving, we look at the validation loss over time:
+<<<<<<< Updated upstream
 ![validationloss](figures/validation_loss.png)
+=======
+![validationloss](figures/validation_loss2.png)
+
+>>>>>>> Stashed changes
 We also see that the loss decreases over time.
 This also suggests that the model is improving.
 We include validation loss because it is more accurate than training loss. The main downside is that it takes more computational time to compute it compared to training loss. Therefore it is not evaluated as often. Additionally, validation loss can in combination with training loss be used to evaluate if the model is overfit to the data.
@@ -418,13 +428,21 @@ We include validation loss because it is more accurate than training loss. The m
 <!-- Explain why we log the validation loss-->
 
 To confirm what this means for our model, and how good it became we look at the classification accuracy.
+<<<<<<< Updated upstream
 ![validation_acc](figures/validation_acc.png)
+=======
+![validation_acc](figures/validation_acc2.png)
+>>>>>>> Stashed changes
 We see that the performance goes up over time, achieving above 98% accuracy.
-We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 98%.
+We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 95%.
 The reason for including accuracy is to see how good our model actually is.
 <!-- Explain why we test the accuracy-->
 
+<<<<<<< Updated upstream
 ### Question 15 [Done] Klaus
+=======
+### Question 15
+>>>>>>> Stashed changes
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
 > **experiments? Include how you would run your docker images and include a link to one of your docker files.**
@@ -718,7 +736,7 @@ __pre-commit__: Figuring out a good setup for the project and how to write it. W
 
 __github actions__: Getting DVC to pull the data correctly. The docker image required work in terms of running out of space, which is also why we only built the version without NVIDIA's pre-built image.
 
-__compute engine__: We struggled with getting the compute VM to use our image correctly and run it on the GPU. We spent a lot of time and credits figuring out how to get a VM instance with the correct CUDA driver and Python version. 
+__compute engine__: We struggled with getting the compute VM to use our image correctly and run it on the GPU. We spent a lot of time and credits figuring out how to get a VM instance with the correct CUDA driver and Python version.
 
 __docker__: We struggled figuring out how to lower compile times. It was also a struggle to get the image running on the cloud and on the GPU.
 
