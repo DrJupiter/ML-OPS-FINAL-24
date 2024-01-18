@@ -101,14 +101,14 @@ end of the project.
 
 ## Group information
 
-### Question 1
+### Question 1 [✔]
 > **Enter the group number you signed up on <learn.inside.dtu.dk>**
 >
 > Answer:
 
-24
+24.
 
-### Question 2
+### Question 2 [✔]
 > **Enter the study number for each member in the group**
 >
 > Example:
@@ -117,9 +117,10 @@ end of the project.
 >
 > Answer:
 
-s194495, s204123, s204160
+s194495, s204123, s204160.
 
-### Question 3
+
+### Question 3 [✔]
 > **What framework did you choose to work with and did it help you complete the project?**
 >
 > Answer length: 100-200 words.
@@ -131,19 +132,19 @@ s194495, s204123, s204160
 > Answer:
 
 For this project we used the third-party framework [Huggingface’s transformers](https://huggingface.co/docs/transformers/index).
-We chose the pre-trained Vision Transformer (ViT) model originally proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`.
-We then used transformers' `TrainingArguments` and `Trainer` to finetune the model to CIFAR10.
+We chose the pre-trained Vision Transformer (ViT) model originally proposed in [n Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). We loaded this model using transformers' `ViTImageProcessor.from_pretrained()`.
+We then used transformers `TrainingArguments` and `Trainer` to finetune the model to CIFAR10.
 The `ViT` framework also included helper functions for data preprocessing.
 We used these helper functions to build the data loader.
-We download our data with [Huggingface’s datasets](https://huggingface.co/docs/datasets/index).
-To tie it all together we had to write a few helper fucntions.1
+We downloaded our data with [Huggingface’s datasets](https://huggingface.co/docs/datasets/index).
+To tie it all together we had to write a few helper functions. In general, the framework made it much easier to implement and fine-tune a visual Transformer model. There was significantly less boilerplate code and we were able to focus on ML Ops rather than the complex underpinnings of the model architecture and setup.
 
 
 ## Coding environment
 
 > In the following section we are interested in learning more about you local development environment.
 
-### Question 4
+### Question 4 [] Johan
 
 > **Explain how you managed dependencies in your project? Explain the process a new team member would have to go**
 > **through to get an exact copy of your environment.**
@@ -156,16 +157,19 @@ To tie it all together we had to write a few helper fucntions.1
 >
 > Answer:
 
-We mange our python dependecies for local development and docker cpu builds in the [requirements.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements.txt) file.
-When we download a new package, we add it to the requirements file. _We don't use `pipreqs`, because the requirements.txt it generated didn't work properly, when running `pip install -r requirements.txt`_.
-Run `pip install -r requirements.txt` to obtain a copy of our development environment.
+We manage our Python dependencies for local development and docker CPU
+builds in the [requirements.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements.txt) file.
+When we download a new package, we add it to the requirements file. _(We don't use `pipreqs`, because the requirements.txt it generated didn't work properly, when running `pip install -r requirements.txt`)_.
+One should run `pip install -r requirements.txt` to obtain a copy of our development environment.
 
 In the project, we also have a requirements file: [requirements_docker_gpu.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements_docker_gpu.txt), which is only to be used, when building the docker image to run on the gpu.
 _The difference between the `requirements` and `requirements_docker_cpu` is the later doesn't install pytorch as a version compiled by NVIDIA is used instead._
 
+- There is also a requirments.txt for the FastAPI application
+
 <!-- Additionally we created a Docker image, that can run our code. So this could also be used to get an exact copy. -->
 
-### Question 5
+### Question 5 [x]
 
 > **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your**
 > **code. Did you fill out every folder or only a subset?**
@@ -178,14 +182,15 @@ _The difference between the `requirements` and `requirements_docker_cpu` is the 
 > *experiments.*
 > Answer:
 
-From the [cookiecutter template](https://github.com/SkafteNicki/mlops_template) we have filled out the project, tests, reports, and model folders.
+From the [cookiecutter template](https://github.com/SkafteNicki/mlops_template) we have filled out the folders for: project, tests, reports, and model.
 The project folder consists of data-handling code, in the data subfolder, our model handlings code in our model subfolder.
 Our model handling code consists of our model creation and model training files.
 We have removed the visualization code, as we deemed no visualizations other than WandB were needed.
 Additionally, we have removed the notebooks and docs folder because we did not use any notebooks or mkdocs in our project.
 We have added a FastAPI and Dockerfiles folder that contains code for running our FastAPI and building our Docker images.
 
-### Question 6
+
+### Question 6 [x]
 
 > **Did you implement any rules for code quality and format? Additionally, explain with your own words why these**
 > **concepts matters in larger projects.**
@@ -194,10 +199,9 @@ We have added a FastAPI and Dockerfiles folder that contains code for running ou
 >
 > Answer:
 
-We enforce PEP8 and format our code with [ruff](https://github.com/astral-sh/ruff), and we also enforce typing with [mypy](https://github.com/python/mypy).
-These tools help us keep our code transparent and more understandble.
-We deem this important as it makes the code more transparent and understandable.
-This is very important when multiple people are working on the same code, as code quickly becomes complex and hard to see through easily.
+We enforce PEP8 and format our code with [ruff](https://github.com/astral-sh/ruff), and we also enforce typing with [mypy](https://github.com/python/mypy). <!-- These tools help us keep our code transparent and more understandable. -->
+We deem this important as it makes the code more transparent and understandable. This increases the reproducibility of our project.
+Readability and transparency are very important when multiple people are working on the same code, as code quickly becomes complex and hard to see through easily.
 We also require supplying documentation for essential functions (We check this manually.).
 Formatting, typing and documentation make our code more readable and easy to understand.
 
@@ -210,7 +214,7 @@ The action also tests our code, which we will go into in the next question.
 > In the following section we are interested in how version control was used in your project during development to
 > corporate and increase the quality of your code.
 
-### Question 7
+### Question 7 [] Andreas
 
 > **How many tests did you implement and what are they testing in your code?**
 >
@@ -223,13 +227,15 @@ The action also tests our code, which we will go into in the next question.
 > Answer:
 
 In total, we have implemented 5 tests achieving test coverage of 85%.
-Primarily we are testing functions we have written ourselves.
-This mainly includes data loading and model training helper functions for our third-party framework.
+We primarily test functions we have written ourselves.
+Our tests are for data loading, model, and training helper functions for our third-party framework.
 
 The data loading tests check if the data can be loaded, if the output of the dataloader has the expected shape, and if some random images and labels have the expected shape and type.
 
 The other tests, check if the individual functions work as expected.
-### Question 8
+- ^ Less vauge  (max 20 words)
+
+### Question 8 [] Klaus
 
 > **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -244,16 +250,23 @@ The other tests, check if the individual functions work as expected.
 
 As stated above, we achieve a code coverage of 85%.
 If we achieved 100% we would still not trust that no error could occur.
-This is because it is almost impossible to test every scenario possible we tests like these. __We should explain why.__
+<!-- This is because it is almost impossible to test every scenario possible with tests like these. __We should explain why.__ -->
 Even if we test all functions it doesn't mean they all work perfectly in all cases.
-This can also be seen in real life, where people are being employed to find bugs in code.
+Furthermore, a coverage test only tests how much of the code base is running which does not equate to test coverage of the actual functionality.
+This an ongoing problem, in the industry people are employed to find bugs.
+<!-- The problem is evident  can also be seen in real life, where people are employed to find bugs in code. -->
+<!-- The fact that all code cannot be perfectly tested can also be seen in real life... -->
 
-Our code coverage does not include testing of third-party packages. We have chosen to assume that these do as expected and do not change.
-For larger and more essential applications this would not be optimal, as these third-party packages can change, thus impacting the code greatly.
+- ^ formulate the above better
 
-### Question 9
+Our code coverage does not include testing of third-party packages.
+We have chosen to assume that these do as expected.
+Testing of model loading was not implemented as it is quite demanding in terms of memory requirements.
+For larger and more essential applications this would not be optimal, as these third-party packages can change with new updates, thus impacting the code greatly.
 
-> **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
+### Question 9 [x]
+
+> **Did your workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
 > **pull request can help improve version control.**
 >
 > Answer length: 100-200 words.
@@ -271,16 +284,14 @@ And if multiple people are working on the same thing they can do so.
 Additionally, this allows a good overview of prior work when visualizing the pushes to the branches and main.
 Before any pull request was accepted to main the code had to be accepted by our GitHub workflow.
 The workflow tested for a few main things.
-1. set up python and install dependencies.
+1. Set up Python and install dependencies.
 2. Lint with ruff
-3. Authenticate Gcloud
-4. Pull data with DVC
-5. test with PyTest
-6. Check types with mypy
-Amount a few other small things.
-- More details can be seen on GitHub
+3. Pull data with DVC
+4. Test with PyTest
+5. Check types with mypy
+> More details can be seen on GitHub
 
-### Question 10
+### Question 10 [x]
 
 > **Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version**
 > **control of your data. If no, explain a case where it would be beneficial to have version control of your data.**
@@ -293,17 +304,14 @@ Amount a few other small things.
 >
 > Answer:
 
-We made use of DVC for managing our data.
-Since we only worked with this project on a short time horizon the benefits of DVC were not as apparent as they would be with a long-term project.
-The main bonus of DVC in our case was, that DVC allowed cloud services to run without problems and that we could ensure we used the same data when running small tests and checks.
+In our project, we utilized Data Version Control (DVC) to manage our data. However, given the short duration of our project, the advantages of DVC weren't as evident. The primary benefit we experienced was DVC's seamless integration with cloud services, ensuring consistent data usage across various tests and checks.
 
-The benefits of DVC come into effect more on larger projects with more people on a longer time horizon.
-Here the data might change more, and more people will need access to it. Therefore it also becomes important that everyone can easily make sure they work with the same data.
-DVC also allows good error tracking, as you can see when errors occur.
+DVC's effectiveness is more pronounced in larger, long-term projects involving more team members, particularly in sectors like Data Security where data is constantly incoming. In such environments, frequent data changes and the need for multiple access points make it crucial for everyone to work with the same data set. Effective data tagging by the development team enhances this process, allowing for the restoration to previous data version if errors arise.
 
-### Question 11
 
-> **Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test**
+### Question 11 [] Klaus
+
+> **Discuss your continuous integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test**
 > **multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of**
 > **your github actions workflow.**
 >
@@ -316,9 +324,10 @@ DVC also allows good error tracking, as you can see when errors occur.
 
 
 We have done three main things to reduce errors during continuous integration.
-We wrote unit-tests for our functions. This results in us knowing the individual functions do what we expect, and that they work with the expected input. Our unit tests achieve a coverage of 85%.
 
-We also used pull requests and pre-commits to ensure that whenever something was pushed to main, it would always work.
+Firstly, we wrote unit-tests for our functions. This results in us knowing the individual functions do what we expect, and that they work with the expected input. Our unit tests achieve a coverage of 85%.
+
+Secondly, we also used pull requests and pre-commits to ensure that whenever something was pushed to main, it would always work.
 To test if the push worked we would run it through a GitHub actions workflow.
 The workflow can be seen here: (https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/.github/workflows/python-app.yml)
 
@@ -332,12 +341,14 @@ Together the above makes it difficult to push flawed code to GitHub.
 Therefore our automatic trigger workflow that builds new Docker images after each push, has a high probability of building a working Docker image.
 These Docker images are built directly in the cloud.
 
+- Restructure this paragraph: we have these workflows, the workflows test this, the workflows are good because...
+
 ## Running code and tracking experiments
 
 > In the following section we are interested in learning more about the experimental setup for running your code and
 > especially the reproducibility of your experiments.
 
-### Question 12
+### Question 12 [x]
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
 > **run a experiment.**
@@ -355,14 +366,15 @@ We opted for a simple structure, because of the simplicity of our code. Therefor
 Below is an example of how to use hydra.
 Hydra loads in the config file, which contains important information for the process. This can be seen below:
 ```python
-@hydra.main(version_base=None, config_path="path/to/config/base", config_name="config")
+@hydra.main(config_path="path/to/config/base", config_name="config")
 def very_important_function(cfg):
 	secret_of_the_universe = cfg.universe.secrects["most_important_secret"]
-	answer_to_life = model.forward(secret_of_the_universe)
-	return answer_to_life
+	model_answering_life = Model(secret_of_the_universe)
+	return model_answering_life
 ```
-We expect the above to return 42 in most cases.
-### Question 13
+To run a different experiment (different model), we would change the config file.
+<!-- We expect the above to return 42 in most cases. -->
+### Question 13 [x]
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
 > **is lost when running experiments and that your experiments are reproducible?**
@@ -379,12 +391,11 @@ We made use of config file(s) through Hydra. The config file(s) helped us set al
 As such if you were to run the experiment again, you would get the same output.
 Additionally, we created a Docker image. Docker images allow easy reproducibility across different hardware and software, as the resulting Docker container would be identical across different systems.
 These two things combined made our experiments very reproducible.
+If one wishes to run a particular experiment, the corresponding docker image can be found on docker hub.
+This is because, changing the config requires building a new image.
+Thus each image is associated with a specific config file/experiment.
 
-To reproduce our results one would have to:
-Clone our GitHub repository.
-Run the Docker image with the desired goal. We have a Docker image for training and one for inference. This would then create a Docker container that the user could run for the desired purpose.
-Since we use identical config and Docker the results would then be the same.
-### Question 14
+### Question 14 [] Andreas
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
@@ -400,26 +411,32 @@ Since we use identical config and Docker the results would then be the same.
 > Answer:
 
 We used W&B as our logging software for our transformer based classification model.
-We tested training the Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) On the [CIFAR10](https://paperswithcode.com/dataset/cifar-10) dataset.
+We tested training the Vision Transformer (ViT) model proposed in [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) On the [CIFAR10](https://paperswithcode.com/dataset/cifar-10) dataset.
 Below we will discuss images of our main graph for training and validation.
 
 First, we look at the loss curve for our model over its 1870 training steps.
 Below we see the loss curve for our model:
-![my_image](figures/train_loss.png)
+![train_loss](figures/train_loss.png)
 We see that the loss falls over time, meaning that the model is improving.
-It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better.
 
-To that the model is improving, we look at the validation loss over time:
+- Describe why we log the training loss
+<!-- It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better. -->
+
+To validate the model is improving, we look at the validation loss over time:
 ![validationloss](figures/validation_loss.png)
 We also see that the loss decreases over time.
 This also suggests that the model is improving.
-The model falls from 0.099 to 0.055, thus the validation loss is about half the original.
+<!-- The model falls from 0.099 to 0.055, thus the validation loss is about half the original. -->
+- Explain why we log the validation loss
 
 To confirm what this means for our model, and how good it became we look at the classification accuracy.
 ![validation_acc](figures/validation_acc.png)
 We see that the performance goes up over time, achieving above 98% accuracy.
 We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 98%.
-### Question 15
+
+- Explain why we test the accuracy
+
+### Question 15 [] Klaus
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
 > **experiments? Include how you would run your docker images and include a link to one of your docker files.**
@@ -433,9 +450,10 @@ We also notice that the model achieves good performance quite early on. Already 
 > Answer:
 
 (docker-link)[https://hub.docker.com/repository/docker/drjupiter/mlops24/general]
---------- question 15 fill here --------------
 
-### Question 16
+- Answer this question
+
+### Question 16 [x]
 
 > **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you**
 > **try to profile your code or do you think it is already perfect?**
@@ -448,27 +466,25 @@ We also notice that the model achieves good performance quite early on. Already 
 >
 > Answer:
 
---------NOTE----- (change X and remove () in next sentence)
-
-Debugging in our group was done in X main ways. (add more ways if anyone else did anything else)
-We used the debugger in vs-code to find potential bugs.
-This tool is easy to use, but quite powerful.
+Our project code was debugged with the vs-code debugger.
+Our github actions were debugged by seeing if the action was succesful or not, and chaning them till they were succesful.
 
 We performed both torch profiling and cprofiling on our inference code (on CPU, as the person running the code doesn't have NVIDIA GPU).
-In the run we did 10 model predictions on different images. These runs include everything except imports (the data had already been loaded locally).
+In the run we did 10 model predictions on different images. These runs include everything except imports (the data had already been loaded locally, so data download was not necessary).
 
 The torch profiling runs show that torch Linear (and thus torch.addmm) is the bottleneck with almost 90% of the CPU time spent on these functions.
-It makes a lot of sense that these functions take up most of the time, as they are a large part of what defines an NN.
+It makes a lot of sense that these functions take up most of the time, as they are a large part of what defines our model.
 The next things unrelated to the above are softmax (3% of the time), copy (0.84%), and layer norm (0.62%).
 
 The cProfiling showed that again torch.nn.linear was taking up the most tottime (20% of total time) seconded by the reading of SSLSocket objects (14%). None of our functions are in the top 10 of tottime spenders.
 
 Thus we conclude that our code is not a bottleneck and works efficiently enough.
+
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17
+### Question 17 [x]
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -480,14 +496,15 @@ Thus we conclude that our code is not a bottleneck and works efficiently enough.
 > Answer:
 
 
-We use the following services: Compute Engine, Bucket, Cloud Run.
+In our project, we use the following services: Compute Engine, Bucket, Cloud Run, the container registry.
 The compute engine is used for training the model from our train docker image.
 The bucket is used for storing our data, trained models and telemetry.
 The Cloud run service deploys our application through our fastapi docker image.
+We utilize the GCP's container registry to store our images for further use.
 
 
 
-### Question 18
+### Question 18 [x]
 
 > **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
 > **you used?**
@@ -501,15 +518,16 @@ The Cloud run service deploys our application through our fastapi docker image.
 > Answer:
 
 
-We use the compute engine service to train our model.
-To do this we instancite a new VM with a V100 GPU with a preset image that includes NVIDIA DRIVERS.
+We use the compute engine service to train our model on the cloud.
+To do this we instantiate a new VM with a V100 GPU with a preset image that includes NVIDIA DRIVERS.
 We then curl the [docker_train.sh](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/dockerfiles/docker_train.sh) script and run it.
-The script sets up allowing a docker image to access gpus, downloads our training docker image and runs it.
+The script configures the VM so that a docker container can access GPUs, the script then downloads our training docker image, and runs the docker training image.
 The script also exposes a docker volume to the VM instance.
 After the model is trained it is saved to this volume and exported to a bucket.
+From the bucket, we can then pull the model and deploy it in production for inference.
 
 
-### Question 19
+### Question 19 [] Johan
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
@@ -518,25 +536,31 @@ After the model is trained it is saved to this volume and exported to a bucket.
 
 Main folder top right.
 ![bucketimg](figures/Bucket_img.png)
-### Question 20
+
+- Update the images and add some helper text to describe the images.
+
+### Question 20 [] Johan
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
 > **You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
+<!-- ![containerReg](figures/containerReg.png) -->
+In the image above we see some of the many images that were pushed to the container registry throughout this project.
+The latest image of the top container is used for our FastAPI application. The naming convention is caused by the fact that the image was pushed to a specific directory on docker Hub such that we have a single collection of all the different images we made in the group.
 
---- question 20 fill here ---
+- TODO take picture again
 
-### Question 21
+### Question 21 [] Klaus
 
 > **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
 
---- question 21 fill here ---
+- TODO explain we did this with github instead.
 
-### Question 22
+### Question 22 [] Johan
 
 > **Did you manage to deploy your model, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -552,16 +576,21 @@ Main folder top right.
 
 We deploy our model with the cloud run service.
 This is done by compiling a FastApi docker image and using it as the base for the cloud run.
-The website can be accessed at: __INSET LINK__. _(Assuming we haven't shut the website down at this point.)_
-Our service provides serveral end points. The main one is uploading an image and having the model classify it.
+The website can be accessed at: https://mlops24-fastapi-eyhn374xua-oe.a.run.app/  (We will shut down the service within a week of the exam ending to avoid expenses and for safety)
+Our service provides several endpoints. The main one is uploading an image and having the model classify it.
 The second is updating our model on the fly, in case we train a new one.
-The third is logging and checking for data drifting with Evendently AI.
-
-__We see axamples of this below__
-
+This is done by updating the model folder (with the model.safetensors and config.json) in the docker container.
+The third endpoint is used to construct an Evidently data drift report that can be accessed on the "Monitoring" endpoint.
 
 
-### Question 23
+- add these: 3 asynchrounous endpoints (POST methods) /update-model, /update-reference-data /update-monitoring.
+
+__We see examples of this below__
+
+- upload images of UI
+
+
+### Question 23 [x]
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -574,13 +603,13 @@ __We see axamples of this below__
 >
 > Answer:
 
-We implement monotering with evidently ai.
-We monitar model's final layer before softmax.
-We compare the features produced during inference on submitted images to features produced from the training data.
+We implement monitoring with Evidently AI.
+We monitor model's final layer before softmax.
+The `upload_image` endpoint contains an asynchrounous task that post the prediction and its label to our GCP Bucket. When the update monitoring endpoint is requested the Evidently report will include the new inference data that was submitted.
+We compare the output embeddings of the ViT model produced during inference on submitted images to features produced from 500 randomly selected images of the training data. The reference data can also be updated with an asynchrounous task. This would be relevant every time the ViT is updated so that the embeddings are extracted with the same network weights.
 This allows us to detect data drifting and retrain the model on submitted images, if we deem it necessary.
 
-
-### Question 24
+### Question 24 [x]
 
 > **How many credits did you end up using during the project and what service was most expensive?**
 >
@@ -592,16 +621,18 @@ This allows us to detect data drifting and retrain the model on submitted images
 >
 > Answer:
 
---- question 24 fill here ---
-Group member s204123 spent approximately 1 USD.
-Group member <JOHAN> spent approximately __XXX USD__.
-In total we spent __XXX USD__.
+Group member s204123 spent approximately 8.32 USD.
+Group member s194495 spent approximately 97 USD.
+Group member s204160 spent approximately 0.08 USD.
+In total we spent 105.4 USD.
+Most of our initial costs come from debugging and having the bucket and cloud vm running.
+Later most of the costs are from are deployed model running with cloud run.
 
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 25
+### Question 25 [] Andreas
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
 > **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the**
@@ -616,33 +647,37 @@ In total we spent __XXX USD__.
 >
 > Answer:
 
+- arrow from gcp bucket to fast api
+- 2x arrows between FastAPI and Evidently AI
+- docker arrow text (make it go under)
+- add to main readme
 
 ![drawiofig](figures/draw_io_total_fig_2.png)
 The image above describes the architecture of our system, and how all services interact with each other on a general level.
 The graph is built around the main pillars discussed in the course with a few additions for connectivity.
-These main pillars are: Version control, Continuous integration, reproducibility, cloud, and deployment.
-Additionally we have added, code, model and code performance to signify other crucial parts not easily encompassed in the pillars above.
+These main pillars are: Version control, Continuous Integration, Reproducibility, Cloud, Deployment, and Monitoring.
+Additionally, we have added, code, model and code performance to signify other crucial parts not easily encompassed in the pillars above.
 
-Near the top we have concepts or services used in the project. These include DVC, Git, Ruff etc.
+Near the top we have concepts and services used in the project. These include DVC, Git, Ruff etc.
 These then lead into concepts, implementations or other services.
 Ex:
 - Git leads to GitHub, as we use GitHub to host our Git repository.
-- Ruff leads to code-structure/-practice, as it helps enforce good structure and practice directly in our code.
+- Ruff leads to code structure/practice, as it helps enforce good structure and practice directly in our code.
 - FastAPI leads into Evidently AI, as we use FastAPI to serve our Evidently AI monitoring.
 
-At he lowest level we see the main pillars our structure revolves around, and how these interact.
+At the lowest level we see the main pillars our structure revolves around, and how these interact.
 We also see that Cloud is being served by GCP `compute engine` and that Deployment is being served by GCP `Cloud run`.
 
-Logos represent services we have used.
-Boxes with rounded corners represent ideas or other services we are using. ex we deem pre-commit as a service we are using.
-Boxes with sharp corners represent more general concepts or implementations.
+The logos in our diagrams symbolize the services we utilize. For instance, services like pre-commit are depicted as boxes with rounded corners, indicating their active usage in our processes. On the other hand, boxes with sharp corners are used to represent broader concepts or specific implementations.
 
-For an example on how to understand it we look at deployment.
-We see that deployment depends on FastAPI and cloud, as it is being served on the cloud using FastAPI.
+- Rewrite transition to the below
+
+For example, on how to understand it we look at deployment.
+We see that deployment depends on FastAPI and Cloud, as it is being served on the cloud using FastAPI.
 We also see that the deployment depends on the model and the inference Docker image, as both of these are needed to perform inference and therefore the deployment of our model.
-We  then also see that the deployment leads into data drift and GCP `Bucket` as we record the given images to estimate if we encounter data drift, and therefore need to update our model.
+We also see that the deployment leads into data drift and GCP `Bucket` as we record the given images to estimate if we encounter data drift, and therefore need to update our model.
 
-### Question 26
+### Question 26 [] - Johan
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -655,9 +690,8 @@ We  then also see that the deployment leads into data drift and GCP `Bucket` as 
 > Answer:
 
 
-Below we detail the most challenging problems for the tools we used in the project _(If the tool is not listed, then the time it took to setup, was the biggest struggle with the tool.)_.
+Below we detail the most challenging problems for the tools we used in the project.
 
-__mypy__:
 
 __pre-commit__: Figuring out a good setup for the project and how to write it. We added actions over time to prevent accidently uploading sensitive files such as key-files.
 
@@ -673,8 +707,9 @@ __fast-api__:
 
 __evidently ai__:
 
+- Write more
 
-### Question 27
+### Question 27 [x]
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
 > **make sure all members contributed actively to the project**
@@ -693,11 +728,12 @@ __evidently ai__:
 Student s194495 (Johan)
 - Code setup (CookieCutter, hydra, W&B, DVC)
 - Got code up training and inference on local machine up and running (initial model)
+- Initial training dockerfiles and testing on VM instances
 - FastAPI (and Evidently AI)
 - Project writing (assisted)
 
 Student s204123 (Klaus)
-- Creating Docker image in cloud
+- Creating Docker training image for the cloud
 - Training model on the cloud from docker image.
 - pre-commit
 - GitHub workflow with actions for testing code and building & pushing the docker training image.
