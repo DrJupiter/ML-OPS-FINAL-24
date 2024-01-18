@@ -140,7 +140,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-ENV_FastAPI/
 .env
 .venv
 env/
