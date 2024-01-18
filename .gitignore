@@ -3,6 +3,9 @@ docs/site/
 # test cache
 manual_test/
 
+fastapi/embeddings_dataframe.pkl
+fastapi/model/
+
 # other local dev info
 .vscode/
 
