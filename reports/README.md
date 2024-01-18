@@ -233,7 +233,8 @@ Our tests are for data loading, model, and training helper functions for our thi
 The data loading tests check if the data can be loaded if the output of the dataloader has the expected shape, and if some random images and labels have the expected shape and type.
 
 We tested if the metrics from evaluate were correct if the feature transformer actually transformed to the expected shape, and if the collator correctly restructured the data.
-### Question 8 [] Klaus
+
+### Question 8 [Done] Klaus
 
 > **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -251,11 +252,8 @@ If we achieved 100% we would still not trust that no error could occur.
 <!-- This is because it is almost impossible to test every scenario possible with tests like these. __We should explain why.__ -->
 Even if we test all functions it doesn't mean they all work perfectly in all cases.
 Furthermore, a coverage test only tests how much of the code base is running which does not equate to test coverage of the actual functionality.
-This an ongoing problem, in the industry people are employed to find bugs.
-<!-- The problem is evident  can also be seen in real life, where people are employed to find bugs in code. -->
-<!-- The fact that all code cannot be perfectly tested can also be seen in real life... -->
+To achieve better testing for a large scale project, one might employ or assign people to find bugs.
 
-- ^ formulate the above better
 
 Our code coverage does not include testing of third-party packages.
 We have chosen to assume that these do as expected.
@@ -306,7 +304,7 @@ In our project, we utilized Data Version Control (DVC) to manage our data. Howev
 
 DVC's effectiveness is more pronounced in larger, long-term projects involving more team members, particularly in sectors like Data Security where data is constantly incoming. In such environments, frequent data changes and the need for multiple access points make it crucial for everyone to work with the same data set. Effective data tagging by the development team enhances this process, allowing for the restoration of previous data versions if errors arise.
 
-### Question 11 [] Klaus
+### Question 11 [Done] Klaus
 
 > **Discuss your continuous integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test**
 > **multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of**
@@ -320,25 +318,18 @@ DVC's effectiveness is more pronounced in larger, long-term projects involving m
 > Answer:
 
 
-We have done three main things to reduce errors during continuous integration.
+We have two main actions; one for the [python code](https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/python-app.yml) we write, and another for [building and pushing a docker image](https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/docker-image.yml). We also have a (pre-commit config)[https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/.pre-commit-config.yaml] to format code and statically check for types and a few other things.
+The pre-commit helps us keep our code clean and maintainable.
 
-Firstly, we wrote unit-tests for our functions. This results in us knowing the individual functions do what we expect, and that they work with the expected input. Our unit tests achieve a coverage of 85%.
+The action for the python code is activated when we push to main and create a pull request to main. It starts by checking out our branch, and setting up our python environment by installing the packages in the requirements.txt on Ubuntu’s latest os release.
+The code is then checked and formatted with ruff. Our data is then pulled with dvc from our bucket. Having the data allows us to also test our functions which rely on it. We then run the tests. Finally we check for types with mypy.
+We trust that if this action passes, our code runs as intended for our project.
 
-Secondly, we also used pull requests and pre-commits to ensure that whenever something was pushed to main, it would always work.
-To test if the push worked we would run it through a GitHub actions workflow.
-The workflow can be seen here: (https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/.github/workflows/python-app.yml)
+The action for building and pushing the docker-file is activated when code is pushed to main.
+It runs the `train_model.dockerfile` and pushes it to the docker hub.
 
-Our workflow does not test multiple operating systems even though we use a split between Linux and Windows ourselves.
-If we were to work with this for an extended time, we would implement this, as propagating errors across the systems would be a big problem.
-Currently, we only test on Linux, ubuntu-latest to be more exact.
-We chose this, because this is what our cloud servers run on, and therefore docker etc.
-We also only test for Python 3.10 for similar reasons.
+We do not test on multiple operating systems, only ubuntu/debian. If we intended this project to be developed for longer and on multiple OSes, we would test on them too. The docker container we build uses the same OS that we test on, and thus, we think our checks guarantee our project and image will run.
 
-Together the above makes it difficult to push flawed code to GitHub.
-Therefore our automatic trigger workflow that builds new Docker images after each push, has a high probability of building a working Docker image.
-These Docker images are built directly in the cloud.
-
-- Restructure this paragraph: we have these workflows, the workflows test this, the workflows are good because...
 
 ## Running code and tracking experiments
 
@@ -433,7 +424,7 @@ We also notice that the model achieves good performance quite early on. Already 
 The reason for including accuracy is to see how good our model actually is.
 <!-- Explain why we test the accuracy-->
 
-### Question 15 [] Klaus
+### Question 15 [Done] Klaus
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
 > **experiments? Include how you would run your docker images and include a link to one of your docker files.**
@@ -446,9 +437,27 @@ The reason for including accuracy is to see how good our model actually is.
 >
 > Answer:
 
-(docker-link)[https://hub.docker.com/repository/docker/drjupiter/mlops24/general]
+We use docker to train and deploy our model. We use the images to ensure reproducibility in our training and deployment. Docker hub allows us to distribute our images easily and for anyone to run them on the cloud. A link to our docker hub is given here: https://hub.docker.com/repository/docker/drjupiter/mlops24/general.
 
-- Answer this question
+The train images are tagged with `latest` and the fast api image with `fastapi`.
+We automatically build our cpu train images from the main branch in our repository. One can train a model by
+
+```bash
+curl -o https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/dockerfiles/docker_train.sh
+chmod +x docker_train.sh
+docker_train.sh $WANDB_KEY
+```
+
+The script gives docker in your machine or VM access to GPUs.
+It then downloads and runs our train image and saves the trained model to a docker volume on your computer.
+The volume name is given by the script.
+While the model trains it logs metrics to WANDB in a project called mlops24, in order for this to work you must replace `$WANDB_KEY` with your wandb api key.
+
+In our case, we then upload the model to a bucket and use our fast api image to run the uploaded model.
+
+
+
+
 
 ### Question 16 [x]
 
@@ -547,14 +556,16 @@ In the image above we see snippets of the different contents of the GCP bucket w
 In the image above we see some of the many images that were pushed to the container registry throughout this project.
 The latest image of the top container is used for our FastAPI application. The naming convention is caused by the fact that the image was pushed to a specific directory on docker Hub such that we have a single collection of all the different images we made in the group. Some of the previous images of the FastAPI v2 application were deleted as they took up unnecessary space.
 
-### Question 21 [] Klaus
+### Question 21 [Done] Klaus
 
 > **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
 
-- TODO explain we did this with github instead.
+Instead of using GCP, we use github to build our docker image. The build history can be seen under the github action: https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/docker-image.yml
+
+![Github docker build](figures/githubdockerhistory.png)
 
 ### Question 22 [✔] Johan
 
@@ -675,7 +686,7 @@ These then lead to concepts, implementations, or other services.
 Ex:
 - Git leads to GitHub, as we use GitHub to host our Git repository.
 - Ruff leads to code structure/practice, as it helps enforce good structure and practice directly in our code.
-- FastAPI leads into Evidently AI, as we use FastAPI to serve our Evidently AI monitoring.
+ leads into Evidently AI, as we use FastAPI to serve our Evidently AI monitoring.
 
 At the lowest level, we see the main pillars our structure revolves around, and how these interact.
 We also see that Cloud is being served by GCP `compute engine` and that Deployment is being served by GCP `Cloud run`.
