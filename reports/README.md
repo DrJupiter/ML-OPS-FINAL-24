@@ -183,7 +183,7 @@ _The difference between the `requirements` and `requirements_docker_cpu` is the 
 > Answer:
 
 From the [cookiecutter template](https://github.com/SkafteNicki/mlops_template) we have filled out the folders for: project, tests, reports, and model.
-The project folder consists of data-handling code, in the data subfolder, our model handlings code in our model subfolder.
+The project folder consists of data-handling code, in the data subfolder, and our model handling code in our model subfolder.
 Our model handling code consists of our model creation and model training files.
 We have removed the visualization code, as we deemed no visualizations other than WandB were needed.
 Additionally, we have removed the notebooks and docs folder because we did not use any notebooks or mkdocs in our project.
@@ -203,10 +203,10 @@ We enforce PEP8 and format our code with [ruff](https://github.com/astral-sh/ruf
 We deem this important as it makes the code more transparent and understandable. This increases the reproducibility of our project.
 Readability and transparency are very important when multiple people are working on the same code, as code quickly becomes complex and hard to see through easily.
 We also require supplying documentation for essential functions (We check this manually.).
-Formatting, typing and documentation make our code more readable and easy to understand.
+Formatting, typing, and documentation make our code more readable and easy to understand.
 
 We enforce formatting and typing, whenever a pull request is made to the main branch.
-The main branch cannot be pushed to before the github action which checks these aformentioned things is succesful.
+The main branch cannot be pushed before the GitHub action which checks these aforementioned things is successful.
 The action also tests our code, which we will go into in the next question.
 
 ## Version control
@@ -230,10 +230,9 @@ In total, we have implemented 5 tests achieving test coverage of 85%.
 We primarily test functions we have written ourselves.
 Our tests are for data loading, model, and training helper functions for our third-party framework.
 
-The data loading tests check if the data can be loaded, if the output of the dataloader has the expected shape, and if some random images and labels have the expected shape and type.
+The data loading tests check if the data can be loaded if the output of the dataloader has the expected shape, and if some random images and labels have the expected shape and type.
 
-We tested if the metrics from evaluate were correct, if the feature transformer actually transformed to the expected shape, and if the collator correctly restructured the data.
-
+We tested if the metrics from evaluate were correct if the feature transformer actually transformed to the expected shape, and if the collator correctly restructured the data.
 ### Question 8 [] Klaus
 
 > **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close**
@@ -305,8 +304,7 @@ The workflow tested for a few main things.
 
 In our project, we utilized Data Version Control (DVC) to manage our data. However, given the short duration of our project, the advantages of DVC weren't as evident. The primary benefit we experienced was DVC's seamless integration with cloud services, ensuring consistent data usage across various tests and checks.
 
-DVC's effectiveness is more pronounced in larger, long-term projects involving more team members, particularly in sectors like Data Security where data is constantly incoming. In such environments, frequent data changes and the need for multiple access points make it crucial for everyone to work with the same data set. Effective data tagging by the development team enhances this process, allowing for the restoration to previous data version if errors arise.
-
+DVC's effectiveness is more pronounced in larger, long-term projects involving more team members, particularly in sectors like Data Security where data is constantly incoming. In such environments, frequent data changes and the need for multiple access points make it crucial for everyone to work with the same data set. Effective data tagging by the development team enhances this process, allowing for the restoration of previous data versions if errors arise.
 
 ### Question 11 [] Klaus
 
@@ -390,10 +388,9 @@ We made use of config file(s) through Hydra. The config file(s) helped us set al
 As such if you were to run the experiment again, you would get the same output.
 Additionally, we created a Docker image. Docker images allow easy reproducibility across different hardware and software, as the resulting Docker container would be identical across different systems.
 These two things combined made our experiments very reproducible.
-If one wishes to run a particular experiment, the corresponding docker image can be found on docker hub.
-This is because, changing the config requires building a new image.
+If one wishes to run a particular experiment, the corresponding docker image can be found on Docker hub.
+This is because changing the config requires building a new image.
 Thus each image is associated with a specific config file/experiment.
-
 ### Question 14 [] Andreas (done)
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
@@ -421,11 +418,11 @@ The reason for in including the training loss is to see how our model improves d
 <!-- Describe why we log the training loss -->
 <!-- It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better. -->
 
-To validate the model is improving, we look at the validation loss over time:
+To validate that the model is improving, we look at the validation loss over time:
 ![validationloss](figures/validation_loss.png)
 We also see that the loss decreases over time.
 This also suggests that the model is improving.
-The reason for including validation loss, is because it is more accurate than training loss. The main downside is that it takes more computational time to compute it compared to training loss. Therefore it is not evaluated as often. Additionally, validation loss can in combination with training loss be used to evaluate if the model as overfit to the data.
+We include validation loss because it is more accurate than training loss. The main downside is that it takes more computational time to compute it compared to training loss. Therefore it is not evaluated as often. Additionally, validation loss can in combination with training loss be used to evaluate if the model is overfit to the data.
 <!-- The model falls from 0.099 to 0.055, thus the validation loss is about half the original. -->
 <!-- Explain why we log the validation loss-->
 
@@ -467,7 +464,7 @@ The reason for including accuracy is to see how good our model actually is.
 > Answer:
 
 Our project code was debugged with the vs-code debugger.
-Our github actions were debugged by seeing if the action was succesful or not, and chaning them till they were succesful.
+Our GitHub actions were debugged by seeing if the action was successful or not, and changing them till they were successful.
 
 We performed both torch profiling and cprofiling on our inference code (on CPU, as the person running the code doesn't have NVIDIA GPU).
 In the run we did 10 model predictions on different images. These runs include everything except imports (the data had already been loaded locally, so data download was not necessary).
@@ -479,7 +476,6 @@ The next things unrelated to the above are softmax (3% of the time), copy (0.84%
 The cProfiling showed that again torch.nn.linear was taking up the most tottime (20% of total time) seconded by the reading of SSLSocket objects (14%). None of our functions are in the top 10 of tottime spenders.
 
 Thus we conclude that our code is not a bottleneck and works efficiently enough.
-
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
@@ -496,10 +492,10 @@ Thus we conclude that our code is not a bottleneck and works efficiently enough.
 > Answer:
 
 
-In our project, we use the following services: Compute Engine, Bucket, Cloud Run, the container registry.
+In our project, we use the following services: Compute Engine, Bucket, Cloud Run, and the container registry.
 The compute engine is used for training the model from our train docker image.
-The bucket is used for storing our data, trained models and telemetry.
-The Cloud run service deploys our application through our fastapi docker image.
+The bucket is used for storing our data, trained models, and telemetry.
+The Cloud run service deploys our application through our FastAPI docker image.
 We utilize the GCP's container registry to store our images for further use.
 
 
@@ -521,7 +517,7 @@ We utilize the GCP's container registry to store our images for further use.
 We use the compute engine service to train our model on the cloud.
 To do this we instantiate a new VM with a V100 GPU with a preset image that includes NVIDIA DRIVERS.
 We then curl the [docker_train.sh](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/dockerfiles/docker_train.sh) script and run it.
-The script configures the VM so that a docker container can access GPUs, the script then downloads our training docker image, and runs the docker training image.
+The script configures the VM so that a docker container can access GPUs, the script then downloads our training docker image and runs the docker training image.
 The script also exposes a docker volume to the VM instance.
 After the model is trained it is saved to this volume and exported to a bucket.
 From the bucket, we can then pull the model and deploy it in production for inference.
@@ -604,9 +600,9 @@ __We see examples of this below__
 > Answer:
 
 We implement monitoring with Evidently AI.
-We monitor model's final layer before softmax.
-The `upload_image` endpoint contains an asynchrounous task that post the prediction and its label to our GCP Bucket. When the update monitoring endpoint is requested the Evidently report will include the new inference data that was submitted.
-We compare the output embeddings of the ViT model produced during inference on submitted images to features produced from 500 randomly selected images of the training data. The reference data can also be updated with an asynchrounous task. This would be relevant every time the ViT is updated so that the embeddings are extracted with the same network weights.
+We monitor the model's final layer before softmax.
+The `upload_image` endpoint contains an asynchronous task that posts the prediction and its label to our GCP Bucket. When the update monitoring endpoint is requested the Evidently report will include the new inference data that was submitted.
+We compare the output embeddings of the ViT model produced during inference on submitted images to features produced from 500 randomly selected images of the training data. The reference data can also be updated with an asynchronous task. This would be relevant every time the ViT is updated so that the embeddings are extracted with the same network weights.
 This allows us to detect data drifting and retrain the model on submitted images, if we deem it necessary.
 
 ### Question 24 [x]
@@ -624,10 +620,9 @@ This allows us to detect data drifting and retrain the model on submitted images
 Group member s204123 spent approximately 8.32 USD.
 Group member s194495 spent approximately 97 USD.
 Group member s204160 spent approximately 0.08 USD.
-In total we spent 105.4 USD.
-Most of our initial costs come from debugging and having the bucket and cloud vm running.
+In total, we spent 105.4 USD.
+Most of our initial costs come from debugging and having the bucket and cloud VM running.
 Later most of the costs are from are deployed model running with cloud run.
-
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
@@ -730,7 +725,7 @@ __evidently ai__:
 
 Student s194495 (Johan)
 - Code setup (CookieCutter, hydra, W&B, DVC)
-- Got code up training and inference on local machine up and running (initial model)
+- Got code up training and inference on a local machine up and running (initial model)
 - Initial training dockerfiles and testing on VM instances
 - FastAPI (and Evidently AI)
 - Project writing (assisted)
