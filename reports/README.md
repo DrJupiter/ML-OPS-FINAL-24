@@ -727,7 +727,7 @@ In general, we spent more time on tedious debugging related to versioning of dat
 Student s194495 (Johan)
 - Code setup (CookieCutter, hydra, W&B, DVC)
 - Got code up training and inference on a local machine up and running (initial model)
-- Initial training dockerfiles and testing on VM instances
+- Initial training dockerfiles and testing/training on VM instances
 - FastAPI (and Evidently AI)
 - Project writing (assisted)
 

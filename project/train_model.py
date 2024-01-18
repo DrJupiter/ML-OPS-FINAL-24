@@ -1,3 +1,6 @@
+# Imports
+# TODO Structure imports according to the thing i cant remember
+# Typing
 import warnings
 from typing import Callable, Dict, Iterable, List, Optional, Tuple, Union
 
@@ -5,14 +8,17 @@ import evaluate
 import hydra
 import numpy as np
 import torch
-from datasets import load_from_disk
+import wandb
+from datasets import load_from_disk, load_metric
+from hydra import compose, initialize
 from omegaconf import DictConfig
 from PIL.PngImagePlugin import PngImageFile
 from transformers import EvalPrediction, Trainer, TrainingArguments, ViTImageProcessor, set_seed
 from transformers.image_processing_utils import BatchFeature
 
-# from project.models.model import get_model
-from models.model import get_model
+from project.models.model import get_model
+
+# from models.model import get_model
 
 
 ### Define helper functions ###
@@ -50,12 +56,15 @@ def get_transform(cfg: DictConfig) -> Callable:
 
 
 ### Main function ###
-@hydra.main(version_base=None, config_path="../conf/", config_name="config")
-def train_model(cfg: DictConfig) -> None:
+def train_model(save_path: None | str = None) -> None:
     """
         Loads/creates, trains and tests cfg model.\\
         Also loads data
     """
+    initialize(config_path="../conf/", job_name="mlops24")
+    cfg = compose(config_name="config")
+    cfg["model"]["device"] = str(torch.device("cuda")) if torch.cuda.is_available() else str(torch.device("cpu"))
+    print(f"Using device: {cfg['model']['device']}")
     # Load the dataset
     # Because the model uses "/" in its name, we need to replace it with "-" in the dataset path
     print(cfg)
@@ -79,13 +88,14 @@ def train_model(cfg: DictConfig) -> None:
     # apply transformation above to data
     ds = dataset.with_transform(transform)
 
+    print(f"Saving to {cfg['training']['output_dir'] if save_path is None else save_path}")
     # Define training arguments
     training_args = TrainingArguments(
-        output_dir=cfg["training"]["output_dir"],
+        output_dir=cfg["training"]["output_dir"] if save_path is None else save_path,
         per_device_train_batch_size=cfg["training"]["per_device_train_batch_size"],
         evaluation_strategy=cfg["training"]["evaluation_strategy"],
         num_train_epochs=cfg["training"]["num_train_epochs"],
-        fp16=cfg["training"]["fp16"],
+        fp16=cfg["training"]["fp16"] if torch.cuda.is_available() else False,
         save_steps=cfg["training"]["save_steps"],
         eval_steps=cfg["training"]["eval_steps"],
         logging_steps=cfg["training"]["logging_steps"],
@@ -123,5 +133,36 @@ def train_model(cfg: DictConfig) -> None:
     trainer.save_metrics("eval", metrics)
 
 
+import argparse
+
+
+def process_command_line_args() -> None | str:
+    parser = argparse.ArgumentParser(description="Script to use wandb API key")
+
+    # Define the wandb key argument
+    parser.add_argument("wandb_key", type=str, help="Your wandb API key")
+
+    # Define an optional argument for the path
+    parser.add_argument(
+        "--save_path",
+        type=str,
+        default=None,
+        help="Optional save path argument. Useful when using a docker volume to later extract the model from.",
+    )
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    # Use the wandb key
+    wandb_key = args.wandb_key
+
+    # Here, you can add validation for the wandb_key if needed
+
+    # Example usage (replace with actual wandb usage as needed)
+    wandb.login(key=wandb_key)
+    return args.save_path
+
+
 if __name__ == "__main__":
-    train_model()
+    save_path = process_command_line_args()
+    train_model(save_path=save_path)
