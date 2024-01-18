@@ -7,11 +7,11 @@ Package usage and project overview:
 ![drawiofig](figures/draw_io_total_fig_3.png)
 ## Project Description
 
-- **Overall goal of the project:**
+- Overall goal of the project:
 
   Implement a Vision Transformer Model (ViT) that is loaded from pretraining ('google/vit-base-patch16-224-in21k') and fine-tuned on the CIFAR10 dataset. The aim is to create a machine learning model capable of making predictions on previously unseen data.
 
-- **Project Deployment:**
+- Project Deployment:
 
   The model will be served on a FastAPI endpoint, enabling users to upload images for predictions.
 This interaction consists of uploading an image, and then having the probability and the class of the most likely class returned.
