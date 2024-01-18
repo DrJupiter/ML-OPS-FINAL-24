@@ -144,49 +144,44 @@ async def create_upload_file(request: Request, background_tasks: BackgroundTasks
     # Read the contents of the file
     contents = await file.read()
 
-    try:
-        # Open the image using PIL
-        image = Image.open(io.BytesIO(contents))
-        print(image.mode)
+    # Open the image using PIL
+    image = Image.open(io.BytesIO(contents))
+    print(image.mode)
 
-        # Handle the image based on its mode (channels)
-        if image.mode == "RGB":
-            pass  # Process normally
-        elif image.mode == "L" or image.mode == "LA":
-            image = image.convert("RGB")
-        else:
-            # Redirect to the home page with an error message
-            return templates.TemplateResponse(
-                "index.html", {"request": request, "error_message": "Unsupported image format."}
-            )
-
-        image_processor = AutoFeatureExtractor.from_pretrained("google/vit-base-patch16-224")
-        inputs = image_processor(images=image, return_tensors="pt").to(device)
-
-        # For Prediction
-        classification_model = ViTForImageClassification.from_pretrained("./model/").to(device)
-        with torch.no_grad():
-            logits = classification_model(**inputs).logits
-            probabilities = softmax(logits, dim=-1)
-            predicted_label = logits.argmax(-1).item()
-            predicted_probabilities = probabilities[0, predicted_label].item()
-            prediction = classification_model.config.id2label[predicted_label]
-
-        # Add the task of extracting embeddings and saving to GCS to background tasks
-        background_tasks.add_task(extract_embeddings_and_save, contents, background_tasks, predicted_label)
-
+    # Handle the image based on its mode (channels)
+    if image.mode == "RGB":
+        pass  # Process normally
+    elif image.mode == "L" or image.mode == "LA":
+        image = image.convert("RGB")
+    else:
+        # Redirect to the home page with an error message
         return templates.TemplateResponse(
-            "upload.html",
-            {
-                "request": request,
-                "prediction": prediction,
-                "probability": predicted_probabilities,
-            },
+            "index.html", {"request": request, "error_message": "Unsupported image format."}
         )
 
-    except IOError:
-        # Redirect to the home page with an error message
-        return templates.TemplateResponse("index.html", {"request": request, "error_message": "Invalid image file."})
+    image_processor = AutoFeatureExtractor.from_pretrained("google/vit-base-patch16-224")
+    inputs = image_processor(images=image, return_tensors="pt").to(device)
+
+    # For Prediction
+    classification_model = ViTForImageClassification.from_pretrained("./model/").to(device)
+    with torch.no_grad():
+        logits = classification_model(**inputs).logits
+        probabilities = softmax(logits, dim=-1)
+        predicted_label = logits.argmax(-1).item()
+        predicted_probabilities = probabilities[0, predicted_label].item()
+        prediction = classification_model.config.id2label[predicted_label]
+
+    # Add the task of extracting embeddings and saving to GCS to background tasks
+    background_tasks.add_task(extract_embeddings_and_save, contents, background_tasks, predicted_label)
+
+    return templates.TemplateResponse(
+        "upload.html",
+        {
+            "request": request,
+            "prediction": prediction,
+            "probability": predicted_probabilities,
+        },
+    )
 
 
 @app.get("/", response_class=HTMLResponse)
