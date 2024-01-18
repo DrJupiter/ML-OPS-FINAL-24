@@ -214,7 +214,7 @@ The action also tests our code, which we will go into in the next question.
 > In the following section we are interested in how version control was used in your project during development to
 > corporate and increase the quality of your code.
 
-### Question 7 [] Andreas
+### Question 7 [] Andreas (done)
 
 > **How many tests did you implement and what are they testing in your code?**
 >
@@ -232,8 +232,7 @@ Our tests are for data loading, model, and training helper functions for our thi
 
 The data loading tests check if the data can be loaded, if the output of the dataloader has the expected shape, and if some random images and labels have the expected shape and type.
 
-The other tests, check if the individual functions work as expected.
-- ^ Less vauge  (max 20 words)
+We tested if the metrics from evaluate were correct, if the feature transformer actually transformed to the expected shape, and if the collator correctly restructured the data.
 
 ### Question 8 [] Klaus
 
@@ -395,7 +394,7 @@ If one wishes to run a particular experiment, the corresponding docker image can
 This is because, changing the config requires building a new image.
 Thus each image is associated with a specific config file/experiment.
 
-### Question 14 [] Andreas
+### Question 14 [] Andreas (done)
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
@@ -418,23 +417,24 @@ First, we look at the loss curve for our model over its 1870 training steps.
 Below we see the loss curve for our model:
 ![train_loss](figures/train_loss.png)
 We see that the loss falls over time, meaning that the model is improving.
-
-- Describe why we log the training loss
+The reason for in including the training loss is to see how our model improves during training. The problem with this measure is that we can't detect overfitting.
+<!-- Describe why we log the training loss -->
 <!-- It starts slightly above 2 and goes down to 0.0067, meaning that the loss got almost 300 times better. -->
 
 To validate the model is improving, we look at the validation loss over time:
 ![validationloss](figures/validation_loss.png)
 We also see that the loss decreases over time.
 This also suggests that the model is improving.
+The reason for including validation loss, is because it is more accurate than training loss. The main downside is that it takes more computational time to compute it compared to training loss. Therefore it is not evaluated as often. Additionally, validation loss can in combination with training loss be used to evaluate if the model as overfit to the data.
 <!-- The model falls from 0.099 to 0.055, thus the validation loss is about half the original. -->
-- Explain why we log the validation loss
+<!-- Explain why we log the validation loss-->
 
 To confirm what this means for our model, and how good it became we look at the classification accuracy.
 ![validation_acc](figures/validation_acc.png)
 We see that the performance goes up over time, achieving above 98% accuracy.
 We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 98%.
-
-- Explain why we test the accuracy
+The reason for including accuracy is to see how good our model actually is.
+<!-- Explain why we test the accuracy-->
 
 ### Question 15 [] Klaus
 
@@ -632,7 +632,7 @@ Later most of the costs are from are deployed model running with cloud run.
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 25 [] Andreas
+### Question 25 [] Andreas (done)
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
 > **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the**
@@ -647,35 +647,38 @@ Later most of the costs are from are deployed model running with cloud run.
 >
 > Answer:
 
+<!--
 - arrow from gcp bucket to fast api
 - 2x arrows between FastAPI and Evidently AI
 - docker arrow text (make it go under)
 - add to main readme
+-->
 
-![drawiofig](figures/draw_io_total_fig_2.png)
+![drawiofig](figures/draw_io_total_fig_4.png)
+
 The image above describes the architecture of our system, and how all services interact with each other on a general level.
 The graph is built around the main pillars discussed in the course with a few additions for connectivity.
-These main pillars are: Version control, Continuous Integration, Reproducibility, Cloud, Deployment, and Monitoring.
-Additionally, we have added, code, model and code performance to signify other crucial parts not easily encompassed in the pillars above.
+These main pillars are Version control, Continuous Integration, Reproducibility, Cloud, Deployment, and Monitoring.
+Additionally, we have added, code, model, and code performance to signify other crucial parts not easily encompassed in the pillars above.
 
-Near the top we have concepts and services used in the project. These include DVC, Git, Ruff etc.
-These then lead into concepts, implementations or other services.
+The logos in our diagrams symbolize the services we utilize. Boxes with rounded corners indicate services (ex: pre-commit) or concepts (ex: typing). On the other hand, boxes with sharp corners are used to represent broader concepts or specific implementations.
+
+Near the top, we have concepts and services used in the project. These include DVC, Git, Ruff, etc.
+These then lead to concepts, implementations, or other services.
 Ex:
 - Git leads to GitHub, as we use GitHub to host our Git repository.
 - Ruff leads to code structure/practice, as it helps enforce good structure and practice directly in our code.
 - FastAPI leads into Evidently AI, as we use FastAPI to serve our Evidently AI monitoring.
 
-At the lowest level we see the main pillars our structure revolves around, and how these interact.
+At the lowest level, we see the main pillars our structure revolves around, and how these interact.
 We also see that Cloud is being served by GCP `compute engine` and that Deployment is being served by GCP `Cloud run`.
 
-The logos in our diagrams symbolize the services we utilize. For instance, services like pre-commit are depicted as boxes with rounded corners, indicating their active usage in our processes. On the other hand, boxes with sharp corners are used to represent broader concepts or specific implementations.
+<!-- Rewrite transition to the below-->
 
-- Rewrite transition to the below
-
-For example, on how to understand it we look at deployment.
+To give an example on how to interpret the figure, we look at deployment.
 We see that deployment depends on FastAPI and Cloud, as it is being served on the cloud using FastAPI.
 We also see that the deployment depends on the model and the inference Docker image, as both of these are needed to perform inference and therefore the deployment of our model.
-We also see that the deployment leads into data drift and GCP `Bucket` as we record the given images to estimate if we encounter data drift, and therefore need to update our model.
+We also see that the deployment leads to data drift and GCP `Bucket` as we record the given images to estimate if we encounter data drift, and therefore need to update our model.
 
 ### Question 26 [] - Johan
 
