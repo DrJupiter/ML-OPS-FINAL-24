@@ -398,22 +398,22 @@ We used W&B as our logging software for our transformer based classification mod
 We tested training the Vision Transformer (ViT) model proposed in [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) On the [CIFAR10](https://paperswithcode.com/dataset/cifar-10) dataset.
 Below we will discuss images of our main graph for training and validation.
 
-First, we look at the loss curve for our model over its 1870 training steps.
+First, we look at the loss curve for our model over its 2500 training steps.
 Below we see the loss curve for our model:
-![train_loss](figures/train_loss.png)
+![train_loss](figures/train_loss2.png)
 
 We see that the loss falls over time, meaning that the model is improving.
 The reason for in including the training loss is to see how our model improves during training. The problem with this measure is that we can't detect overfitting.
 
 To validate that the model is improving, we look at the validation loss over time:
-![validationloss](figures/validation_loss.png)
+![validationloss](figures/validation_loss2.png)
 
 We also see that the loss decreases over time.
 This also suggests that the model is improving.
 We include validation loss because it is more accurate than training loss. The main downside is that it takes more computational time to compute it compared to training loss. Therefore it is not evaluated as often. Additionally, validation loss can in combination with training loss be used to evaluate if the model is overfit to the data.
 
 To confirm what this means for our model, and how good it became we look at the classification accuracy.
-![validation_acc](figures/validation_acc.png)
+![validation_acc](figures/validation_acc2.png)
 
 We see that the performance goes up over time, achieving above 98% accuracy.
 We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 98%.
