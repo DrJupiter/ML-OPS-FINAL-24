@@ -3,13 +3,15 @@
 
 The Final Project for ML OPS by group 24
 
-## Alternative Project Description (proposal)
+Package usage and project overview:
+![drawiofig](figures/draw_io_total_fig_3.png)
+## Project Description
 
-- **Overall goal of the project:**
+- Overall goal of the project:
 
   Implement a Vision Transformer Model (ViT) that is loaded from pretraining ('google/vit-base-patch16-224-in21k') and fine-tuned on the CIFAR10 dataset. The aim is to create a machine learning model capable of making predictions on previously unseen data.
 
-- **Project Deployment:**
+- Project Deployment:
 
   The model will be served on a FastAPI endpoint, enabling users to upload images for predictions.
 This interaction consists of uploading an image, and then having the probability and the class of the most likely class returned.
@@ -139,10 +141,10 @@ The directory structure of the project looks like this:
 Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
+
+
+<!--
 # ML-OPS-FINAL-24
-
-
-
 
 
 # OUTDATED
@@ -169,3 +171,4 @@ We are going to train our model on the MNIST dataset which is a dataset of appro
 We expect to use an autoencoder written in the third-party extension of Pytorch named Diffusers (developed by Huggingface).
 We choose this framework because of prior experience with it, its good performance, and high maintenance.
 More specifically we choose to work with Tiny AutoEncoder originally implemented for Stable Diffusion (TAESD). Tiny AutoEncoder was introduced in ([madebyollin/taesd](https://github.com/madebyollin/taesd)) by Ollin Boer Bohan.
+-->
