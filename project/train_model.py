@@ -123,8 +123,6 @@ def train_model(save_path: None | str = None) -> None:
 
     # save model
     trainer.save_model()
-    trainer.log_metrics("train", train_results.metrics)
-    trainer.save_metrics("train", train_results.metrics)
     trainer.save_state()
 
     # Log metrics, save state, etc.
