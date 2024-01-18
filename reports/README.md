@@ -144,7 +144,7 @@ To tie it all together we had to write a few helper functions. In general, the f
 
 > In the following section we are interested in learning more about you local development environment.
 
-### Question 4 [] Johan
+### Question 4 [✔] Johan
 
 > **Explain how you managed dependencies in your project? Explain the process a new team member would have to go**
 > **through to get an exact copy of your environment.**
@@ -165,7 +165,7 @@ One should run `pip install -r requirements.txt` to obtain a copy of our develop
 In the project, we also have a requirements file: [requirements_docker_gpu.txt](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/requirements_docker_gpu.txt), which is only to be used, when building the docker image to run on the gpu.
 _The difference between the `requirements` and `requirements_docker_cpu` is the later doesn't install pytorch as a version compiled by NVIDIA is used instead._
 
-- There is also a requirments.txt for the FastAPI application
+Lastly, we have a `fastapi_requirements.txt` in the fastapi folder that specifies the dependencies required to run the application. If one wants to replicate our FastAPI application they could simply build the image using the Dockerfile in the fastapi directory and push the image to GCP's Container Registry from where the image can be deployed to Cloud Run.
 
 <!-- Additionally we created a Docker image, that can run our code. So this could also be used to get an exact copy. -->
 
@@ -523,7 +523,7 @@ After the model is trained it is saved to this volume and exported to a bucket.
 From the bucket, we can then pull the model and deploy it in production for inference.
 
 
-### Question 19 [] Johan
+### Question 19 [✔] Johan
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
@@ -533,19 +533,19 @@ From the bucket, we can then pull the model and deploy it in production for infe
 Main folder top right.
 ![bucketimg](figures/Bucket_img.png)
 
-- Update the images and add some helper text to describe the images.
+In the image above we see snippets of the different contents of the GCP bucket we used for our project. We have 2 primary folders `data/` and `project/`. The `data/` contains the sub folders `processed/` and `raw/` that store processed and raw data respectively. The `processed/` folder contains the huggingface Datasets dictionary with the tokenized dataset. Furthermore, it contains embeddings for reference and inference data that are used for data drift monitoring. Our trained ViT model and miscellaneous related files such as configuration files, checkpoints, and results for the given model run are stored in a sub folder of models in the project folder.
 
-### Question 20 [] Johan
+### Question 20 [✔] Johan
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
 > **You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
-<!-- ![containerReg](figures/containerReg.png) -->
-In the image above we see some of the many images that were pushed to the container registry throughout this project.
-The latest image of the top container is used for our FastAPI application. The naming convention is caused by the fact that the image was pushed to a specific directory on docker Hub such that we have a single collection of all the different images we made in the group.
 
-- TODO take picture again
+![containerReg](figures/containerReg.png)
+
+In the image above we see some of the many images that were pushed to the container registry throughout this project.
+The latest image of the top container is used for our FastAPI application. The naming convention is caused by the fact that the image was pushed to a specific directory on docker Hub such that we have a single collection of all the different images we made in the group. Some of the previous images of the FastAPI v2 application were deleted as they took up unnecessary space.
 
 ### Question 21 [] Klaus
 
@@ -556,7 +556,7 @@ The latest image of the top container is used for our FastAPI application. The n
 
 - TODO explain we did this with github instead.
 
-### Question 22 [] Johan
+### Question 22 [✔] Johan
 
 > **Did you manage to deploy your model, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -570,21 +570,33 @@ The latest image of the top container is used for our FastAPI application. The n
 >
 > Answer:
 
-We deploy our model with the cloud run service.
-This is done by compiling a FastApi docker image and using it as the base for the cloud run.
+We deploy our model with the Cloud Run service.
+This is done by compiling a FastAPI docker image and using it as the base for the cloud run.
 The website can be accessed at: https://mlops24-fastapi-eyhn374xua-oe.a.run.app/  (We will shut down the service within a week of the exam ending to avoid expenses and for safety)
+Our deployed service the `ViT CIFAR10 Classifier` has 2 primary end-user endpoints:
+
+1) A graphical interface (Homepage) with a submission form where images can be submitted for classification. Upon successful classification, the user will be redirected to a page with the result and the possibility of returning to the home page once again.
+2) A graphical interface (Monitoring) with the Evidently AI data drift report.
+
 Our service provides several endpoints. The main one is uploading an image and having the model classify it.
 The second is updating our model on the fly, in case we train a new one.
 This is done by updating the model folder (with the model.safetensors and config.json) in the docker container.
 The third endpoint is used to construct an Evidently data drift report that can be accessed on the "Monitoring" endpoint.
 
+Besides that, our FastAPI application has additional functionality in the form 3 POST method API endpoints that execute asynchrounous tasks:
+1) Update model: If new model training has been conducted we can request a model update which will ensure that the FastAPI application will run using the latest version.
+2) Update reference data: If a new model has been deployed it makes sense to create a new reference dataset such that embeddings are extracted with the same model weights as the inference data.
+3) Update monitoring: If requested the app will pull the newest reference data embeddings and inference data embeddings from the GCP bucket and create a new report. We could have created this in the Monitoring endpoint but this would significantly increase the loading time for our demo. If we had more time we could have solved this problem by using a SQL databse.
 
-- add these: 3 asynchrounous endpoints (POST methods) /update-model, /update-reference-data /update-monitoring.
+These endpoints were created for continuous integration and updating.
 
 __We see examples of this below__
 
-- upload images of UI
+![homepage](figures/FastAPI-index.png)
 
+![prediction](figures/FastAPI-pred.png)
+
+![monitoring](figures/FastAPI-monitoring.png)
 
 ### Question 23 [x]
 
@@ -675,7 +687,7 @@ We see that deployment depends on FastAPI and Cloud, as it is being served on th
 We also see that the deployment depends on the model and the inference Docker image, as both of these are needed to perform inference and therefore the deployment of our model.
 We also see that the deployment leads to data drift and GCP `Bucket` as we record the given images to estimate if we encounter data drift, and therefore need to update our model.
 
-### Question 26 [] - Johan
+### Question 26 [✔] - Johan
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -693,19 +705,17 @@ Below we detail the most challenging problems for the tools we used in the proje
 
 __pre-commit__: Figuring out a good setup for the project and how to write it. We added actions over time to prevent accidently uploading sensitive files such as key-files.
 
-__github actions__: Getting dvc to pull the data correctly. The docker image required work in terms of running out of space, which is also why we only build the version without NVIDIA's pre built image.
+__github actions__: Getting DVC to pull the data correctly. The docker image required work in terms of running out of space, which is also why we only built the version without NVIDIA's pre-built image.
 
-__compute engine__: We struggled with getting the compute VM to use our image correctly and run it on the gpu.
+__compute engine__: We struggled with getting the compute VM to use our image correctly and run it on the GPU. We spent a lot of time and credits figuring out how to get a VM instance with the correct CUDA driver and Python version. 
 
-__docker__: We struggled figuring out how to lower compile times. It was also a struggle to get the image running on the cloud and on the gpu.
+__docker__: We struggled figuring out how to lower compile times. It was also a struggle to get the image running on the cloud and on the GPU.
 
-__cloud run__:
+__fast-api__: We spent a lot of time working on the FastAPI application and it took quite a long time to get it right. In line with that, we had problems with inconsistencies in the performance of the application on the development server (locally) versus when deployed on GCP's Cloud Run service, i.e. the static files for CSS being blocked because they were served on HTTP. Furthermore, we experienced erroneous behavior because of having multiple instances where i.e. the update monitoring endpoint generated a new data drift report but only for 1 given instance.
 
-__fast-api__:
+__evidently ai__: The process of creating a data drift report for images was quite unknown and we spent time figuring out the best way to compare differences. Once we decided on using output embeddings we spent quite some time implementing that behavior.
 
-__evidently ai__:
-
-- Write more
+In general, we spent more time on tedious debugging related to versioning of data and code as the project grew in complexity. We found that it was a bit difficult transitioning into a more complex Github repository with multiple developers working on different branches and having to abide by newly created pre-commit rules, and github actions.
 
 ### Question 27 [x]
 
