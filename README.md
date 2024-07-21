@@ -18,7 +18,7 @@ The diagram above illustrates the interactions between different parts and servi
 
 ## Key Features
 
-- **Q&A Section:** Answers to specific project-related questions are embedded within the markdown file, facilitating auto-generation of the final report.
+- **Q&A Section:** Answers to specific project-related questions are embedded within the [reports markdown file](./reports/README.md), facilitating auto-generation of the final report.
 - **Project Checklist:** Detailed weekly checklist ensuring comprehensive project execution, from initial setup to deployment and monitoring.
 - **Group Information:** Specific details about the group members and their contributions.
 
