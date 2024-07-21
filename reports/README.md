@@ -1,12 +1,30 @@
----
-layout: default
-nav_exclude: true
----
+[![Python application](https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/python-app.yml)
 
-# Exam template for 02476 Machine Learning Operations
 
-This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
-like:
+# Course overview
+
+The goal of the course "02476: Introduction to Machine Learning" at DTU is to introduce the student to several tools and software development practices that will help them organize, scale, deploy and monitor machine learning models either in a research or production setting. To provide hands-on experience with a number of frameworks, both local and in the cloud, for working with large scale machine learning pipelines.
+
+
+For more detailed information, you can visit the course page [here](https://kurser.dtu.dk/course/2024-2025/02476).
+
+## Project workflow diagram
+![MLOPS_diagram](./reports/figures/draw_io_total_fig_4.png)
+
+The above diagram describes how different parts and services of the project interact to create the final product.
+
+## Project Description
+
+- **Overall goal of the project:**
+
+  Implement a Vision Transformer Model (ViT) that is loaded from pretraining ('google/vit-base-patch16-224-in21k') and fine-tuned on the CIFAR10 dataset. The aim is to create a machine learning model capable of making predictions on previously unseen data.
+
+- **Project Deployment:**
+
+  The model will be served on a FastAPI endpoint, enabling users to upload images for predictions.
+This interaction consists of uploading an image, and then having the probability and the class of the most likely class returned.
+
+# Below are Q&As that describe what we did in this projet
 
 ```--- question 1 fill here ---```
 
@@ -15,7 +33,7 @@ generated in the end of the course. For questions where you are asked to include
 the `figures` subfolder (please only use `.png`, `.jpg` or `.jpeg`) and then add the following code in your answer:
 
 ```markdown
-![my_image](figures/<image>.<extension>)
+![my_image](./reports/figures/<image>.<extension>)
 ```
 
 In addition to this markdown file, we also provide the `report.py` script that provides two utility functions:
@@ -383,7 +401,7 @@ Thus each image is associated with a specific config file/experiment.
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from [this figure](./reports/figures/wandb.png). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
@@ -400,20 +418,20 @@ Below we will discuss images of our main graph for training and validation.
 
 First, we look at the loss curve for our model over its 2500 training steps.
 Below we see the loss curve for our model:
-![train_loss](figures/train_loss2.png)
+![train_loss](./reports/figures/train_loss2.png)
 
 We see that the loss falls over time, meaning that the model is improving.
 The reason for in including the training loss is to see how our model improves during training. The problem with this measure is that we can't detect overfitting.
 
 To validate that the model is improving, we look at the validation loss over time:
-![validationloss](figures/validation_loss2.png)
+![validationloss](./reports/figures/validation_loss2.png)
 
 We also see that the loss decreases over time.
 This also suggests that the model is improving.
 We include validation loss because it is more accurate than training loss. The main downside is that it takes more computational time to compute it compared to training loss. Therefore it is not evaluated as often. Additionally, validation loss can in combination with training loss be used to evaluate if the model is overfit to the data.
 
 To confirm what this means for our model, and how good it became we look at the classification accuracy.
-![validation_acc](figures/validation_acc2.png)
+![validation_acc](./reports/figures/validation_acc2.png)
 
 We see that the performance goes up over time, achieving above 98% accuracy.
 We also notice that the model achieves good performance quite early on. Already at the first validation test, it almost achieves 98%.
@@ -528,23 +546,23 @@ From the bucket, we can then pull the model and deploy it in production for infe
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
-> **You can take inspiration from [this figure](figures/bucket.png).**
+> **You can take inspiration from [this figure](./reports/figures/bucket.png).**
 >
 > Answer:
 
 Main folder top right.
-![bucketimg](figures/Bucket_img.png)
+![bucketimg](./reports/figures/Bucket_img.png)
 
 In the image above we see snippets of the different contents of the GCP bucket we used for our project. We have 2 primary folders `data/` and `project/`. The `data/` contains the sub folders `processed/` and `raw/` that store processed and raw data respectively. The `processed/` folder contains the huggingface Datasets dictionary with the tokenized dataset. Furthermore, it contains embeddings for reference and inference data that are used for data drift monitoring. Our trained ViT model and miscellaneous related files such as configuration files, checkpoints, and results for the given model run are stored in a sub folder of models in the project folder.
 
 ### Question 20
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
-> **You can take inspiration from [this figure](figures/registry.png).**
+> **You can take inspiration from [this figure](./reports/figures/registry.png).**
 >
 > Answer:
 
-![containerReg](figures/containerReg.png)
+![containerReg](./reports/figures/containerReg.png)
 
 In the image above we see some of the many images that were pushed to the container registry throughout this project.
 The latest image of the top container is used for our FastAPI application. The naming convention is caused by the fact that the image was pushed to a specific directory on docker Hub such that we have a single collection of all the different images we made in the group. Some of the previous images of the FastAPI v2 application were deleted as they took up unnecessary space.
@@ -552,13 +570,13 @@ The latest image of the top container is used for our FastAPI application. The n
 ### Question 21
 
 > **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
-> **your project. You can take inspiration from [this figure](figures/build.png).**
+> **your project. You can take inspiration from [this figure](./reports/figures/build.png).**
 >
 > Answer:
 
 Instead of using GCP, we use github to build our docker image. The build history can be seen under the github action: https://github.com/DrJupiter/ML-OPS-FINAL-24/actions/workflows/docker-image.yml
 
-![Github docker build](figures/githubdockerhistory.png)
+![Github docker build](./reports/figures/githubdockerhistory.png)
 
 ### Question 22
 
@@ -591,11 +609,11 @@ These endpoints were created for continuous integration and updating.
 
 __Here are examples of the endpoints__
 
-![homepage](figures/FastAPI-index.png)
+![homepage](./reports/figures/FastAPI-index.png)
 
-![prediction](figures/FastAPI-pred.png)
+![prediction](./reports/figures/FastAPI-pred.png)
 
-![monitoring](figures/FastAPI-monitoring.png)
+![monitoring](./reports/figures/FastAPI-monitoring.png)
 
 ### Question 23
 
@@ -641,7 +659,7 @@ Later most of the costs are from are deployed model running with cloud run.
 ### Question 25
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
-> **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the**
+> **You can take inspiration from [this figure](./reports/figures/overview.png). Additionally in your own words, explain the**
 > **overall steps in figure.**
 >
 > Answer length: 200-400 words
@@ -653,7 +671,7 @@ Later most of the costs are from are deployed model running with cloud run.
 >
 > Answer:
 
-![drawiofig](figures/draw_io_total_fig_4.png)
+![drawiofig](./reports/figures/draw_io_total_fig_4.png)
 
 The image above describes the architecture of our system, and how all services interact with each other on a general level.
 The graph is built around the main pillars discussed in the course with a few additions for connectivity.
@@ -707,40 +725,131 @@ The error was making sure the instances were synced, when the user refreshed the
 
 __evidently ai__: The process of creating a data drift report for images was quite unknown and we spent time figuring out the best way to compare differences. Once we decided on using output embeddings we spent quite some time implementing that functionality.
 
-In general, we spent more time on tedious debugging related to versioning of data and code as the project grew in complexity. We found that it was a bit difficult transitioning into a more complex Github repository with multiple developers working on different branches and having to abide by newly created pre-commit rules, and github actions.
+<!-- In general, we spent more time on tedious debugging related to versioning of data and code as the project grew in complexity. We found that it was a bit difficult transitioning into a more complex Github repository with multiple developers working on different branches and having to abide by newly created pre-commit rules, and github actions.
 
-### Question 27
 
-> **State the individual contributions of each team member. This is required information from DTU, because we need to**
-> **make sure all members contributed actively to the project**
->
-> Answer length: 50-200 words.
->
-> Example:
-> *Student sXXXXXX was in charge of developing of setting up the initial cookie cutter project and developing of the*
-> *docker containers for training our applications.*
-> *Student sXXXXXX was in charge of training our models in the cloud and deploying them afterwards.*
-> *All members contributed to code by...*
->
-> Answer:
+- Main framework
 
-Student s194495 (Johan)
-- Code setup (CookieCutter, hydra, W&B, DVC)
-- Got code up training and inference on a local machine up and running (initial model)
-- Initial training dockerfiles and testing/training on VM instances
-- FastAPI (and Evidently AI)
-- Project writing (assisted)
+We will use [Huggingface’s transformers](https://huggingface.co/docs/transformers/index) as our third-party framwork. This package is responsible for the model and the training loop.
 
-Student s204123 (Klaus)
-- Creating Docker training image for the cloud
-- Training model on the cloud from docker image.
-- pre-commit
-- GitHub workflow with actions for testing code and building & pushing the docker training image.
-- Project writing (assisted)
+- Logging
 
-Student s204160 (Andreas)
-- Writing documentation,
-- Writing unit-tests,
-- Typing,
-- Profiling
-- Project writing.
+During training and validation we use WandB to log our tests and loss.
+This allows us to monitor training and testing progress easily from anywhere no matter where the process is happening.
+
+- Version control
+
+To version control our data (and model??) we use DVC (Data Version Control).
+As such we have our data in a google bucket, where we can access it from anywhere.
+
+To version control our code we use git through GitHub.
+
+- Reproducibility
+
+To make our results easily reproducible we use build a Docker image, that we and others can use to create Docker containers to execute our code.
+Trigger creation???
+
+Additionally we use config files through hydra to store our data, model, train and test configurations for ease of use and visibility.
+
+- Planning
+
+To distribute work effectively and keep track of what we are all doing, we are using GitHubs projects.
+This allows easy distribution and awareness of what is happening.
+
+- Code structure
+
+Our code structure is created using CookieCutter.
+The template we use is provided by the ML-OPS course [link to template](https://github.com/SkafteNicki/mlops_template).
+This allows effective structuring of our code that is standardized and easily understandable for other developers.
+
+- Coding
+
+During coding we enforce PEP8 coding practice.
+This is enforced by our use of ruff.
+
+Additionally we use mypy to make sure our typing is on point.
+
+- Continuous integration
+
+We do continuous integration in two main ways.
+First we write unit-tests to make sure our function on the smallest level work as intended.
+Secondly, we use GitHub actions to make sure our commits to main aren't flawed.
+For each commit we test if the code follows PEP8 (using ruff), and if the typing is correct (using mypy).
+Additionally, we make sure important files aren't pushed by mistake, by stopping commits if they are.
+
+- Model choice
+
+The model of choice is the Vision Transformer (ViT) model proposed in [# An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).
+This model is a strong transformer for image classification.
+
+- Data choice
+
+We use the CIFAR10 dataset [CIFAR10](https://paperswithcode.com/dataset/cifar-10).
+CIFAR10 contains 60k RGB images of shape 32x32.
+The images belong to 10 classes of basic things like cats and cars.
+
+
+## How to use
+    git clone https://github.com/DrJupiter/ML-OPS-FINAL-24.git
+    pip install -r requirements.txt
+    dvc pull
+
+## Project structure
+
+The directory structure of the project looks like this:
+
+```txt
+
+├── Makefile             <- Makefile with convenience commands like `make data` or `make train`
+├── README.md            <- The top-level README for developers using this project.
+├── data
+│   ├── processed        <- The final, canonical data sets for modeling.
+│   └── raw              <- The original, immutable data dump.
+│
+├── docs                 <- Documentation folder
+│   │
+│   ├── index.md         <- Homepage for your documentation
+│   │
+│   ├── mkdocs.yml       <- Configuration file for mkdocs
+│   │
+│   └── source/          <- Source directory for documentation files
+│
+├── models               <- Trained and serialized models, model predictions, or model summaries
+│
+├── notebooks            <- Jupyter notebooks.
+│
+├── pyproject.toml       <- Project configuration file
+│
+├── reports              <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   └── figures          <- Generated graphics and figures to be used in reporting
+│
+├── requirements.txt     <- The requirements file for reproducing the analysis environment
+|
+├── requirements_dev.txt <- The requirements file for reproducing the analysis environment
+│
+├── tests                <- Test files
+│
+├── project  <- Source code for use in this project.
+│   │
+│   ├── __init__.py      <- Makes folder a Python module
+│   │
+│   ├── data             <- Scripts to download or generate data
+│   │   ├── __init__.py
+│   │   └── make_dataset.py
+│   │
+│   ├── models           <- model implementations, training script and prediction script
+│   │   ├── __init__.py
+│   │   ├── model.py
+│   │
+│   ├── visualization    <- Scripts to create exploratory and results oriented visualizations
+│   │   ├── __init__.py
+│   │   └── visualize.py
+│   ├── train_model.py   <- script for training the model
+│   └── predict_model.py <- script for predicting from a model
+│
+└── LICENSE              <- Open-source license if one is chosen
+```
+
+Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
+a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
+started with Machine Learning Operations (MLOps). -->
