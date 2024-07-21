@@ -9,7 +9,7 @@ The goal of the course "02476: Introduction to Machine Learning" at DTU is to in
 For more detailed information, you can visit the course page [here](https://kurser.dtu.dk/course/2024-2025/02476).
 
 ## Project workflow diagram
-![MLOPS_diagram](./reports/figures/draw_io_total_fig_4.png)
+![MLOPS_diagram](https://github.com/DrJupiter/ML-OPS-FINAL-24/blob/main/reports/figures/draw_io_total_fig_4.png)
 
 The above diagram describes how different parts and services of the project interact to create the final product.
 
